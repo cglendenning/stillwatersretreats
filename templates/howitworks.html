@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" href="/assets/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png" type="image/png">
+    <link rel="icon" sizes="192x192" href="/assets/android-chrome-192x192.png" type="image/png">
+    <link rel="icon" sizes="512x512" href="/assets/android-chrome-512x512.png" type="image/png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How It Works - Still Waters Retreat</title>
+    <link href="/static/styles.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;700&family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-analytics-compat.js"></script>
+   <script>
+     var firebaseConfig = {
+    apiKey: "***REMOVED***",
+    authDomain: "***REMOVED***.firebaseapp.com",
+    projectId: "***REMOVED***",
+    storageBucket: "***REMOVED***.appspot.com",
+    messagingSenderId: "340290043055",
+    appId: "1:340290043055:web:db8af11f4310619847285a",
+    measurementId: "G-VY28D4VWH1"
+  };
+
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
+  </script>
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-1036707259">
+</script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'AW-1036707259');
+</script>
+  <style>
+    @media (min-width: 600px) {
+      main {
+          width: 80%;
+          margin: 0 auto; /* This centers the container on the page */
+      }
+  }
+  </style>
+</head>
+<body class="howitworks-background">
+    <div class="background-fixed"></div>
+    <div id="app">
+        <header>
+            <h1>How It Works</h1>
+            <nav>
+                <a href="/">Home</a>
+                <a href="/cabins">Cabins</a>
+                <a href="/howitworks">How It Works</a>
+                <a href="/packages">Pricing</a>
+                <a href="/contact">Contact</a>
+          </nav>
+        </header>
+        <main class="howitworks-text">
+            <section class="howitworks-text">
+                <h2>Still Waters Retreats at Big Bear Lake, CA</h2>
+                <p>It all starts with the mountain air, the lake, and quietude. The plight of the deep thinker is summed up well in the lyric of Subdivisions by the band Rush: "Nowhere is the dreamer or the mystic so alone". We must extract ourselves from the madness of a world that perpetually demands our time and energy. What we produce has value because we value quality. The challenge of the deep thinker is to remain spacious and creative while also having strong boundaries. 
+		<p> Our retreats are designed for deep thinkers who crave long stretches of uninterrupted time to ponder and engage in solitary creative pursuits. Nestled in beautiful, natural surroundings, our cabins provide a serene environment free from the pressures of micromanagement, high-pressure sales, and corporate team-building exercises. Our guests, often highly sensitive individuals with INFJ personality types, find solace in our quiet and modern cabins where they can fully immerse themselves in their inner worlds and achieve a flow state. We understand the anxiety meetings and overcommitments can cause, and our retreats offer a sanctuary from these stresses, allowing our guests to recharge and focus on transformational change.
+            </section>
+            <section class="howitworks-text">
+                <h2>The Three Ingredients</h2>
+		<img src="/assets/photo/venn.jpg" loading="lazy" alt="Still Waters Retreat">
+		<ul>
+                    <li><strong>Environment:</strong> A private, peaceful, and modern cabin in the mountains perfectly designed for deep work.</li>
+                    <li><strong>Guidance:</strong> Sometimes space in the right environment is all you need. If you would like more structure, you have options. From on-demand videos to live coaching sessions with me, you can tailor your retreat to exactly what you know will have maximum sustained impact.</li>
+                    <li><strong>Unscheduling:</strong> Your deep thinker retreat is incomplete without retreating from time pressure. If a completely empty schedule is what you need, you can just book your cabin, or add on the on-demand video coaching sessions. If you need more guidance, you can add live coaching sessions with me, either virtual or in-person.</li>
+                </ul>
+            </section>
+	    <div class="yellow-container">
+              <a href="/cabins" class="yellow-btn">Yes. I do need a retreat</a>
+            </div>
+            <section class="howitworks-text">
+                <h2>Environment</h2>
+		<p>A retreat into a serene, quiet, tranquil environment empowers your creative mind to do transformative work. In this setting, all blockages from entering the flow state are removed, and you integrate our powerful sessions into lasting transformational change.</p>
+		<h2>Guidance</h2>
+		<p>The environment sets the stage, but in order to maximize the value of truly unplugging from your time-bound life, you need some structure. The Still Waters retreat is unique. You get the powerful blend of environment, no schedules, and guidance. In group retreats, it is not possible to unchain yourself from your schedule because it is a necessary part of getting multiple people in the same place at the same time. What we do is allow your creative mind to choose when it is ready to re-engage in the next session. When you allow your creative mind to operate in a free and open landscape without schedules, it allows you to experience profound states of insight. Structured retreats packed with a full schedule of activities leave a significant problem unsolved - that your creative mind operates on its own schedule. When you open up your schedule to allow your thoughts to unfurl naturally, you uncage your mind. This freedom allows your creative mind to open up, rather than a calendar shutting it down.
+                <h2>Unscheduling</h2>
+                <p>Un-scheduling allows your creative mind to drift, process, contemplate, and integrate naturally and organically. Our retreat promotes a flexible approach to personal development, allowing you to choose when and how you engage with our guided sessions. The on-demand nature of the Still Waters Retreat gives you the right balance between freedom from time and structure. What would a retreat be without a retreat from your calendar?</p>
+            </section>
+	    <div class="yellow-container">
+              <a href="/cabins" class="amazing-btn">This Sounds Amazing</a>
+            </div>
+	    <script>
+		    window.onload = function() {
+			var needRetreatButton = document.querySelector('.yellow-btn');
+        		var amazingButton = document.querySelector('.amazing-btn');
+
+        		if (needRetreatButton) {
+            			needRetreatButton.addEventListener('click', function() {
+                		firebase.analytics().logEvent('need_retreat_clicked');
+            			});
+        		}
+
+        		if (amazingButton) {
+            			amazingButton.addEventListener('click', function() {
+                		firebase.analytics().logEvent('amazing_clicked');
+            			});
+        		}
+    		};
+	  </script>
+        </main>
+    </div>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+    <script>
+        const { createApp } = Vue;
+        createApp().mount('#app');
+    </script>
+</body>
+</html>
+

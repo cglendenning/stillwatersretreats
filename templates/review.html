@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Review and Payment</title>
+    <link href="/static/styles.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;700&family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://js.stripe.com/v3/"></script>
+</head>
+<body>
+    <div id="app">
+        <header>
+            <h1>Review Your Booking</h1>
+            <nav>
+                <a href="/">Home</a>
+                <a href="/cabins">Cabins</a>
+                <a href="/howitworks">How It Works</a>
+                <a href="/packages">Pricing</a>
+                <a href="/contact">Contact</a>
+            </nav>
+        </header>
+    </div>
+    <main>
+        <div class="review-container">
+            <h2>Your Retreat Choices</h2>
+            <div id="cabin-details"></div>
+            <div id="retreat-details"></div>
+            <div id="massage"></div>
+            <div id="meditation"></div>
+            <div id="hike"></div>
+            <div id="total-price-details"></div>
+            <button id="pay-button" class="btn">Book It!</button>
+        </div>
+    </main>
+    <script src="/static/payment.js"></script>
+</body>
+</html>
+

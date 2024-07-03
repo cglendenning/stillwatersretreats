@@ -1,0 +1,558 @@
+body {
+	font-family: 'Open Sans', sans-serif;
+	line-height: 1.6;
+	margin: 0;
+	padding: 0;
+	color: #333;
+	background-color: #f4f4f4;
+}
+header {
+	height: 10%; /* Example height, adjust according to your design */
+	width: 100%;
+	position: relative; /* Ensures it's in the flow and other content can be positioned relative to it */
+	z-index: 10; /* Higher z-index ensures it stays on top of other content */
+	background: #333;
+	color: #fff;
+	padding: 1rem 0;
+	text-align: center;
+	background-image: url('/static/nav.webp'); 
+        background-size: cover; /* Cover ensures the background image fully covers the nav area */
+        background-position: center; 
+        padding: 1rem 0;
+        text-align: center;
+}
+nav {
+	display: flex;        /* Flexbox to keep elements in a row */
+	justify-content: space-around; 
+	align-items: center;  /* Vertically center items in the nav */
+	width: 100%;          /* Ensure nav fills the width of its container */
+	overflow-x: auto;     /* Allows scrolling on small screens */
+	white-space: nowrap;  /* Prevents items from wrapping to a new line */
+	padding: 1vh 1vw;         /* Padding relative to the height of the viewport */
+	box-sizing: border-box; /* Includes padding in width calculation */
+}
+nav a {
+	flex-shrink: 0;       /* Prevents flex items from shrinking below their content size */
+	padding: 1vh 1vw;     /* Vertical and horizontal padding based on viewport size */
+	font-size: calc(1vw + 1vh); /* Calculate font size based on viewport width and height */
+	border-radius: 20px; /* Adjust this value to increase or decrease the roundness */
+        display: inline-block; /* Ensures padding and border-radius are applied correctly */
+	text-decoration: none; /* Optional: removes underline from links */
+	color: white;         /* Optional: sets text color */
+	background: rgba(51, 51, 51, 0.8);     
+}
+nav a:hover {
+    background-color: rgba(128, 128, 128, 0.7); /* Darker on hover for better interaction feedback */
+}
+h1, h2, h3 {
+	font-family: 'Ubuntu', sans-serif;
+}
+main {
+	max-width: 95%;
+	margin: 20px auto;
+	padding: 20px;
+	background: #fff;
+	box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+form {
+        margin: 0 auto; /* Center the form horizontally and no vertical margin */
+	padding: 20px; /* Padding around the form content */
+	box-sizing: border-box; /* Includes padding and border in the element's total width and height */
+}
+
+
+
+.video-container {
+    position: absolute; /* Keeps it out of the flow, adjust based on your needs */
+    top: 10%; /* Should be the same as the header height */
+    right: 0;
+    left: 0;
+    min-width: 100%;
+    min-height: calc(200vh - 200px); /* Reduces the minimum height by the header height */
+    width: 100%;
+    height: 720px;
+    /* height: 100vh; /* Set to viewport height */
+    overflow: hidden;
+    z-index: -1; /* Ensures it stays behind other content */
+}
+
+#static-image {
+    position: relative;
+    top: 0;
+    left: 0;
+    min-width: 100%;
+    width: 100%;
+    height: 720px;
+    object-fit: cover;
+}
+
+#background-video {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 720px;
+    object-fit: cover;
+}
+
+video {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+}
+
+.home-page-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 10px;
+    background: rgba(51, 51, 51, 0.8);
+    color: white;
+}
+
+#calendar-container {
+    width: 100%; /* Default to full width on smaller screens */
+}
+
+@media (min-width: 600px) {
+    #calendar-container {
+	    margin-left: auto;
+    margin-right: auto;
+        width: 50%; /* Makes the form take up 90% of the screen width */
+    }
+}
+
+#calendar {
+    width: 100%;
+}
+
+.fc-highlight {
+    background-color: #AACCFF !important;
+}
+
+#selected-image {
+    width: auto;
+    height: auto;
+    max-width: 45%;
+    max-height: 100%;
+    display: none; /* Hidden by default */
+}
+
+
+.contact {
+    /* Specific styles for the contact form */
+    max-width: 600px; /* Maximum width of the form */
+    background-color: #f9f9f9;
+    border-radius: 8px;
+}
+
+@media (max-width: 600px) {
+    .contact {
+        width: 90%; /* Makes the form take up 90% of the screen width */
+        padding: 10px; /* Lesser padding for smaller screens */
+    }
+}
+@media (min-width: 601px) and (max-width: 1024px) {
+    .contact {
+        width: 30%; /* Optional: Adjust width for mid-sized devices */
+    }
+}
+@media (min-width: 1025px) {
+    .contact {
+        width: 40%; /* Limits form width on very large screens to enhance readability */
+    }
+}
+
+.booking-container {
+    /* Specific styles for the booking-container form */
+    max-width: 600px; /* Maximum width of the form */
+    background-color: #f9f9f9;
+    border-radius: 8px;
+}
+
+@media (max-width: 600px) {
+    .booking-container {
+        width: 90%; /* Makes the form take up 90% of the screen width */
+        padding: 10px; /* Lesser padding for smaller screens */
+    }
+}
+@media (min-width: 601px) and (max-width: 1024px) {
+    .booking-container {
+        width: 30%; /* Optional: Adjust width for mid-sized devices */
+    }
+}
+@media (min-width: 1025px) {
+    .booking-container {
+        width: 40%; /* Limits form width on very large screens to enhance readability */
+    }
+}
+
+.pricing-container {
+    /* Specific styles for the pricing form */
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    padding: 25px;
+}
+
+.price-box {
+    transition: all 0.3s ease; /* Smooth transition for style changes */
+    cursor: pointer; /* Indicates the element is clickable */
+    position: relative; /* Ensures it's the reference point for absolutely positioned children */
+    /* Other styles remain */
+}
+
+.price-box.selected {
+    box-shadow: 0 0 15px rgba(0, 0, 255, 0.5); /* Blue glow for selected box */
+    border: 2px solid #3B86FF; /* Blue border to match the shadow */
+}
+
+
+label {
+	font-weight: bold;
+}
+input, textarea {
+	padding: 8px;
+	font-size: 16px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	margin-bottom: 20px; 
+}
+button {
+	cursor: pointer;
+	padding: 10px 20px;
+	background: #333;
+	color: #fff;
+	border: none;
+	border-radius: 4px;
+	font-size: 16px;
+	font-family: 'Ubuntu', sans-serif;
+}
+img {
+	width: 100%;
+	max-width: 600px;
+	height: auto;
+}
+
+.howitworks-background {
+    position: relative;
+    z-index: 1;
+}
+
+.background-fixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('/static/howitworks-background.jpg') no-repeat center center fixed;
+    background-size: auto;
+    z-index: -1;
+}
+
+@media (min-width: 600px) {
+	.background-fixed {
+	    background-size: cover;
+    }
+}
+
+.howitworks-text {
+    background: rgba(255, 255, 255, 0.8); /* White background with 80% opacity */
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.modal {
+    display: none; 
+    position: fixed; 
+    z-index: 1; 
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    overflow: auto; 
+    background-color: rgb(0,0,0); 
+    background-color: rgba(0,0,0,0.4); 
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; 
+    padding: 20px;
+    border: 10px solid #888;
+    width: 80%; 
+}
+
+.close {
+    color: #000;
+    float: right;
+    font-size: 40px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+
+
+.intro {
+	text-align: center;
+}
+
+.image-collage {
+	display: flex;  /* Establishes a flex container */
+	flex-wrap: nowrap;  /* Prevents the flex items from wrapping */
+	overflow-x: auto;  /* Allows horizontal scrolling on smaller screens */
+        padding: 20px 20px;        /* Padding around the text */
+	justify-content: center;  /* Centers images horizontally */
+	align-items: center;  /* Aligns images vertically */
+	gap: 10px;  /* Space between images */
+}
+
+.image-collage img {
+	flex: 0 0 auto;  /* Flex-grow is 0, flex-shrink is 0, and flex-basis is auto */
+	max-height: calc(25vh + 10px);  /* Example: scales height based on viewport height */
+	max-width: 100%;  /* Ensures images do not exceed their container's width */
+	height: auto;  /* Keeps the image's aspect ratio */
+	width: auto;  /* Maintain aspect ratio */
+	margin: 10px;  /* Optional: Adds some space around images */
+	border-radius: 30px;  /* Optional: rounds the corners of the images */
+}
+
+.yellow-container {
+    display: flex;            /* Enables Flexbox */
+    justify-content: center;  /* Centers horizontally in the flex container */
+    align-items: center;      /* Centers vertically in the flex container */
+    height: 10vh;            /* Optional: makes the container full viewport height */
+    text-align: center;       /* Ensures text is centered */
+}
+
+.yellow-btn {
+    background-color: #FFD700; /* Bright yellow background */
+    color: #333;               /* Dark text for contrast */
+    font-size: 18px;           /* Larger font size for visibility */
+    padding: 10px 20px;        /* Padding around the text */
+    text-decoration: none;     /* Removes underline from the link */
+    border: none;              /* No border */
+    border-radius: 5px;        /* Rounded corners */
+    cursor: pointer;           /* Changes cursor to pointer to indicate it's clickable */
+    display: inline-block;     /* Ensures the link behaves like a block for padding purposes */
+    transition: background-color 0.3s, color 0.3s; /* Smooth transition for hover effects */
+}
+
+.yellow-btn:hover, .yellow-btn:focus {
+    background-color: #ffc107; /* Lighter yellow on hover/focus for interactivity */
+    color: #000;               /* Black text for better visibility on hover/focus */
+}
+
+.amazing-btn {
+    background-color: #FFD700; /* Bright yellow background */
+    color: #333;               /* Dark text for contrast */
+    font-size: 18px;           /* Larger font size for visibility */
+    padding: 10px 20px;        /* Padding around the text */
+    text-decoration: none;     /* Removes underline from the link */
+    border: none;              /* No border */
+    border-radius: 5px;        /* Rounded corners */
+    cursor: pointer;           /* Changes cursor to pointer to indicate it's clickable */
+    display: inline-block;     /* Ensures the link behaves like a block for padding purposes */
+    transition: background-color 0.3s, color 0.3s; /* Smooth transition for hover effects */
+}
+
+.amazing-btn:hover, .amazing-btn:focus {
+    background-color: #ffc107; /* Lighter yellow on hover/focus for interactivity */
+    color: #000;               /* Black text for better visibility on hover/focus */
+}
+
+.packages-btn {
+    background-color: #FFD700; /* Bright yellow background */
+    color: #333;               /* Dark text for contrast */
+    font-size: 18px;           /* Larger font size for visibility */
+    padding: 10px 20px;        /* Padding around the text */
+    text-decoration: none;     /* Removes underline from the link */
+    border: none;              /* No border */
+    border-radius: 5px;        /* Rounded corners */
+    cursor: pointer;           /* Changes cursor to pointer to indicate it's clickable */
+    display: inline-block;     /* Ensures the link behaves like a block for padding purposes */
+    transition: background-color 0.3s, color 0.3s; /* Smooth transition for hover effects */
+}
+
+.packages-btn:hover, .packages-btn:focus {
+    background-color: #ffc107; /* Lighter yellow on hover/focus for interactivity */
+    color: #000;               /* Black text for better visibility on hover/focus */
+}
+
+.ready-btn {
+    background-color: #FFD700; /* Bright yellow background */
+    color: #333;               /* Dark text for contrast */
+    font-size: 18px;           /* Larger font size for visibility */
+    padding: 10px 20px;        /* Padding around the text */
+    text-decoration: none;     /* Removes underline from the link */
+    border: none;              /* No border */
+    border-radius: 5px;        /* Rounded corners */
+    cursor: pointer;           /* Changes cursor to pointer to indicate it's clickable */
+    display: inline-block;     /* Ensures the link behaves like a block for padding purposes */
+    transition: background-color 0.3s, color 0.3s; /* Smooth transition for hover effects */
+}
+
+.ready-btn:hover, .ready-btn:focus {
+    background-color: #ffc107; /* Lighter yellow on hover/focus for interactivity */
+    color: #000;               /* Black text for better visibility on hover/focus */
+}
+
+
+.pricing-container {
+    display: flex;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    flex-wrap: wrap;
+    padding: 25px;
+    justify-content: center; /* Adjust this as needed for alignment */
+    grid-gap: 20px; /* Adjust spacing between grid items */
+}
+
+.price-box {
+    flex: 1 1 30%; /* Adjusts to take up to 30% of the flex container width */
+    background: white;
+    transition: all 0.3s ease; /* Smooth transition for style changes */
+    border-radius: 10px;
+    cursor: pointer; /* Indicates the element is clickable */
+    box-shadow: 0 0 15px rgba(0,0,0,0.1);
+}
+
+.price-box:hover {
+    border-color: #3B86FF; /* Changes border color on hover */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2); /* Adds shadow on hover */
+}
+
+.price-box.selected {
+    box-shadow: 0 0 15px rgba(0, 0, 255, 0.5); /* Blue glow for selected box */
+    border: 2px solid #3B86FF; /* Blue border to match the shadow */
+}
+
+.cabin-container {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 25px;
+    justify-content: center; /* Adjust this as needed for alignment */
+    grid-gap: 20px; /* Adjust spacing between grid items */
+}
+
+.cabin-description {
+	padding: 0 15vw;
+}
+
+@media (max-width: 600px) {
+	.cabin-description {
+		padding: 0 5vw;
+	}
+}
+
+.cabin-box {
+    flex: 1 1 100%;
+    transition: all 0.3s ease; /* Smooth transition for style changes */
+    border-radius: 10px;
+}
+
+.cabin-box img {
+    box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    cursor: pointer; /* Indicates the element is clickable */
+    transition: box-shadow 0.3s ease-in-out, border-color 0.3s ease;
+    border-radius: 20px; 
+}
+
+.cabin-box img:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.8);
+}
+
+.cabin-box img.selected {
+    box-shadow: 0 0 15px rgba(0, 0, 255, 0.5); /* Blue glow for selected box */
+    border: 2px solid #3B86FF; /* Blue border to match the shadow */
+}
+
+.btn {
+    text-decoration: none; /* Optional: removes underline from links */
+    background-color: #007BFF;
+    justify-content: center; /* Adjust this as needed for alignment */
+    border: none;
+    color: white;
+    padding: 8px 16px;
+    text-transform: uppercase;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 20%;
+    max-width: 100px 
+}
+
+.btn:hover {
+    background-color: #0056b3;
+}
+
+.btn:disabled {
+    background-color: #cccccc; /* Gray background for disabled state */
+    color: #666666; /* Gray text color for disabled state */
+    cursor: not-allowed; /* Cursor to indicate the button is not clickable */
+}
+
+
+.badge {
+    position: absolute;
+    top: 20px;
+    right: -20px;
+    background-color: gold;
+    color: black;
+    padding: 5px 10px;
+    transform: rotate(45deg);
+    font-size: 14px;
+}
+
+
+.next-btn {
+    flex: 0 0 100%;
+    width: 100%; 
+    padding: 8px 16px; /* Adjust padding as needed */
+}
+
+.price-header {
+    font-size: 20px;
+    text-align: center;
+    white-space: nowrap; /* Keeps text in a single line */
+    color: white;
+    padding: 10px 20px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.price-tag {
+    font-size: 24px;
+    text-align: center;
+    white-space: nowrap; /* Keeps text in a single line */
+    margin: 20px 0;
+}
+
+.features-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 20px;
+}
+
+.features-list li {
+    text-align: left;  /* Aligns text to the left */
+    border-bottom: 1px solid #eee;
+    padding: 5px;
+}
+
+.popular .price-header {
+    background-color: #28a745; 
+}
+
+@media (max-width: 600px) {
+    nav a {
+        padding: 8px 10px; /* Smaller padding on smaller screens */
+        border-radius: 5px; /* Less pronounced rounded corners on smaller screens */
+    }
+
