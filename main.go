@@ -29,7 +29,6 @@ func main() {
 	e.File("/", "templates/home.html")
 	e.File("/cabins", "templates/cabins.html")
 	e.File("/howitworks", "templates/howitworks.html")
-	e.File("/deep-thinker", "templates/deep-thinker.html")
 	e.File("/pricing", "templates/pricing.html")
 	e.File("/packages", "templates/packages.html")
 	e.File("/calendar", "templates/calendar.html")
