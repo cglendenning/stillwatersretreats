@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="{{ meta_description }}">
+    <title>{{ title }}</title>
+    <link href="/static/styles.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;700&family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="/assets/favicon.ico" type="image/x-icon">
+    <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-analytics-compat.js"></script>
+    <script>
+        var firebaseConfig = {
+            apiKey: "***REMOVED***",
+            authDomain: "***REMOVED***.firebaseapp.com",
+            projectId: "***REMOVED***",
+            storageBucket: "***REMOVED***.appspot.com",
+            messagingSenderId: "340290043055",
+            appId: "1:340290043055:web:db8af11f4310619847285a",
+            measurementId: "G-VY28D4VWH1"
+        };
+        firebase.initializeApp(firebaseConfig);
+        firebase.analytics();
+
+        // Get post_id dynamically from server
+        const postId = "{{ post_id }}"; // Replace {{ post_id }} dynamically with backend rendering
+
+        // Log page load event with dynamic post_id
+        document.addEventListener('DOMContentLoaded', function () {
+            firebase.analytics().logEvent(`blog_view_${postId}`);
+        });
+
+        // Log button click event
+        function logBlogClick() {
+            firebase.analytics().logEvent(`blog_click_${postId}`);
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <h1>Cabin Retreats for Focused Work</h1>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/cabins">Cabins</a>
+            <a href="/howitworks">How It Works</a>
+            <a href="/packages">Pricing</a>
+            <a href="/contact">Contact</a>
+        </nav>
+    </header>
+    <main>
+        <section class="post-content left">
+            <h2>{{ section1_heading }}</h2>
+            <img src="/assets/photo/blog/Back11.jpg" alt="Peaceful outdoor deck" style="width: 100%; border-radius: 10px;">
+            <p>{{ section1_content }}</p>
+        </section>
+
+        <section class="post-content right">
+            <h2>{{ section2_heading }}</h2>
+            <img src="/assets/photo/blog/Back3.jpg" alt="Secluded mountain cabin" style="width: 100%; border-radius: 10px;">
+            <p>{{ section2_content }}</p>
+        </section>
+        <div class="yellow-container">
+              <a href="https://airbnb.com/h/bearviewcove" class="yellow-btn" onclick="logBlogClick()">Yes. I do need a retreat</a>
+        </div>
+        <section class="post-content left">
+            <h2>{{ section3_heading }}</h2>
+            <img src="/assets/photo/blog/Front4.jpg" alt="Peaceful retreat space" style="width: 100%; border-radius: 10px;">
+            <p>{{ section3_content }}</p>
+        </section>
+
+        <section class="post-content right">
+            <h2>{{ section4_heading }}</h2>
+            <img src="/assets/photo/blog/Nook1.jpg" alt="Tranquil space to work" style="width: 100%; border-radius: 10px;">
+            <p>{{ section4_content }}</p>
+        </section>
+
+        <section class="post-content left">
+            <h2>{{ section5_heading }}</h2>
+            <img src="/assets/photo/blog/Deck3.jpg" alt="Outdoor vibes" style="width: 100%; border-radius: 10px;">
+            <p>{{ section5_content }}</p>
+        </section>
+
+        <section class="post-content right">
+            <h2>{{ section6_heading }}</h2>
+            <img src="/assets/photo/blog/Front1.jpg" alt="Mountain cabin" style="width: 100%; border-radius: 10px;">
+            <p>{{ section6_content }}</p>
+        </section>
+        <section class="post-content">
+            <p>{{ tagline }}</p>
+            <div class="yellow-container">
+                <a href="https://airbnb.com/h/bearviewcove" class="amazing-btn" onclick="logBlogClick()">This Sounds Amazing. Let's Check Out The Cabins!</a>
+            </div>
+        </section>
+    </main>
+</body>
+</html>
+

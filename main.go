@@ -4,18 +4,17 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"github.com/labstack/echo/v4"
+	"github.com/labstack/echo/v4/middleware"
+	"github.com/stripe/stripe-go/v78"
+	"github.com/stripe/stripe-go/v78/checkout/session"
+	"gopkg.in/gomail.v2"
 	"io/ioutil"
 	"net/http"
 	"os"
 	"path/filepath"
 	"strings"
 	"time"
-
-	"github.com/labstack/echo/v4"
-	"github.com/labstack/echo/v4/middleware"
-	"github.com/stripe/stripe-go/v78"
-	"github.com/stripe/stripe-go/v78/checkout/session"
-	"gopkg.in/gomail.v2"
 )
 
 func main() {
@@ -175,7 +174,7 @@ func sendEmailHandler(c echo.Context) error {
 
 			// Setup SMTP
 			m := gomail.NewMessage()
-			m.SetHeader("From", os.Getenv("SMTP_FROM_EMAIL"))
+			m.SetHeader("From", os.Getenv("SMTP_FROM_EMAIL")) // My verified SES email
 			m.SetHeader("To", os.Getenv("SMTP_TO_EMAIL"))
 			m.SetHeader("Subject", "Still Waters Contact Form")
 			m.SetBody("text/html", "Email: "+email+"<br>Message: "+message)
