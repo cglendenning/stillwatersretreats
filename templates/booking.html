@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" href="/assets/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png" type="image/png">
+    <link rel="icon" sizes="192x192" href="/assets/android-chrome-192x192.png" type="image/png">
+    <link rel="icon" sizes="512x512" href="/assets/android-chrome-512x512.png" type="image/png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Summary</title>
+    <script src="https://www.google.com/recaptcha/enterprise.js?render=***REMOVED***"></script>
+    <script>
+        grecaptcha.enterprise.ready(function() {
+            grecaptcha.enterprise.execute('***REMOVED***', {action: 'submit'}).then(function(token) {
+                // Add the token to a hidden field in the form
+                document.getElementById('g-recaptcha-response').value = token;
+            });
+        });
+    </script>
+    <link href="/static/styles.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;700&family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+<script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-analytics-compat.js"></script>
+   <script>
+     var firebaseConfig = {
+    apiKey: "***REMOVED***",
+    authDomain: "***REMOVED***.firebaseapp.com",
+    projectId: "***REMOVED***",
+    storageBucket: "***REMOVED***.appspot.com",
+    messagingSenderId: "340290043055",
+    appId: "1:340290043055:web:db8af11f4310619847285a",
+    measurementId: "G-VY28D4VWH1"
+  };
+
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
+  </script>
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-1036707259">
+</script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'AW-1036707259');
+</script>
+<style>
+input, textarea {
+        width: 100%;
+}
+</style>
+</head>
+<body>
+    <div id="app">
+        <header>
+            <h1>Pricing</h1>
+            <nav>
+                <a href="/">Home</a>
+                <a href="/cabins">Cabins</a>
+                <a href="/blog">Blog</a>
+                <a href="/packages">Pricing</a>
+                <a href="/contact">Contact</a>
+            </nav>
+        </header>
+    </div>
+    <main>
+        <form class="booking-container" action="/send-booking"  method="POST">
+	    	<div class="booking-box" section="cabin">Cabin</div>
+		<div class="booking-box" section="checkin">Checkin</div>
+		<div class="booking-box" section="checkout">Checkout</div>
+		<div class="booking-box" section="pkg">Cabin</div>
+		<div class="booking-box" section="price">Cabin</div>
+		<label for="email">Email:</label>
+                <input type="email" name="email" placeholder="Your email" required>
+
+                <label for="message">Please feel free to ask any questions:</label>
+                <textarea name="message" placeholder="Do you have any questions?"></textarea>
+	        <input type="hidden" id="cabin-send" name="cabin-send">
+                <input type="hidden" id="checkin-send" name="checkin-send">
+                <input type="hidden" id="checkout-send" name="checkout-send">
+                <input type="hidden" id="pkg-send" name="pkg-send">
+                <input type="hidden" id="price-send" name="price-send">
+		<input type="hidden" id="g-recaptcha-response" name="g-recaptcha-response">
+         <button type="submit" class="btn next-btn" id="submit-button">Book It!</button>
+    </form>
+    </main>
+    <script>
+	document.addEventListener('DOMContentLoaded', function() {
+		function getQueryParam(param) {
+			const urlParams = new URLSearchParams(window.location.search);
+			return urlParams.get(param);
+		}
+
+		// Define the DOM elements for the summary display 
+		const cabin = document.querySelector('.booking-box[section="cabin"]');
+		const checkin = document.querySelector('.booking-box[section="checkin"]');
+		const checkout = document.querySelector('.booking-box[section="checkout"]');
+		const pkg = document.querySelector('.booking-box[section="pkg"]');
+		const price = document.querySelector('.booking-box[section="price"]');
+
+		// Build the summary based off of query parameters 
+		if (getQueryParam('prop') == "vp") {
+			    cabin.textContent = "Victoria Pines Cabin"; 
+			    document.getElementById('cabin-send').value = cabin.textContent;
+		} else if (getQueryParam('prop') == "bvc") {
+			    cabin.textContent = "Bear View Cove Cabin";
+			    document.getElementById('cabin-send').value = cabin.textContent;
+		}
+		checkin.textContent = "Check In: "+getQueryParam('start');
+		checkout.textContent = "Check Out: "+getQueryParam('end');
+		pkg.textContent = "Retreat Package: "+getQueryParam('pkg');
+		price.textContent = "Total Price: "+getQueryParam('total');
+
+		document.getElementById('checkin-send').value = checkin.textContent;
+		document.getElementById('checkout-send').value = checkout.textContent;
+		document.getElementById('pkg-send').value = pkg.textContent;
+		document.getElementById('price-send').value = price.textContent;
+	});
+    </script>
+    <script>
+        window.onload = function() {
+                var nextButton = document.querySelector('.next-btn');
+
+                if (nextButton) {
+                        nextButton.addEventListener('click', function() {
+                                firebase.analytics().logEvent('book_it_clicked');
+                        });
+                }
+
+        };
+    </script>
+</body>
+</html>

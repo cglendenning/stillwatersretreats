@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" href="/assets/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png" type="image/png">
+    <link rel="icon" sizes="192x192" href="/assets/android-chrome-192x192.png" type="image/png">
+    <link rel="icon" sizes="512x512" href="/assets/android-chrome-512x512.png" type="image/png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cabin Calendar</title>
+    <link href="/static/styles.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;700&family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-analytics-compat.js"></script>
+    <script>
+        var firebaseConfig = {
+            apiKey: "***REMOVED***",
+            authDomain: "***REMOVED***.firebaseapp.com",
+            projectId: "***REMOVED***",
+            storageBucket: "***REMOVED***.appspot.com",
+            messagingSenderId: "340290043055",
+            appId: "1:340290043055:web:db8af11f4310619847285a",
+            measurementId: "G-VY28D4VWH1"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        firebase.analytics();
+    </script>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-1036707259"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'AW-1036707259');
+    </script>
+
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js'></script>
+    <style>
+	#selected-image {
+            width: auto;
+            height: auto;
+            max-width: 45%;
+            max-height: 100%;
+            display: none; /* Hidden by default */
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Cabin Calendar</h1>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/cabins">Cabins</a>
+            <a href="/blog">Blog</a>
+            <a href="/packages">Pricing</a>
+            <a href="/contact">Contact</a>
+        </nav>
+    </header>
+    <div class="cabin-box">
+	    <img id="selected-image" src="" style="border-radius: 20px;">  
+        </div>
+    <div id="calendar-container">
+        <div id='calendar'></div>
+    </div>
+    <p id="selected-dates" class="intro"></p>
+    <center>
+        <form id="date-range-form" action="/dates-chosen"  method="GET">
+            <input type="hidden" id="start-date" name="start-date">
+            <input type="hidden" id="end-date" name="end-date">
+            <input type="hidden" id="total-price" name="total-price">
+            <input type="hidden" id="prop" name="prop">
+            <button type="submit" class="btn next-btn" id="submit-button">Next</button>
+        </form>
+    </center>
+    <script>
+        document.getElementById('selected-dates').textContent = `Please select the dates for your retreat!`;
+        document.addEventListener('DOMContentLoaded', function() {
+            var calendarEl = document.getElementById('calendar');
+            var submitButton = document.getElementById('submit-button');
+            submitButton.disabled = true;
+            var today = new Date().toISOString().split('T')[0];
+            var eventData = []; // Array to store event data for quick lookup
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                selectable: true,
+                validRange: {
+                    start: today, // Restrict earlier dates
+                },
+                selectMirror: true,
+                longPressDelay: 100, // Adjust this value as needed, default is 1000ms
+                select: function(info) {
+                    const queryParams = new URLSearchParams(window.location.search);
+                    let start = info.startStr;
+                    let end = info.endStr;
+
+                    if (allDaysAvailable(start, end, eventData)) {
+                        document.getElementById('selected-dates').textContent = `Check-in on ${start} and check-out on ${end}`;
+                        document.getElementById('start-date').value = start;
+                        document.getElementById('end-date').value = end;
+                        document.getElementById('prop').value = queryParams.get('selectedImage');
+                        submitButton.disabled = false;
+                    } else {
+                        alert("One or more days in the selected range are not available.");
+                        calendar.unselect();
+                    }
+                },
+                selectAllow: function(selectInfo) {
+                    return allDaysAvailable(selectInfo.startStr, selectInfo.endStr, eventData);
+                },
+                events: function(fetchInfo, successCallback, failureCallback) {
+                    const queryParams = new URLSearchParams(window.location.search);
+                    const selectedImage = queryParams.get('selectedImage'); // from cabins.html 
+
+                    // Modify the fetch URL to include the property ID as a query parameter
+                    fetch(`/calendar-data?prop=${selectedImage}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            eventData = data.data.days.map(day => ({
+                                date: day.date,
+                                status: day.status.reason,
+                                price: ((day.price.amount*2) / 100).toFixed(0) // double the price from the calendar
+                            }));
+                            var events = eventData.map(day => ({
+                                title: day.status === "AVAILABLE" ? "$" + day.price : 'Booked',
+                                start: day.date,
+                                end: day.date,
+                                allDay: true,
+                                color: day.status === "AVAILABLE" ? 'green' : 'red',
+                            }));
+                            successCallback(events);
+                        })
+                        .catch(error => {
+                            console.error('Error fetching calendar data:', error);
+                            failureCallback(error);
+                        });
+                }
+            });
+            calendar.render();
+        });
+
+        function allDaysAvailable(start, end, eventData) {
+            var startDate = new Date(start);
+            var endDate = new Date(end);
+            endDate.setDate(endDate.getDate() - 1);
+
+            var totalPrice = 0;
+            var dateIterator = new Date(startDate);
+            while (dateIterator <= endDate) {
+                var dayData = eventData.find(event =>
+                    new Date(event.date).toDateString() === dateIterator.toDateString());
+
+                if (!dayData || dayData.status !== "AVAILABLE") {
+                    return false; // If any day is not available, return false
+                }
+
+                totalPrice += Number(dayData.price);
+                dateIterator.setDate(dateIterator.getDate() + 1);
+            }
+            document.getElementById('total-price').value = totalPrice;
+            return true;
+        }
+
+        function getQueryParameter(name) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(name);
+        }
+
+        function displaySelectedImage() {
+            const selectedImage = getQueryParameter('selectedImage');
+            const imageElement = document.getElementById('selected-image');
+            if (selectedImage === 'vp') {
+                imageElement.src = '/assets/photo/vp/vp.jpg';
+            } else if (selectedImage === 'bvc') {
+                imageElement.src = '/assets/photo/bvc/bvc.jpg';
+            }
+            if (selectedImage) {
+                imageElement.style.display = 'block';
+            } else {
+                console.warn(`No image for selected value: '${selectedImage}'`);
+            }
+        }
+
+        // Call the function to display the selected image on page load
+        displaySelectedImage();
+    </script>
+    <script>
+        window.onload = function() {
+            var nextButton = document.querySelector('.next-btn');
+
+            if (nextButton) {
+                nextButton.addEventListener('click', function() {
+                    firebase.analytics().logEvent('calendar_next_clicked');
+                });
+            }
+
+        };
+    </script>
+</body>
+</html>
+

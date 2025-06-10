@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" href="/assets/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png" type="image/png">
+    <link rel="icon" sizes="192x192" href="/assets/android-chrome-192x192.png" type="image/png">
+    <link rel="icon" sizes="512x512" href="/assets/android-chrome-512x512.png" type="image/png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - Still Waters Retreat</title>
+    <script src="https://www.google.com/recaptcha/enterprise.js?render=***REMOVED***"></script>
+    <script>
+        grecaptcha.enterprise.ready(function() {
+            grecaptcha.enterprise.execute('***REMOVED***', {action: 'submit'}).then(function(token) {
+                // Add the token to a hidden field in the form
+                document.getElementById('g-recaptcha-response').value = token;
+            });
+        });
+    </script>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-1036707259"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'AW-1036707259');
+    </script>
+    <link href="/static/styles.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;700&family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        input, textarea {
+            width: 100%;
+        }
+        .info-container {
+            position: relative;
+            overflow: hidden;
+	    padding-bottom: 56.25%;
+	    height: 0;
+            max-width: 100%;
+            margin: 20px auto; /* Center the video */
+        }
+        .info-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        @media (min-width: 600px) {
+            .info-container {
+                width: 50%;
+            }
+        }
+        @media (max-width: 599px) {
+            .info-container {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <header>
+            <h1>Book Your Retreat</h1>
+            <nav>
+                <a href="/">Home</a>
+                <a href="/cabins">Cabins</a>
+                <a href="/blog">Blog</a>
+                <a href="/packages">Pricing</a>
+                <a href="/contact">Contact</a>
+            </nav>
+        </header>
+        <main>
+            <center>
+                <p class="info">How can I help? Please reach out for anything. I check email a couple times a day, so I will get back to you soon.</p>
+                <div class="info-container">
+                    <iframe src="https://www.youtube.com/embed/10wsJeXp_Q0" 
+                            frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen></iframe>
+                </div>
+            </center>
+            <form class="contact" id="contact" action="/send-email" method="POST">
+                <label for="email">Email:</label>
+                <input type="email" name="email" placeholder="Your email" required>
+                <label for="message">Tell me how I can help:</label>
+                <textarea name="message" placeholder="Enter details here." required></textarea>
+                <input type="hidden" id="g-recaptcha-response" name="g-recaptcha-response">
+                <button type="submit">Send it!</button>
+            </form>
+        </main>
+    </div>
+</body>
+</html>
+

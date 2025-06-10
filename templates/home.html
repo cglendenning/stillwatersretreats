@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-1036707259"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'AW-1036707259');
+    </script>
+    <link rel="canonical" href="https://www.stillwatersretreats.com/" />
+    <link rel="icon" href="/assets/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png" type="image/png">
+    <link rel="icon" sizes="192x192" href="/assets/android-chrome-192x192.png" type="image/png">
+    <link rel="icon" sizes="512x512" href="/assets/android-chrome-512x512.png" type="image/png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Still Waters Retreats - Quiet Cabins for Deep Thinking</title>
+    <link href="/static/styles.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;700&family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-analytics-compat.js"></script>
+    <script>
+	var firebaseConfig = {
+		apiKey: "***REMOVED***",
+		authDomain: "***REMOVED***.firebaseapp.com",
+		projectId: "***REMOVED***",
+		storageBucket: "***REMOVED***.appspot.com",
+		messagingSenderId: "340290043055",
+		appId: "1:340290043055:web:db8af11f4310619847285a",
+		measurementId: "G-VY28D4VWH1"
+	};
+
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        firebase.analytics();
+    </script>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/cabins">Cabins</a>
+	    <a href="/blog">Blog</a>
+            <a href="/packages">Pricing</a>
+            <a href="/contact">Contact</a>
+        </nav>
+    </header>
+    <div class="video-container">
+        <!-- Static Image Placeholder -->
+        <img src="/static/Lake.jpg" id="static-image" alt="Still Waters Retreat">
+        <!-- Video Element Hidden Initially -->
+        <video id="background-video" style="display: none;" loop muted playsinline>
+            <source src="/assets/video/background.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+    <div class="home-page-content">
+        <h1>Deep Thinking Retreats</h1>
+	A cabin, a lake, and a whole lot of space to think.<br><br>
+	If you have important work to do and need a place to do it, we might be able to help.<br>
+	Our cabins have been the sanctuary to hundreds of happy guests coming to the mountains to get away.<br>
+	Environment is everything to get into the flow, and accomplish deep work.<br><br>
+	We have two cabins to choose from, and both are fantastic for either a solo trip or a retreat with the team.<br>
+	Each cabin is perfectly located within Big Bear Lake, CA and are quiet, modern and ready for your retreat.<br> 	
+        </p>
+        <div class="yellow-container">
+            <a href="/howitworks" class="yellow-btn">Learn More</a>
+        </div>
+        <script>
+            window.onload = function() {
+                var learnMoreButton = document.querySelector('.yellow-btn');
+                if (learnMoreButton) {
+                    learnMoreButton.addEventListener('click', function() {
+                        firebase.analytics().logEvent('learn_more_clicked');
+                    });
+                }
+                
+                var video = document.getElementById('background-video');
+                var staticImage = document.getElementById('static-image');
+
+                video.oncanplaythrough = function() {
+                    staticImage.style.display = 'none';
+                    video.style.display = 'block';
+                    video.play();
+                };
+
+                // Preload video to trigger oncanplaythrough event
+                video.load();
+            };
+        </script>
+    </div>
+</body>
+</html>
+

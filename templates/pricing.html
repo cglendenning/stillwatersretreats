@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" href="/assets/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png" type="image/png">
+    <link rel="icon" sizes="192x192" href="/assets/android-chrome-192x192.png" type="image/png">
+    <link rel="icon" sizes="512x512" href="/assets/android-chrome-512x512.png" type="image/png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pricing Plans</title>
+    <link href="/static/styles.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;700&family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+        <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-analytics-compat.js"></script>
+    <script>
+     var firebaseConfig = {
+    apiKey: "***REMOVED***",
+    authDomain: "***REMOVED***.firebaseapp.com",
+    projectId: "***REMOVED***",
+    storageBucket: "***REMOVED***.appspot.com",
+    messagingSenderId: "340290043055",
+    appId: "1:340290043055:web:db8af11f4310619847285a",
+    measurementId: "G-VY28D4VWH1"
+  };
+
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
+</script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-1036707259">
+</script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'AW-1036707259');
+</script>
+</head>
+<body>
+    <div id="app">
+        <header>
+            <h1>Pricing</h1>
+            <nav>
+                <a href="/">Home</a>
+                <a href="/cabins">Cabins</a>
+                <a href="/howitworks">How It Works</a>
+                <a href="/packages">Pricing</a>
+                <a href="/contact">Contact</a>
+            </nav>
+        </header>
+    </div>
+    <main>
+
+    <form class="pricing-container" action="/booking-get"  method="GET">
+        <div class="price-box" package="cabin">
+            <div class="price-header" id="cabin-title" style="background-color: #F5A623;"></div>
+            <div class="price-tag" id="base-rate"></div>
+            <div class="price-tag" id="cleaning-fee"></div>
+	    <b><div class="price-tag" id="cabin-total"></div></b>
+
+            <img id="cabin-image" src="" alt="Cabin Image" style="width:100%; height:auto; margin: 10px 0;">
+	    <div id="cabin-description" class="intro"></div>
+        </div>
+       
+        <div class="price-box">
+	    <div class="price-header" style="background-color: #5fa55a;">Retreat Structure Options</div>
+	    <label> <input type="radio" name="retreat-structure" value="my-own" data-price="0"> I'm good. I have my own plan. ($0)</input></label><br>
+	    <label> <input type="radio" name="retreat-structure" value="on-demand" data-price="99"> On-demand video course ($99)</input></label><br>
+            <label><input type="radio" name="retreat-structure" value="virtual-coaching" data-price="299"> Live virtual coaching sessions with Craig ($299)</label><br>
+	    <label><input type="radio" name="retreat-structure" value="onsite-coaching" data-price="499"> 4-hour onsite coaching session with Craig ($499)</label><br>
+        </div>
+        
+        <div class="price-box">
+            <div class="price-header" style="background-color: #3B86FF;">Additional Deep Work Options</div>
+            <label><input type="checkbox" name="deep-work-options" value="massage" data-price="999"> On-site massage from Unthai My Knots ($999)</label><br>
+            <label><input type="checkbox" name="deep-work-options" value="meditation" data-price="299"> Guided on-site meditation ($299)</label><br>
+            <label><input type="checkbox" name="deep-work-options" value="hike" data-price="199"> Guided Big Bear nature hike ($199)</label>
+        </div>
+        
+        <input type="hidden" id="start-date" name="start-date">
+        <input type="hidden" id="end-date" name="end-date">
+        <input type="hidden" id="total-price" name="total-price">
+        <input type="hidden" id="prop" name="prop">
+        <button type="submit" class="btn next-btn" id="submit-button">Next</button>
+    </form>
+    </main>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        function getQueryParam(param) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(param);
+        }
+
+        var submitButton = document.getElementById('submit-button');
+        submitButton.disabled = true;
+
+        // Retrieve the total parameter and parse it as an integer
+        let base = parseInt(getQueryParam('total'), 10) || 0; // Default to 0 if total is not provided
+	let cleaning = 130;	
+	let total = base+cleaning;
+
+        // Define the DOM elements where prices will be displayed
+        const cabinTitle = document.getElementById('cabin-title');
+        const baseRate = document.getElementById('base-rate');
+        const cleaningFee = document.getElementById('cleaning-fee');
+        const cabinTotal = document.getElementById('cabin-total');
+        const cabinImage = document.getElementById('cabin-image');
+        const cabinDescription = document.getElementById('cabin-description');
+
+        // Update the cabin details on the page
+        baseRate.textContent = `Base Rate: $${base.toLocaleString()}`;
+        cleaningFee.textContent = `Cleaning Fee: $${cleaning.toLocaleString()}`;
+        cabinTotal.textContent = `Cabin Total: $${total.toLocaleString()}`;
+        const prop = getQueryParam('prop');
+        if (prop === 'bvc') {
+            cabinTitle.textContent = 'Bear View Cove Cabin'; 
+            cabinImage.src = '/assets/photo/bvc/bvc.jpg'; 
+            cabinDescription.textContent = 'Bear View Cove is nestled in the trees at elevation 7,200 ft. You will find incredible peace on the back deck in the morning with your coffee and a journal.';
+        } else if (prop === 'vp') {
+            cabinTitle.textContent = 'Victoria Pines Cabin'; 
+            cabinImage.src = '/assets/photo/vp/vp.jpg'; 
+            cabinDescription.textContent = 'Victoria Pines is 5 minutes from the Bristlecone trailhead and Alpine Zoo. The whispering pines are exactly the company you need as you architect your life.';
+        }
+
+        // Pass through the query params
+        document.getElementById('start-date').value = getQueryParam('start');
+        document.getElementById('end-date').value = getQueryParam('end');
+        document.getElementById('prop').value = getQueryParam('prop');
+
+        const retreatOptions = document.querySelectorAll('input[name="retreat-structure"]');
+        const deepWorkOptions = document.querySelectorAll('input[name="deep-work-options"]');
+
+        retreatOptions.forEach(option => {
+            option.addEventListener('change', function() {
+                updateTotalPrice();
+                submitButton.disabled = false;
+            });
+        });
+
+        deepWorkOptions.forEach(option => {
+            option.addEventListener('change', function() {
+                updateTotalPrice();
+                submitButton.disabled = false;
+            });
+        });
+
+        function updateTotalPrice() {
+            let selectedRetreatPrice = parseInt(document.querySelector('input[name="retreat-structure"]:checked').dataset.price || 0);
+            let selectedDeepWorkPrices = Array.from(document.querySelectorAll('input[name="deep-work-options"]:checked')).reduce((sum, checkbox) => sum + parseInt(checkbox.dataset.price), 0);
+            let newTotal = total + selectedRetreatPrice + selectedDeepWorkPrices;
+            document.getElementById('total-price').value = newTotal;
+        }
+    });
+    </script>
+    <script>
+        window.onload = function() {
+            var nextButton = document.querySelector('.next-btn');
+            if (nextButton) {
+                nextButton.addEventListener('click', function() {
+                    firebase.analytics().logEvent('pricing_next_clicked');
+                });
+            }
+        };
+    </script>
+</body>
+</html>
+
