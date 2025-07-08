@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"github.com/joho/godotenv"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 	"github.com/stripe/stripe-go/v78"
@@ -18,6 +19,9 @@ import (
 )
 
 func main() {
+	// Load environment variables from .env file
+	godotenv.Load()
+
 	e := echo.New()
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
@@ -65,7 +69,7 @@ func main() {
 }
 
 func createCheckoutSessionHandler(c echo.Context) error {
-	stripe.Key = "***REMOVED***"
+	stripe.Key = os.Getenv("STRIPE_SECRET_KEY")
 
 	var requestData struct {
 		Amount   int64  `json:"amount"`
@@ -134,9 +138,9 @@ func getImages(c echo.Context) error {
 func sendEmailHandler(c echo.Context) error {
 	recaptchaResponse := c.FormValue("g-recaptcha-response")
 
-	projectID := "***REMOVED***"
-	apiKey := "***REMOVED***"
-	recaptchaSiteKey := "***REMOVED***"
+	projectID := os.Getenv("RECAPTCHA_PROJECT_ID")
+	apiKey := os.Getenv("RECAPTCHA_API_KEY")
+	recaptchaSiteKey := os.Getenv("RECAPTCHA_SITE_KEY")
 
 	verifyURL := fmt.Sprintf("https://recaptchaenterprise.googleapis.com/v1/projects/%s/assessments?key=%s", projectID, apiKey)
 	postData := map[string]interface{}{
@@ -174,12 +178,12 @@ func sendEmailHandler(c echo.Context) error {
 
 			// Setup SMTP
 			m := gomail.NewMessage()
-			m.SetHeader("From", "***REMOVED***") // Your verified SES email
-			m.SetHeader("To", "***REMOVED***")
+			m.SetHeader("From", os.Getenv("SMTP_FROM_EMAIL")) // My verified SES email
+			m.SetHeader("To", os.Getenv("SMTP_TO_EMAIL"))
 			m.SetHeader("Subject", "Still Waters Contact Form")
 			m.SetBody("text/html", "Email: "+email+"<br>Message: "+message)
 
-			d := gomail.NewDialer("***REMOVED***", 587, "***REMOVED***", "***REMOVED***")
+			d := gomail.NewDialer(os.Getenv("SMTP_HOST"), 587, os.Getenv("SMTP_USERNAME"), os.Getenv("SMTP_PASSWORD"))
 
 			// Send the email
 			if err := d.DialAndSend(m); err != nil {
@@ -204,7 +208,7 @@ func getProperties(c echo.Context) error {
 		return c.String(http.StatusInternalServerError, err.Error())
 	}
 
-	apiKey := "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI5YTYyNGRmMC0xMmYxLTQ0OGUtYjg4NC00MzY3ODBhNWQzY2QiLCJqdGkiOiIxZGRlYzQ1ZWE4YzQyZjhkNjc5NzA2MWQ4Y2ZkM2ZkYWM5NTY5ZWMyNmRhZmI2MTc5NWYwMDcwMjc3ZWZhNzQ2YWJkNzNiZTA2MWJiOGM4NSIsImlhdCI6MTcxMzczNTgwOC43MjUzMiwibmJmIjoxNzEzNzM1ODA4LjcyNTMyMywiZXhwIjoxNzQ1MjcxODA4LjcxODY2MSwic3ViIjoiODUyMzgiLCJzY29wZXMiOlsicGF0OnJlYWQiLCJwYXQ6d3JpdGUiXX0.h8bkw7pGOR6I0M***REMOVED***-***REMOVED***-EpxLFzlm3TRjN__7W_LCLBiJ95aaT5dOITSHDDTutL8CK3bXUFom_uVNdMnCTrpfOlnG8w9do4n71J8hehDtT5AZQUOOujrpALaQbO2ED3LiZt6AXYuM8PxlX2GQ4AV5SwNgoM25eh1BmfQq67zOJG4VH9DeG_ixpeGNpP9Lpje111CHaTz0mEqR3ghHGQzFAM3qC9Nr9htClrFiCQLjvwjiddX4THhNegsL8tGmxb1A0dRRZa***REMOVED***-R0yIrMrGKoYwVMYcJgjoMJ275FMfvU8ucz2***REMOVED***-q0FfUoTYjba9qE4VOa20ivCd7RIHfl4drQFdW0a4LdIOx_xx1Fpm9Cy6al53bLlYMeHmHafWbWPKDNAevMjHAgXXPN8RCNfrJWHYkLL2cR5_OdB23WviVj88OHwFIPyfBEVUhyW068n-mB83Be9346jJQNUFVw"
+	apiKey := os.Getenv("HOSPITABLE_API_KEY")
 
 	// Include your API key in the header
 	req.Header.Add("Authorization", "Bearer "+apiKey)
@@ -252,7 +256,7 @@ func getCalendar(c echo.Context) error {
 		return c.String(http.StatusInternalServerError, err.Error())
 	}
 
-	apiKey := "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI5YTYyNGRmMC0xMmYxLTQ0OGUtYjg4NC00MzY3ODBhNWQzY2QiLCJqdGkiOiIxZGRlYzQ1ZWE4YzQyZjhkNjc5NzA2MWQ4Y2ZkM2ZkYWM5NTY5ZWMyNmRhZmI2MTc5NWYwMDcwMjc3ZWZhNzQ2YWJkNzNiZTA2MWJiOGM4NSIsImlhdCI6MTcxMzczNTgwOC43MjUzMiwibmJmIjoxNzEzNzM1ODA4LjcyNTMyMywiZXhwIjoxNzQ1MjcxODA4LjcxODY2MSwic3ViIjoiODUyMzgiLCJzY29wZXMiOlsicGF0OnJlYWQiLCJwYXQ6d3JpdGUiXX0.h8bkw7pGOR6I0M***REMOVED***-***REMOVED***-EpxLFzlm3TRjN__7W_LCLBiJ95aaT5dOITSHDDTutL8CK3bXUFom_uVNdMnCTrpfOlnG8w9do4n71J8hehDtT5AZQUOOujrpALaQbO2ED3LiZt6AXYuM8PxlX2GQ4AV5SwNgoM25eh1BmfQq67zOJG4VH9DeG_ixpeGNpP9Lpje111CHaTz0mEqR3ghHGQzFAM3qC9Nr9htClrFiCQLjvwjiddX4THhNegsL8tGmxb1A0dRRZa***REMOVED***-R0yIrMrGKoYwVMYcJgjoMJ275FMfvU8ucz2***REMOVED***-q0FfUoTYjba9qE4VOa20ivCd7RIHfl4drQFdW0a4LdIOx_xx1Fpm9Cy6al53bLlYMeHmHafWbWPKDNAevMjHAgXXPN8RCNfrJWHYkLL2cR5_OdB23WviVj88OHwFIPyfBEVUhyW068n-mB83Be9346jJQNUFVw"
+	apiKey := os.Getenv("HOSPITABLE_API_KEY")
 
 	// Include your API key in the header
 	req.Header.Add("Authorization", "Bearer "+apiKey)
@@ -320,7 +324,7 @@ func updateCalendar(prop, start, end, available string) error {
 		return err
 	}
 
-	apiKey := "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI5YTYyNGRmMC0xMmYxLTQ0OGUtYjg4NC00MzY3ODBhNWQzY2QiLCJqdGkiOiIxZGRlYzQ1ZWE4YzQyZjhkNjc5NzA2MWQ4Y2ZkM2ZkYWM5NTY5ZWMyNmRhZmI2MTc5NWYwMDcwMjc3ZWZhNzQ2YWJkNzNiZTA2MWJiOGM4NSIsImlhdCI6MTcxMzczNTgwOC43MjUzMiwibmJmIjoxNzEzNzM1ODA4LjcyNTMyMywiZXhwIjoxNzQ1MjcxODA4LjcxODY2MSwic3ViIjoiODUyMzgiLCJzY29wZXMiOlsicGF0OnJlYWQiLCJwYXQ6d3JpdGUiXX0.h8bkw7pGOR6I0M***REMOVED***-***REMOVED***-EpxLFzlm3TRjN__7W_LCLBiJ95aaT5dOITSHDDTutL8CK3bXUFom_uVNdMnCTrpfOlnG8w9do4n71J8hehDtT5AZQUOOujrpALaQbO2ED3LiZt6AXYuM8PxlX2GQ4AV5SwNgoM25eh1BmfQq67zOJG4VH9DeG_ixpeGNpP9Lpje111CHaTz0mEqR3ghHGQzFAM3qC9Nr9htClrFiCQLjvwjiddX4THhNegsL8tGmxb1A0dRRZa***REMOVED***-R0yIrMrGKoYwVMYcJgjoMJ275FMfvU8ucz2***REMOVED***-q0FfUoTYjba9qE4VOa20ivCd7RIHfl4drQFdW0a4LdIOx_xx1Fpm9Cy6al53bLlYMeHmHafWbWPKDNAevMjHAgXXPN8RCNfrJWHYkLL2cR5_OdB23WviVj88OHwFIPyfBEVUhyW068n-mB83Be9346jJQNUFVw"
+	apiKey := os.Getenv("HOSPITABLE_API_KEY")
 
 	// Include your API key in the header
 	req.Header.Add("accept", "application/json")
@@ -395,9 +399,9 @@ func bookingGet(c echo.Context) error {
 func sendBookingHandler(c echo.Context) error {
 	recaptchaResponse := c.FormValue("g-recaptcha-response")
 
-	projectID := "***REMOVED***"
-	apiKey := "***REMOVED***"
-	recaptchaSiteKey := "***REMOVED***"
+	projectID := os.Getenv("RECAPTCHA_PROJECT_ID")
+	apiKey := os.Getenv("RECAPTCHA_API_KEY")
+	recaptchaSiteKey := os.Getenv("RECAPTCHA_SITE_KEY")
 
 	verifyURL := fmt.Sprintf("https://recaptchaenterprise.googleapis.com/v1/projects/%s/assessments?key=%s", projectID, apiKey)
 	postData := map[string]interface{}{
@@ -441,12 +445,12 @@ func sendBookingHandler(c echo.Context) error {
 
 			// Setup SMTP
 			m := gomail.NewMessage()
-			m.SetHeader("From", "***REMOVED***") // Your verified SES email
-			m.SetHeader("To", "***REMOVED***")
+			m.SetHeader("From", os.Getenv("SMTP_FROM_EMAIL"))
+			m.SetHeader("To", os.Getenv("SMTP_TO_EMAIL"))
 			m.SetHeader("Subject", "Still Waters Booking Request!")
 			m.SetBody("text/html", "Cabin: "+cabin+"<br>Email: "+email+"<br>Message: "+message+"<br>Checkin: "+checkin+"<br>Checkout: "+checkout+"<br>Package: "+pkg+"<br>Price: "+price)
 
-			d := gomail.NewDialer("***REMOVED***", 587, "***REMOVED***", "***REMOVED***")
+			d := gomail.NewDialer(os.Getenv("SMTP_HOST"), 587, os.Getenv("SMTP_USERNAME"), os.Getenv("SMTP_PASSWORD"))
 
 			// Send the email
 			if err := d.DialAndSend(m); err != nil {
