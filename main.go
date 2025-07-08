@@ -4,20 +4,25 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/labstack/echo/v4"
-	"github.com/labstack/echo/v4/middleware"
-	"github.com/stripe/stripe-go/v78"
-	"github.com/stripe/stripe-go/v78/checkout/session"
-	"gopkg.in/gomail.v2"
 	"io/ioutil"
 	"net/http"
 	"os"
 	"path/filepath"
 	"strings"
 	"time"
+
+	"github.com/joho/godotenv"
+	"github.com/labstack/echo/v4"
+	"github.com/labstack/echo/v4/middleware"
+	"github.com/stripe/stripe-go/v78"
+	"github.com/stripe/stripe-go/v78/checkout/session"
+	"gopkg.in/gomail.v2"
 )
 
 func main() {
+	// Load environment variables from .env file
+	godotenv.Load()
+
 	e := echo.New()
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
