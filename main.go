@@ -259,36 +259,42 @@ func getCalendar(c echo.Context) error {
 	} else if c.QueryParam("prop") == "bvc" {
 		propId = "dd5e28be-2406-4624-908d-30313972781d"
 	} else {
+		fmt.Println("[DEBUG] Invalid or missing prop param:", c.QueryParam("prop"))
 		return c.Redirect(http.StatusFound, "/contact")
 	}
 
-	// Victoria Pines & all of 2024
 	url := "https://public.api.hospitable.com/v2/properties/" + propId + "/calendar?start_date=" + beginDate + "&end_date=" + endDate
-	// Set up the request to the Hospitable API
+	fmt.Println("[DEBUG] Calendar API URL:", url)
+
 	client := &http.Client{}
 
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
+		fmt.Println("[DEBUG] Error creating request:", err)
 		return c.String(http.StatusInternalServerError, err.Error())
 	}
 
 	apiKey := os.Getenv("HOSPITABLE_API_KEY")
+	fmt.Println("[DEBUG] HOSPITABLE_API_KEY in getCalendar:", apiKey)
 
-	// Include your API key in the header
 	req.Header.Add("Authorization", "Bearer "+apiKey)
 
-	// Send the request
 	resp, err := client.Do(req)
 	if err != nil {
+		fmt.Println("[DEBUG] Error making request:", err)
 		return c.String(http.StatusInternalServerError, err.Error())
 	}
 	defer resp.Body.Close()
 
-	// Read the response
+	fmt.Println("[DEBUG] Calendar API response status:", resp.Status)
+
 	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
+		fmt.Println("[DEBUG] Error reading response body:", err)
 		return c.String(http.StatusInternalServerError, err.Error())
 	}
+
+	fmt.Println("[DEBUG] Calendar API response body:", string(body))
 
 	return c.JSONBlob(http.StatusOK, body)
 }
