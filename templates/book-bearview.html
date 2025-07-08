@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="{{ meta_description }}">
+    <title>Redirecting...</title>
+    <link href="/static/styles.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;700&family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <linck rel="icon" href="/assets/favicon.ico" type="image/x-icon">
+    <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-analytics-compat.js"></script>
+    <script>
+        var firebaseConfig = {
+            apiKey: "***REMOVED***",
+            authDomain: "***REMOVED***.firebaseapp.com",
+            projectId: "***REMOVED***",
+            storageBucket: "***REMOVED***.appspot.com",
+            messagingSenderId: "340290043055",
+            appId: "1:340290043055:web:db8af11f4310619847285a",
+            measurementId: "G-VY28D4VWH1"
+        };
+        firebase.initializeApp(firebaseConfig);
+        firebase.analytics();
+    </script>
+</head>
+<body>
+    <script>
+	    firebase.analytics().logEvent('flyer_bearview');
+    </script>
+    <p>Redirecting you to Book...</p>
+    <script>
+	window.onload = function() {
+            setTimeout(() => {
+                window.location.href = "https://www.airbnb.com/h/bearviewcove";
+            }, 250); // Delay slightly to ensure event fires
+        };
+    </script>
+</body>
+</html>

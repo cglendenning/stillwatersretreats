@@ -41,6 +41,9 @@ func main() {
 	e.File("/review", "templates/review.html")
 	e.File("/booking", "templates/booking.html")
 	e.File("/email-sent", "templates/email-sent.html")
+	e.File("/book-bearview", "templates/book-bearview.html")
+	e.File("/greenpyramid/setup-video", "templates/greenpyramid/setup-video.html")
+	e.File("/greenpyramid/paywall-video", "templates/greenpyramid/paywall-video.html")
 	e.Static("/static", "static")
 
 	// Blog routes
