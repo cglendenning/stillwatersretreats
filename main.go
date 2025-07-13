@@ -26,17 +26,6 @@ func main() {
 	} else {
 		fmt.Println("[DEBUG] .env file loaded successfully")
 	}
-	fmt.Println("[DEBUG] STRIPE_SECRET_KEY:", os.Getenv("STRIPE_SECRET_KEY"))
-	fmt.Println("[DEBUG] RECAPTCHA_PROJECT_ID:", os.Getenv("RECAPTCHA_PROJECT_ID"))
-	fmt.Println("[DEBUG] RECAPTCHA_API_KEY:", os.Getenv("RECAPTCHA_API_KEY"))
-	fmt.Println("[DEBUG] RECAPTCHA_SITE_KEY:", os.Getenv("RECAPTCHA_SITE_KEY"))
-	fmt.Println("[DEBUG] GOOGLE_MAPS_API_KEY:", os.Getenv("GOOGLE_MAPS_API_KEY"))
-	fmt.Println("[DEBUG] SMTP_HOST:", os.Getenv("SMTP_HOST"))
-	fmt.Println("[DEBUG] SMTP_USERNAME:", os.Getenv("SMTP_USERNAME"))
-	fmt.Println("[DEBUG] SMTP_PASSWORD:", os.Getenv("SMTP_PASSWORD"))
-	fmt.Println("[DEBUG] SMTP_FROM_EMAIL:", os.Getenv("SMTP_FROM_EMAIL"))
-	fmt.Println("[DEBUG] SMTP_TO_EMAIL:", os.Getenv("SMTP_TO_EMAIL"))
-	fmt.Println("[DEBUG] HOSPITABLE_API_KEY:", os.Getenv("HOSPITABLE_API_KEY"))
 
 	e := echo.New()
 	e.Use(middleware.Logger())
