@@ -53,6 +53,7 @@ func main() {
 	e.File("/book-bearview", "templates/book-bearview.html")
 	e.File("/greenpyramid/setup-video", "templates/greenpyramid/setup-video.html")
 	e.File("/greenpyramid/paywall-video", "templates/greenpyramid/paywall-video.html")
+	e.File("/greenpyramid/sms-opt-in", "templates/greenpyramid/sms-opt-in.html")
 	e.Static("/static", "static")
 
 	// Blog routes
