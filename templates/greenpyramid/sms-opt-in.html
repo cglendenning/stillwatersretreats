@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Opt in to receive SMS updates from Still Waters Retreats. Your consent is not a condition of purchase. Message and data rates may apply.">
-    <title>SMS Opt-In - Still Waters Retreats</title>
+    <meta name="description" content="Opt in to receive SMS habit reminders from Green Pyramid. Your consent is not a condition of purchase. Message and data rates may apply.">
+    <title>SMS Opt-In - Green Pyramid</title>
     <link href="/static/styles.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;700&family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
     <link rel="icon" href="/assets/favicon.ico" type="image/x-icon">
@@ -65,18 +65,18 @@
     <main>
         <div class="sms-optin-container">
             <h1>SMS Opt-In</h1>
-            <p>Sign up to receive important updates and offers from Still Waters Retreats via text message.</p>
+            <p>Sign up to receive personalized SMS reminders from Green Pyramid based on the habits you track.</p>
             <form action="/sms-opt-in" method="POST" autocomplete="off">
                 <label for="phone">Mobile Phone Number:</label>
                 <input type="tel" id="phone" name="phone" pattern="\\+?1?\\d{10,15}" placeholder="e.g. +15555555555" required>
                 <div style="margin-bottom: 12px;">
                   <input type="checkbox" id="consent" name="consent" required>
-                  <label for="consent" style="font-weight:normal;">I agree to receive recurring automated promotional and personalized marketing text messages (e.g. cart reminders) from Still Waters Retreats at the mobile number provided. Consent is not a condition of any purchase. Msg & data rates may apply. Msg frequency varies. Reply STOP to cancel, HELP for help.</label>
+                  <label for="consent" style="font-weight:normal;">I agree to receive recurring automated personalized habit reminder text messages from Green Pyramid at the mobile number provided, based on the habits I track. Consent is not a condition of any purchase. Msg & data rates may apply. Msg frequency varies. Reply STOP to cancel, HELP for help.</label>
                 </div>
                 <button type="submit">Sign Up</button>
             </form>
             <div class="sms-optin-legal">
-                <p><strong>Privacy Policy:</strong> Your information will be used only for SMS communications from Still Waters Retreats and will not be sold or shared. For more details, see our <a href="/privacy" target="_blank">Privacy Policy</a>.</p>
+                <p><strong>Privacy Policy:</strong> Your information will be used only for sending you habit reminder SMS messages from Green Pyramid and will not be sold or shared. For more details, see our <a href="/privacy" target="_blank">Privacy Policy</a>.</p>
                 <p><strong>TCPA & State Compliance:</strong> By submitting this form, you certify that you are at least 18 years old and agree to our <a href="/terms" target="_blank">Terms of Service</a>. California and other state residents: You have the right to opt out at any time. For questions, contact us at <a href="mailto:info@stillwatersretreats.com">info@stillwatersretreats.com</a>.</p>
             </div>
         </div>
