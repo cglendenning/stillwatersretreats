@@ -7,10 +7,7 @@
     <link href="/static/styles.css" rel="stylesheet">
 </head>
 <body>
-    <header>
-        <h1>Still Waters Retreat Blog</h1>
-    </header>
-    <main>
+        {{ template "nav.html" . }}    <main>
         <ul>
             {{ blog_links }}
         </ul>

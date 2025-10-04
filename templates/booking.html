@@ -54,17 +54,7 @@ input, textarea {
 </head>
 <body>
     <div id="app">
-        <header>
-            <h1>Pricing</h1>
-            <nav>
-                <a href="/">Home</a>
-                <a href="/cabins">Cabins</a>
-                <a href="/blog">Blog</a>
-                <a href="/packages">Pricing</a>
-                <a href="/contact">Contact</a>
-            </nav>
-        </header>
-    </div>
+        {{ template "nav.html" . }}    </div>
     <main>
         <form class="booking-container" action="/send-booking"  method="POST">
 	    	<div class="booking-box" section="cabin">Cabin</div>

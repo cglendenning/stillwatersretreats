@@ -49,16 +49,7 @@
 <body class="howitworks-background">
     <div class="background-fixed"></div>
     <div id="app">
-        <header>
-            <h1>How It Works</h1>
-            <nav>
-                <a href="/">Home</a>
-                <a href="/cabins">Cabins</a>
-                <a href="/howitworks">How It Works</a>
-                <a href="/packages">Pricing</a>
-                <a href="/contact">Contact</a>
-          </nav>
-        </header>
+        {{ template "nav.html" . }}
         <main class="howitworks-text">
 		 <section class="howitworks-text">
                 <h2>Are you a deep thinker?</h2>
@@ -134,11 +125,6 @@ Finally, deep thinkers are often highly conscientious. This makes boundary setti
 	  </script>
         </main>
     </div>
-    <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
-    <script>
-        const { createApp } = Vue;
-        createApp().mount('#app');
-    </script>
 </body>
 </html>
 

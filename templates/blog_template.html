@@ -38,17 +38,7 @@
     </script>
 </head>
 <body>
-    <header>
-        <h1>Cabin Retreats for Focused Work</h1>
-        <nav>
-            <a href="/">Home</a>
-            <a href="/cabins">Cabins</a>
-            <a href="/howitworks">How It Works</a>
-            <a href="/packages">Pricing</a>
-            <a href="/contact">Contact</a>
-        </nav>
-    </header>
-    <main>
+        {{ template "nav.html" . }}    <main>
         <section class="post-content left">
             <h2>{{ section1_heading }}</h2>
             <img src="/assets/photo/blog/Back11.jpg" alt="Peaceful outdoor deck" style="width: 100%; border-radius: 10px;">

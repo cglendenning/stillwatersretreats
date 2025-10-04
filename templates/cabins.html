@@ -40,26 +40,17 @@
 </head>
 <body>
     <div id="app">
-	<header>
-            <h1>Cabins</h1>
-            <nav>
-                <a href="/">Home</a>
-                <a href="/cabins">Cabins</a>
-                <a href="/howitworks">How It Works</a>
-                <a href="/packages">Pricing</a>
-                <a href="/contact">Contact</a>
-            </nav>
-        </header>
+        {{ template "nav.html" . }}
     <main>
 	<section class="intro">
-	    <h2>{{ title }}</h2>
-	    <p>{{ subtitle }}</p>
+	    <h2>{{ .Title }}</h2>
+	    <p>Choose Your Cabin. You will pick your dates in the next step.</p>
 	</section>
     </main>
 
     <form class="cabin-container" action="/calendar">
 	<section class="intro">
-	    <h2>{{ bvc }}</h2>
+	    <h2>Bear View Cove Cabin</h2>
 	</section>
         <div class="cabin-box" image="bvc">
             <img src="/assets/photo/bvc/bvc.jpg" alt="Bear View Cove" style="border-radius: 20px;">
@@ -74,7 +65,7 @@
         </div>
           <div class="cabin-description" id="bvc-description"></div>
 	<section class="intro">
-	    <h2>{{ vp }}</h2>
+	    <h2>Victoria Pines Cabin</h2>
 	</section>
         <div class="cabin-box" image="vp">
             <img src="/assets/photo/vp/vp.jpg" alt="Victoria Pines" style="border-radius: 20px;">
@@ -164,20 +155,6 @@
 		}
 
 	};
-    </script>
-    <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
-    <script>
-        const { createApp } = Vue;
-        createApp({
-            data() {
-                return {
-                    title: 'Choose Your Cabin.',
-                    subtitle: 'You will pick your dates in the next step.',
-		    bvc: "Bear View Cove Cabin",
-		    vp: "Victoria Pines Cabin",
-                }
-            }
-        }).mount('#app');
     </script>
 </body>
 </html>

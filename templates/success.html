@@ -24,38 +24,16 @@
 </head>
 <body>
     <div id="app">
-        <header>
-            <h1>Thank You</h1>
-	    <nav>
-                <a href="/">Home</a>
-                <a href="/cabins">Cabins</a>
-                <a href="/howitworks">How It Works</a>
-                <a href="/packages">Pricing</a>
-                <a href="/contact">Contact</a>
-	  </nav>
-        </header>
-        <main>
+        {{ template "nav.html" . }}        <main>
             <section class="intro">
-                <h2>{{ title }}</h2>
-                <p>{{ subtitle }}</p>
+                <h2>Your Retreat is booked!</h2>
+                <p>You will receive an email shortly with all the details for your retreat.</p>
             </section>
         </main>
     </div>
     <div class="yellow-container">
         <a href="/howitworks" class="yellow-btn">Learn More</a>
     </div>
-    <script src="https://unpkg.com/vue@3.2.31"></script>
-    <script>
-        const { createApp } = Vue;
-        createApp({
-            data() {
-                return {
-                    title: 'Your Retreat is booked!',
-                    subtitle: 'You will receive an email shortly with all the details for your retreat.'
-                }
-            }
-        }).mount('#app');
-    </script>
     <script type="module">
   // Import the functions you need from the SDKs you need
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";

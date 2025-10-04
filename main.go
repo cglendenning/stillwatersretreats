@@ -4,6 +4,8 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"html/template"
+	"io"
 	"io/ioutil"
 	"net/http"
 	"os"
@@ -19,6 +21,24 @@ import (
 	"gopkg.in/gomail.v2"
 )
 
+type Template struct {
+	templates *template.Template
+}
+
+func (t *Template) Render(w io.Writer, name string, data interface{}, c echo.Context) error {
+	return t.templates.ExecuteTemplate(w, name, data)
+}
+
+func getTemplateData(title string) map[string]interface{} {
+	return map[string]interface{}{
+		"Title":              title,
+		"FIREBASE_API_KEY":   os.Getenv("FIREBASE_API_KEY"),
+		"GOOGLE_TAG_ID":      os.Getenv("GOOGLE_TAG_ID"),
+		"YOUTUBE_VIDEO_ID":   os.Getenv("YOUTUBE_VIDEO_ID"),
+		"RECAPTCHA_SITE_KEY": os.Getenv("RECAPTCHA_SITE_KEY"),
+	}
+}
+
 func main() {
 	// Load environment variables from .env file
 	if err := godotenv.Load(); err != nil {
@@ -31,26 +51,84 @@ func main() {
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
 
+	// Template renderer - parse main templates with custom functions
+	mainTemplates := []string{
+		"templates/nav.html",
+		"templates/home.html",
+		"templates/cabins.html",
+		"templates/howitworks.html",
+		"templates/pricing.html",
+		"templates/packages.html",
+		"templates/calendar.html",
+		"templates/contact.html",
+		"templates/success.html",
+		"templates/cancel.html",
+		"templates/review.html",
+		"templates/booking.html",
+		"templates/email-sent.html",
+		"templates/book-bearview.html",
+	}
+	
+	// Create template with custom functions
+	tmpl := template.New("").Funcs(template.FuncMap{
+		"FIREBASE_API_KEY": func() string { return os.Getenv("FIREBASE_API_KEY") },
+		"GOOGLE_TAG_ID": func() string { return os.Getenv("GOOGLE_TAG_ID") },
+		"YOUTUBE_VIDEO_ID": func() string { return os.Getenv("YOUTUBE_VIDEO_ID") },
+		"RECAPTCHA_SITE_KEY": func() string { return os.Getenv("RECAPTCHA_SITE_KEY") },
+		"meta_description": func() string { return "Still Waters Retreat - Quiet mountain cabins for deep thinking and creative work" },
+	})
+	
+	t := &Template{
+		templates: template.Must(tmpl.ParseFiles(mainTemplates...)),
+	}
+	e.Renderer = t
+
 	// Static assets
 	e.Static("/assets", "assets")
 
 	// Routes
-	e.File("/", "templates/home.html")
+	e.GET("/", func(c echo.Context) error {
+		return c.Render(http.StatusOK, "home.html", getTemplateData("Still Waters Retreat"))
+	})
 	e.File("/sitemap.xml", "sitemap.xml")
 	e.File("/googleb900bf2db224a84c.html", "googleb900bf2db224a84c.html")
 	e.File("/robots.txt", "robots.txt")
-	e.File("/cabins", "templates/cabins.html")
-	e.File("/howitworks", "templates/howitworks.html")
-	e.File("/pricing", "templates/pricing.html")
-	e.File("/packages", "templates/packages.html")
-	e.File("/calendar", "templates/calendar.html")
-	e.File("/contact", "templates/contact.html")
-	e.File("/success", "templates/success.html")
-	e.File("/cancel", "templates/cancel.html")
-	e.File("/review", "templates/review.html")
-	e.File("/booking", "templates/booking.html")
-	e.File("/email-sent", "templates/email-sent.html")
-	e.File("/book-bearview", "templates/book-bearview.html")
+	e.GET("/cabins", func(c echo.Context) error {
+		return c.Render(http.StatusOK, "cabins.html", getTemplateData("Cabins"))
+	})
+	e.GET("/howitworks", func(c echo.Context) error {
+		return c.Render(http.StatusOK, "howitworks.html", getTemplateData("How It Works"))
+	})
+	e.GET("/pricing", func(c echo.Context) error {
+		return c.Render(http.StatusOK, "pricing.html", getTemplateData("Pricing"))
+	})
+	e.GET("/packages", func(c echo.Context) error {
+		return c.Render(http.StatusOK, "packages.html", getTemplateData("Packages"))
+	})
+	e.GET("/calendar", func(c echo.Context) error {
+		return c.Render(http.StatusOK, "calendar.html", getTemplateData("Calendar"))
+	})
+	e.GET("/contact", func(c echo.Context) error {
+		return c.Render(http.StatusOK, "contact.html", getTemplateData("Book Your Retreat"))
+	})
+	e.GET("/success", func(c echo.Context) error {
+		return c.Render(http.StatusOK, "success.html", getTemplateData("Thank You"))
+	})
+	e.GET("/cancel", func(c echo.Context) error {
+		return c.Render(http.StatusOK, "cancel.html", getTemplateData("Thank You"))
+	})
+	e.GET("/review", func(c echo.Context) error {
+		return c.Render(http.StatusOK, "review.html", getTemplateData("Review Your Booking"))
+	})
+	e.GET("/booking", func(c echo.Context) error {
+		return c.Render(http.StatusOK, "booking.html", getTemplateData("Booking"))
+	})
+	e.GET("/email-sent", func(c echo.Context) error {
+		return c.Render(http.StatusOK, "email-sent.html", getTemplateData("Email Sent"))
+	})
+	e.GET("/book-bearview", func(c echo.Context) error {
+		return c.Render(http.StatusOK, "book-bearview.html", getTemplateData("Book Bear View"))
+	})
 	e.File("/greenpyramid/setup-video", "templates/greenpyramid/setup-video.html")
 	e.File("/greenpyramid/paywall-video", "templates/greenpyramid/paywall-video.html")
 	e.File("/greenpyramid/sms-opt-in", "templates/greenpyramid/sms-opt-in.html")

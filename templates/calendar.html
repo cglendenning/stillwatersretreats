@@ -49,17 +49,7 @@
     </style>
 </head>
 <body>
-    <header>
-        <h1>Cabin Calendar</h1>
-        <nav>
-            <a href="/">Home</a>
-            <a href="/cabins">Cabins</a>
-            <a href="/blog">Blog</a>
-            <a href="/packages">Pricing</a>
-            <a href="/contact">Contact</a>
-        </nav>
-    </header>
-    <div class="cabin-box">
+        {{ template "nav.html" . }}    <div class="cabin-box">
 	    <img id="selected-image" src="" style="border-radius: 20px;">  
         </div>
     <div id="calendar-container">

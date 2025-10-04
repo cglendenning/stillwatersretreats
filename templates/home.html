@@ -39,15 +39,7 @@
     </script>
 </head>
 <body>
-    <header>
-        <nav>
-            <a href="/">Home</a>
-            <a href="/cabins">Cabins</a>
-	    <a href="/blog">Blog</a>
-            <a href="/packages">Pricing</a>
-            <a href="/contact">Contact</a>
-        </nav>
-    </header>
+    {{ template "nav.html" . }}
     <div class="video-container">
         <!-- Static Image Placeholder -->
         <img src="/static/Lake.jpg" id="static-image" alt="Still Waters Retreat">
@@ -58,16 +50,16 @@
         </video>
     </div>
     <div class="home-page-content">
-        <h1>Deep Thinking Retreats</h1>
-	A cabin, a lake, and a whole lot of space to think.<br><br>
-	If you have important work to do and need a place to do it, we might be able to help.<br>
-	Our cabins have been the sanctuary to hundreds of happy guests coming to the mountains to get away.<br>
-	Environment is everything to get into the flow, and accomplish deep work.<br><br>
-	We have two cabins to choose from, and both are fantastic for either a solo trip or a retreat with the team.<br>
-	Each cabin is perfectly located within Big Bear Lake, CA and are quiet, modern and ready for your retreat.<br> 	
+        <h1>Mountain Cabin & A Quiet Lake.</h1>
+        <h1>Space To Think.</h1>
+	Plan your goals or build your next great thing just minutes from Big Bear Lake in the mountains of California.<br>
+	Experience the sanctuary of the mountains and engage in the tranquility of your craft.<br>
+	Environment is <i>everything</i>.<br><br>
+	Choose from Bear View Cove or Victoria Pines to begin your next breakthrough.<br>
+	Each cabin is perfectly located, quiet, modern and ready for you to create.<br> 	
         </p>
         <div class="yellow-container">
-            <a href="/howitworks" class="yellow-btn">Learn More</a>
+            <a href="/howitworks" class="yellow-btn">Cabins</a>
         </div>
         <script>
             window.onload = function() {
