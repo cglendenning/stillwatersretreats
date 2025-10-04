@@ -56,6 +56,9 @@ func main() {
 		"templates/nav.html",
 		"templates/home.html",
 		"templates/cabins.html",
+		"templates/bearviewcove.html",
+		"templates/victoriapines.html",
+		"templates/activities.html",
 		"templates/howitworks.html",
 		"templates/pricing.html",
 		"templates/packages.html",
@@ -68,16 +71,18 @@ func main() {
 		"templates/email-sent.html",
 		"templates/book-bearview.html",
 	}
-	
+
 	// Create template with custom functions
 	tmpl := template.New("").Funcs(template.FuncMap{
-		"FIREBASE_API_KEY": func() string { return os.Getenv("FIREBASE_API_KEY") },
-		"GOOGLE_TAG_ID": func() string { return os.Getenv("GOOGLE_TAG_ID") },
-		"YOUTUBE_VIDEO_ID": func() string { return os.Getenv("YOUTUBE_VIDEO_ID") },
+		"FIREBASE_API_KEY":   func() string { return os.Getenv("FIREBASE_API_KEY") },
+		"GOOGLE_TAG_ID":      func() string { return os.Getenv("GOOGLE_TAG_ID") },
+		"YOUTUBE_VIDEO_ID":   func() string { return os.Getenv("YOUTUBE_VIDEO_ID") },
 		"RECAPTCHA_SITE_KEY": func() string { return os.Getenv("RECAPTCHA_SITE_KEY") },
-		"meta_description": func() string { return "Still Waters Retreat - Quiet mountain cabins for deep thinking and creative work" },
+		"meta_description": func() string {
+			return "Still Waters Retreat - Quiet mountain cabins for deep thinking and creative work"
+		},
 	})
-	
+
 	t := &Template{
 		templates: template.Must(tmpl.ParseFiles(mainTemplates...)),
 	}
@@ -95,6 +100,15 @@ func main() {
 	e.File("/robots.txt", "robots.txt")
 	e.GET("/cabins", func(c echo.Context) error {
 		return c.Render(http.StatusOK, "cabins.html", getTemplateData("Cabins"))
+	})
+	e.GET("/bearviewcove", func(c echo.Context) error {
+		return c.Render(http.StatusOK, "bearviewcove.html", getTemplateData("Bear View Cove"))
+	})
+	e.GET("/victoriapines", func(c echo.Context) error {
+		return c.Render(http.StatusOK, "victoriapines.html", getTemplateData("Victoria Pines"))
+	})
+	e.GET("/activities", func(c echo.Context) error {
+		return c.Render(http.StatusOK, "activities.html", getTemplateData("Activities"))
 	})
 	e.GET("/howitworks", func(c echo.Context) error {
 		return c.Render(http.StatusOK, "howitworks.html", getTemplateData("How It Works"))

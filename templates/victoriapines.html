@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" href="/assets/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png" type="image/png">
+    <link rel="icon" sizes="192x192" href="/assets/android-chrome-192x192.png" type="image/png">
+    <link rel="icon" sizes="512x512" href="/assets/android-chrome-512x512.png" type="image/png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Victoria Pines Cabin</title>
+    <link href="/static/styles.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;700&family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-analytics-compat.js"></script>
+   <script>
+     var firebaseConfig = {
+    apiKey: "{{ FIREBASE_API_KEY }}",
+    authDomain: "stillwatersretre-1713628649908.firebaseapp.com",
+    projectId: "stillwatersretre-1713628649908",
+    storageBucket: "stillwatersretre-1713628649908.appspot.com",
+    messagingSenderId: "340290043055",
+    appId: "1:340290043055:web:db8af11f4310619847285a",
+    measurementId: "G-VY28D4VWH1"
+  };
+
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
+  </script>
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-1036707259">
+</script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'AW-1036707259');
+</script>
+</head>
+<body>
+    <div id="app">
+        {{ template "nav.html" . }}
+    <main>
+	<section class="intro">
+	    <h2>Victoria Pines Cabin</h2>
+	    <p>Choose your dates in the next step.</p>
+	</section>
+    </main>
+
+    <form class="cabin-container" action="/calendar">
+	<section class="intro">
+	    <h2>Victoria Pines Cabin</h2>
+	</section>
+        <div class="cabin-box" image="vp">
+            <img src="/assets/photo/vp/vp.jpg" alt="Victoria Pines" style="border-radius: 20px;">
+        </div>
+	<div id="photo-modal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                    <div id="gallery-container">
+                        <!-- Images will be appended here -->
+                    </div>
+            </div>
+        </div>
+          <div class="cabin-description" id="vp-description"></div>
+
+        <input type="hidden" name="selectedImage" id="selectedImage" value="vp">
+        <button type="submit" class="btn next-btn" id="submit-button">Next</button>
+    </form>
+</div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+		var submitButton = document.getElementById('submit-button');
+		submitButton.disabled = false; // Enable since only one cabin option
+		const modal = document.getElementById("photo-modal");
+		const closeModal = document.querySelector(".close");
+		const galleryContainer = document.getElementById("gallery-container");
+                const images = document.querySelectorAll('.cabin-box img');
+                images.forEach(img => {
+                        img.addEventListener('click', function() {
+				modal.style.display = "block";
+				galleryContainer.innerHTML = "";
+				const cabin = this.parentNode.getAttribute('image');
+				fetchImagesForCabin(cabin);
+                        });
+                });
+
+		closeModal.onclick = function() {
+			modal.style.display = "none";
+    		}
+
+		window.onclick = function(event) {
+		        if (event.target == modal) {
+            			modal.style.display = "none";
+        		}
+    		}
+
+		function fetchImagesForCabin(cabin) {
+            		fetch(`/api/images/${cabin}`)
+                	.then(response => response.json())
+                	.then(imageUrls => {
+                    	if (Array.isArray(imageUrls)) {
+                        	imageUrls.forEach(url => {
+                            		const img = document.createElement("img");
+                            		img.src = url;
+                            		img.loading = "lazy";
+                            		img.style = "width: 100%; margin-bottom: 10px;";
+                            		galleryContainer.appendChild(img);
+                        	});
+                    	} else {
+                        	console.error('Expected an array of image URLs');
+                    	}
+                	})
+                	.catch(error => console.error('Error fetching images:', error));
+        	}
+
+        });
+    </script>
+    <script>
+	     fetch('/property-data')
+                        .then(response => response.json())
+                        .then((response) => {
+                                document.getElementById('vp-description').textContent = response.data[1].description;
+                        });
+
+	window.onload = function() {
+		var nextButton = document.querySelector('.next-btn');
+
+		if (nextButton) {
+			nextButton.addEventListener('click', function() {
+				firebase.analytics().logEvent('cabin_next_clicked');
+			});
+		}
+
+	};
+    </script>
+</body>
+</html>

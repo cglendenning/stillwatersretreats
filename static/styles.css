@@ -35,14 +35,12 @@ nav a {
 	flex-shrink: 0;       /* Prevents flex items from shrinking below their content size */
 	padding: 1vh 1vw;     /* Vertical and horizontal padding based on viewport size */
 	font-size: calc(1vw + 1vh); /* Calculate font size based on viewport width and height */
-	border-radius: 20px; /* Adjust this value to increase or decrease the roundness */
-        display: inline-block; /* Ensures padding and border-radius are applied correctly */
+        display: inline-block; /* Ensures padding is applied correctly */
 	text-decoration: none; /* Optional: removes underline from links */
 	color: white;         /* Optional: sets text color */
-	background: rgba(51, 51, 51, 0.8);     
 }
 nav a:hover {
-    background-color: rgba(128, 128, 128, 0.7); /* Darker on hover for better interaction feedback */
+    opacity: 0.8; /* Slight fade on hover for interaction feedback */
 }
 h1, h2, h3 {
 	font-family: 'Ubuntu', sans-serif;
@@ -553,6 +551,5 @@ img {
 @media (max-width: 600px) {
     nav a {
         padding: 8px 10px; /* Smaller padding on smaller screens */
-        border-radius: 5px; /* Less pronounced rounded corners on smaller screens */
     }
 
