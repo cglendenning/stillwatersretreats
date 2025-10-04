@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" href="/assets/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png" type="image/png">
+    <link rel="icon" sizes="192x192" href="/assets/android-chrome-192x192.png" type="image/png">
+    <link rel="icon" sizes="512x512" href="/assets/android-chrome-512x512.png" type="image/png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CrossFit Training - Still Waters Retreat</title>
+    <link href="/static/styles.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        .crossfit-hero {
+            background: linear-gradient(135deg, #1a1a1a 0%, #333333 100%);
+            color: white;
+            padding: 6rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .crossfit-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('/assets/7kcrossfit.webp') center/cover;
+            opacity: 0.2;
+            z-index: 0;
+        }
+        
+        .crossfit-hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .crossfit-hero h1 {
+            font-size: 3.5rem;
+            font-weight: 300;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+        
+        .crossfit-hero .subtitle {
+            font-size: 1.5rem;
+            font-weight: 300;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            line-height: 1.4;
+        }
+        
+        .crossfit-hero .tagline {
+            font-size: 1.1rem;
+            font-style: italic;
+            opacity: 0.8;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .crossfit-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+        
+        .crossfit-intro {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        
+        .crossfit-intro h2 {
+            font-size: 2.5rem;
+            font-weight: 300;
+            color: #2c3e50;
+            margin-bottom: 2rem;
+        }
+        
+        .crossfit-intro p {
+            font-size: 1.2rem;
+            color: #666;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+        }
+        
+        .crossfit-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 4rem 0;
+        }
+        
+        .feature-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .feature-card h3 {
+            font-size: 1.5rem;
+            font-weight: 500;
+            color: #2c3e50;
+            margin-bottom: 1rem;
+        }
+        
+        .feature-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        .crossfit-company {
+            background: linear-gradient(135deg, #1a1a1a 0%, #333333 100%);
+            color: white;
+            padding: 4rem 2rem;
+            margin: 4rem 0;
+            border-radius: 15px;
+        }
+        
+        .company-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .company-title {
+            font-size: 2.5rem;
+            font-weight: 300;
+            margin-bottom: 2rem;
+        }
+        
+        .company-description {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        
+        .company-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .company-detail {
+            background: rgba(255,255,255,0.1);
+            padding: 1.5rem;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .company-detail h4 {
+            font-size: 1.2rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+        
+        .company-detail p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        
+        .challenge-section {
+            background: #f8f9fa;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+        
+        .challenge-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .challenge-title {
+            font-size: 2.5rem;
+            font-weight: 300;
+            color: #2c3e50;
+            margin-bottom: 2rem;
+        }
+        
+        .challenge-description {
+            font-size: 1.2rem;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+        }
+        
+        .challenge-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .challenge-feature {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .challenge-feature h4 {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+        }
+        
+        .challenge-feature p {
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .cta-section {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: linear-gradient(135deg, #1a1a1a 0%, #333333 100%);
+            color: white;
+        }
+        
+        .cta-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .cta-title {
+            font-size: 2.5rem;
+            font-weight: 300;
+            margin-bottom: 1.5rem;
+        }
+        
+        .cta-description {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: white;
+            color: #1a1a1a;
+            padding: 1rem 2rem;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .cta-button:hover {
+            background: #f8f9fa;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+        
+        .external-link {
+            color: #ff6b35;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .external-link:hover {
+            text-decoration: underline;
+        }
+        
+        .price-highlight {
+            background: #ff6b35;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            font-weight: bold;
+            display: inline-block;
+            margin: 1rem 0;
+        }
+        
+        @media (max-width: 768px) {
+            .crossfit-hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .crossfit-hero .subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .crossfit-intro h2,
+            .company-title,
+            .challenge-title,
+            .cta-title {
+                font-size: 2rem;
+            }
+            
+            .crossfit-features,
+            .company-details,
+            .challenge-features {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+    <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-analytics-compat.js"></script>
+    <script>
+        var firebaseConfig = {
+            apiKey: "{{ FIREBASE_API_KEY }}",
+            authDomain: "stillwatersretre-1713628649908.firebaseapp.com",
+            projectId: "stillwatersretre-1713628649908",
+            storageBucket: "stillwatersretre-1713628649908.appspot.com",
+            messagingSenderId: "340290043055",
+            appId: "1:340290043055:web:db8af11f4310619847285a",
+            measurementId: "G-VY28D4VWH1"
+        };
+        firebase.initializeApp(firebaseConfig);
+        firebase.analytics();
+    </script>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-1036707259"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'AW-1036707259');
+    </script>
+</head>
+<body>
+    <div id="app">
+        {{ template "nav.html" . }}
+        
+        <main>
+            <!-- Hero Section -->
+            <section class="crossfit-hero">
+                <div class="crossfit-hero-content">
+                    <h1>CrossFit Training</h1>
+                    <p class="subtitle">Elevate Your Fitness and Health Through the CrossFit Methodology</p>
+                    <p class="tagline">Partner with 7K CrossFit for world-class training during your retreat</p>
+                </div>
+            </section>
+
+            <!-- CrossFit Introduction -->
+            <section class="crossfit-intro">
+                <h2>Drop-In CrossFit Sessions</h2>
+                <p>
+                    Enhance your retreat with drop-in CrossFit sessions at 
+                    <a href="https://www.7kcrossfit.org" target="_blank" class="external-link">7K CrossFit</a>. 
+                    Perfect for retreat guests who want to maintain their fitness routine or try something new during their stay.
+                </p>
+                <p>
+                    No long-term commitment required - simply drop in for a single class or multiple sessions throughout your retreat. 
+                    Whether you're a CrossFit veteran or completely new to the methodology, their expert coaches will ensure you get 
+                    a great workout that fits your schedule and fitness level.
+                </p>
+            </section>
+
+            <!-- CrossFit Features -->
+            <section class="crossfit-content">
+                <div class="crossfit-features">
+                    <div class="feature-card">
+                        <div class="feature-icon">💪</div>
+                        <h3>Scalable Workouts</h3>
+                        <p>Every movement can be modified to meet your current fitness level. No experience needed, no pressure to "keep up."</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">👥</div>
+                        <h3>Supportive Community</h3>
+                        <p>Join a community of Big Bear Lake residents who trust and love 7K CrossFit. You'll never work out alone.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">🏔️</div>
+                        <h3>Mountain Location</h3>
+                        <p>Train at altitude in the beautiful Big Bear Lake area. The mountain environment adds an extra challenge to your workouts.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">🎯</div>
+                        <h3>Expert Coaching</h3>
+                        <p>Professional coaches provide guidance and support at every level, ensuring proper form and maximum results.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">⏰</div>
+                        <h3>Flexible Drop-In Times</h3>
+                        <p>Multiple class times throughout the day to fit your retreat schedule. Drop in for morning workouts to energize your day or evening sessions to unwind.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">🔥</div>
+                        <h3>Real Results</h3>
+                        <p>Experience real workouts that deliver real results. Build strength, confidence, and mental resilience that carries into your work.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 7K CrossFit Company -->
+            <section class="crossfit-company">
+                <div class="company-content">
+                    <h2 class="company-title">About 7K CrossFit</h2>
+                    <p class="company-description">
+                        <a href="https://www.7kcrossfit.org" target="_blank" class="external-link" style="color: #ff6b35;">7K CrossFit</a> 
+                        is trusted and loved by hundreds of Big Bear Lake residents. Located at 41922 Fox Farm Road #3, 
+                        they're committed to elevating your fitness and health through the proven CrossFit methodology.
+                    </p>
+                    
+                    <div class="company-details">
+                        <div class="company-detail">
+                            <h4>Proven Methodology</h4>
+                            <p>CrossFit's constantly varied, high-intensity functional movements deliver unmatched results for all fitness levels.</p>
+                        </div>
+                        
+                        <div class="company-detail">
+                            <h4>Local Expertise</h4>
+                            <p>Deeply rooted in the Big Bear Lake community, they understand the unique needs of mountain athletes and retreat guests.</p>
+                        </div>
+                        
+                        <div class="company-detail">
+                            <h4>Community Events</h4>
+                            <p>Join special events like their epic lakeside partner workouts on the shores of Big Bear Lake with community hangouts.</p>
+                        </div>
+                        
+                        <div class="company-detail">
+                            <h4>Professional Facility</h4>
+                            <p>State-of-the-art equipment and a welcoming environment designed to help you achieve your fitness goals.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Drop-In Information -->
+            <section class="challenge-section">
+                <div class="challenge-content">
+                    <h2 class="challenge-title">Drop-In Sessions</h2>
+                    <p class="challenge-description">
+                        Perfect for retreat guests who want to maintain their fitness routine or try CrossFit for the first time. 
+                        No long-term commitment required - simply drop in for a class or two during your retreat stay.
+                    </p>
+                    
+                    <div class="challenge-features">
+                        <div class="challenge-feature">
+                            <h4>Single Class Drop-In</h4>
+                            <p>Try one class to see if CrossFit is right for you</p>
+                        </div>
+                        
+                        <div class="challenge-feature">
+                            <h4>Multiple Sessions</h4>
+                            <p>Drop in for several classes throughout your retreat</p>
+                        </div>
+                        
+                        <div class="challenge-feature">
+                            <h4>Beginner Friendly</h4>
+                            <p>All classes welcome newcomers with proper scaling</p>
+                        </div>
+                        
+                        <div class="challenge-feature">
+                            <h4>Expert Coaching</h4>
+                            <p>Professional guidance ensures proper form and safety</p>
+                        </div>
+                        
+                        <div class="challenge-feature">
+                            <h4>Flexible Timing</h4>
+                            <p>Multiple class times to fit your retreat schedule</p>
+                        </div>
+                        
+                        <div class="challenge-feature">
+                            <h4>No Experience Needed</h4>
+                            <p>Perfect for first-time CrossFit participants</p>
+                        </div>
+                    </div>
+                    
+                    <p style="font-style: italic; color: #666; margin-top: 2rem;">
+                        "No long-term commitment required - just drop in and experience the CrossFit methodology during your retreat."
+                    </p>
+                </div>
+            </section>
+
+            <!-- Call to Action -->
+            <section class="cta-section">
+                <div class="cta-content">
+                    <h2 class="cta-title">Ready to Drop In?</h2>
+                    <p class="cta-description">
+                        Add CrossFit drop-in sessions to your retreat experience and discover the strength, confidence, and energy 
+                        that comes from challenging your body while nurturing your mind. No long-term commitment required.
+                    </p>
+                    <a href="/contact" class="cta-button">Book Your Retreat</a>
+                </div>
+            </section>
+        </main>
+    </div>
+</body>
+</html>

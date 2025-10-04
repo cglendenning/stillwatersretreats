@@ -90,7 +90,7 @@
                         document.getElementById('selected-dates').textContent = `Check-in on ${start} and check-out on ${end}`;
                         document.getElementById('start-date').value = start;
                         document.getElementById('end-date').value = end;
-                        document.getElementById('prop').value = queryParams.get('selectedImage');
+                        document.getElementById('prop').value = queryParams.get('prop');
                         submitButton.disabled = false;
                     } else {
                         alert("One or more days in the selected range are not available.");
@@ -102,10 +102,10 @@
                 },
                 events: function(fetchInfo, successCallback, failureCallback) {
                     const queryParams = new URLSearchParams(window.location.search);
-                    const selectedImage = queryParams.get('selectedImage'); // from cabins.html 
+                    const prop = queryParams.get('prop'); // from cabin pages
 
                     // Modify the fetch URL to include the property ID as a query parameter
-                    fetch(`/calendar-data?prop=${selectedImage}`)
+                    fetch(`/calendar-data?prop=${prop}`)
                         .then(response => response.json())
                         .then(data => {
                             eventData = data.data.days.map(day => ({
@@ -159,17 +159,17 @@
         }
 
         function displaySelectedImage() {
-            const selectedImage = getQueryParameter('selectedImage');
+            const prop = getQueryParameter('prop');
             const imageElement = document.getElementById('selected-image');
-            if (selectedImage === 'vp') {
+            if (prop === 'vp') {
                 imageElement.src = '/assets/photo/vp/vp.jpg';
-            } else if (selectedImage === 'bvc') {
+            } else if (prop === 'bvc') {
                 imageElement.src = '/assets/photo/bvc/bvc.jpg';
             }
-            if (selectedImage) {
+            if (prop) {
                 imageElement.style.display = 'block';
             } else {
-                console.warn(`No image for selected value: '${selectedImage}'`);
+                console.warn(`No image for selected value: '${prop}'`);
             }
         }
 

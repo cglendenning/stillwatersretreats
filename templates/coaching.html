@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" href="/assets/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png" type="image/png">
+    <link rel="icon" sizes="192x192" href="/assets/android-chrome-192x192.png" type="image/png">
+    <link rel="icon" sizes="512x512" href="/assets/android-chrome-512x512.png" type="image/png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coaching with Craig - Break Free from the Builder's Paradox</title>
+    <link href="/static/styles.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        .coaching-hero {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .coaching-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('/assets/photo/journaling.jpg') center/cover;
+            opacity: 0.1;
+            z-index: 0;
+        }
+        
+        .coaching-hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .coaching-hero h1 {
+            font-size: 3.5rem;
+            font-weight: 300;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .coaching-hero .subtitle {
+            font-size: 1.5rem;
+            font-weight: 300;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            line-height: 1.4;
+        }
+        
+        .coaching-hero .tagline {
+            font-size: 1.1rem;
+            font-style: italic;
+            opacity: 0.8;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .island-section {
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .island-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            margin: 3rem 0;
+        }
+        
+        .island-content {
+            padding: 2rem;
+        }
+        
+        .island-title {
+            font-size: 2.5rem;
+            font-weight: 300;
+            margin-bottom: 1.5rem;
+            color: #2c3e50;
+        }
+        
+        .island-a .island-title {
+            color: #e74c3c;
+        }
+        
+        .island-b .island-title {
+            color: #27ae60;
+        }
+        
+        .island-description {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            color: #555;
+        }
+        
+        .island-features {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .island-features li {
+            padding: 0.5rem 0;
+            font-size: 1rem;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+        
+        .island-a .island-features li::before {
+            content: '⚠️';
+            position: absolute;
+            left: 0;
+        }
+        
+        .island-b .island-features li::before {
+            content: '✨';
+            position: absolute;
+            left: 0;
+        }
+        
+        .paradox-section {
+            background: #f8f9fa;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+        
+        .paradox-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .paradox-title {
+            font-size: 2.5rem;
+            font-weight: 300;
+            color: #2c3e50;
+            margin-bottom: 2rem;
+        }
+        
+        .paradox-description {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            color: #555;
+            margin-bottom: 2rem;
+        }
+        
+        .coaching-approach {
+            padding: 4rem 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .approach-title {
+            font-size: 2.5rem;
+            font-weight: 300;
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 3rem;
+        }
+        
+        .approach-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .approach-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .approach-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+        
+        .approach-card h3 {
+            font-size: 1.5rem;
+            font-weight: 500;
+            color: #2c3e50;
+            margin-bottom: 1rem;
+        }
+        
+        .approach-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        .cta-section {
+            background: linear-gradient(135deg, #4C6633 0%, #654321 100%);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+        
+        .cta-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .cta-title {
+            font-size: 2.5rem;
+            font-weight: 300;
+            margin-bottom: 1.5rem;
+        }
+        
+        .cta-description {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: white;
+            color: #4C6633;
+            padding: 1rem 2rem;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .cta-button:hover {
+            background: #f8f9fa;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+        
+        .about-craig {
+            padding: 4rem 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .about-title {
+            font-size: 2.5rem;
+            font-weight: 300;
+            color: #2c3e50;
+            margin-bottom: 2rem;
+        }
+        
+        .about-content {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #555;
+        }
+        
+        .about-content p {
+            margin-bottom: 1.5rem;
+        }
+        
+        @media (max-width: 768px) {
+            .coaching-hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .coaching-hero .subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .island-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .island-title {
+                font-size: 2rem;
+            }
+            
+            .paradox-title,
+            .approach-title,
+            .cta-title,
+            .about-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+    <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-analytics-compat.js"></script>
+    <script>
+        var firebaseConfig = {
+            apiKey: "{{ FIREBASE_API_KEY }}",
+            authDomain: "stillwatersretre-1713628649908.firebaseapp.com",
+            projectId: "stillwatersretre-1713628649908",
+            storageBucket: "stillwatersretre-1713628649908.appspot.com",
+            messagingSenderId: "340290043055",
+            appId: "1:340290043055:web:db8af11f4310619847285a",
+            measurementId: "G-VY28D4VWH1"
+        };
+        firebase.initializeApp(firebaseConfig);
+        firebase.analytics();
+    </script>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-1036707259"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'AW-1036707259');
+    </script>
+</head>
+<body>
+    <div id="app">
+        {{ template "nav.html" . }}
+        
+        <main>
+            <!-- Hero Section -->
+            <section class="coaching-hero">
+                <div class="coaching-hero-content">
+                    <h1>You Built Something That Worked.<br>Now You Want Out.</h1>
+                    <p class="subtitle">You don't want to burn it down. But something has to change.</p>
+                    <p class="tagline">If you're a solopreneur who's successful on paper but waking up thinking, 'I don't want to do this shit anymore,' you're not alone. You've hit the builder's paradox—where the thing you built to set you free has become the thing that's boxing you in.</p>
+                </div>
+            </section>
+
+            <!-- The Builder's Paradox Section -->
+            <section class="paradox-section">
+                <div class="paradox-content">
+                    <h2 class="paradox-title">The Builder's Paradox</h2>
+                    <p class="paradox-description">
+                        You are a builder. You build because you have always craved basking in the tranquility of craftsmanship. 
+                        You build because your soul will never let it go. You build because you love quality and intention. 
+                        You carved your own path to get your work to your people, but now it feels like you are living within the machine—the same machinery that you spent your life breaking free from.
+                    </p>
+                    <p class="paradox-description">
+                        What you crave is to re-imagine a system with soul. A way to feel good about bringing more of what you build to more of who you build for. 
+                        You feel unsettled, but it is not clear why. You feel grateful with abundance, but not vibrant.
+                    </p>
+                </div>
+            </section>
+
+            <!-- Island A and Island B Section -->
+            <section class="island-section">
+                <div class="island-container">
+                    <div class="island-a">
+                        <div class="island-content">
+                            <h2 class="island-title">Island A: Where You Are Now</h2>
+                            <p class="island-description">
+                                You're trapped between only two options: keep getting ground down by the system that you created for yourself, or burn it all down. 
+                                You're angry because you thought that building systems to bring your own creative work products directly to the marketplace would give you lifelong joy and freedom, but you do not feel those things.
+                            </p>
+                            <ul class="island-features">
+                                <li>Feeling trapped by your own success</li>
+                                <li>Waking up dreading the work you once loved</li>
+                                <li>Stuck between grinding it out or burning it down</li>
+                                <li>Successful on paper but empty inside</li>
+                                <li>Living within the machine you built to escape</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="island-b">
+                        <div class="island-content">
+                            <h2 class="island-title">Island B: Where You Want to Be</h2>
+                            <p class="island-description">
+                                Free to explore an exciting array of options. No longer trapped between two possibilities. 
+                                You look elated, vibrant, alert, curious, hopeful and tranquil because you no longer are trapped within the system you built, 
+                                but rather the system you built is supporting your enthusiasm to build.
+                            </p>
+                            <ul class="island-features">
+                                <li>Reconnected with the soul of your work</li>
+                                <li>Excited about new possibilities and directions</li>
+                                <li>Systems that support rather than constrain you</li>
+                                <li>Feeling both accomplished and creatively fulfilled</li>
+                                <li>Thriving with strong spine and soft heart</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Coaching Approach Section -->
+            <section class="coaching-approach">
+                <h2 class="approach-title">How I Help You Cross the Water</h2>
+                <p style="text-align: center; font-size: 1.2rem; color: #666; margin-bottom: 3rem;">
+                    I help you break free from feeling trapped, without burning it all down.
+                </p>
+                
+                <div class="approach-grid">
+                    <div class="approach-card">
+                        <h3>Campfires & Vampires</h3>
+                        <p>"Reclaim the soul of your work" - The energy map creates the necessary clarity to remember where the campfires are on Island A which is full of vampires. "The Fire Starter" helps expand options so that you can un-cage yourself.</p>
+                    </div>
+                    
+                    <div class="approach-card">
+                        <h3>Drifting & Driving</h3>
+                        <p>Find the balance between letting your work flow naturally and taking intentional action. Learn when to drift with inspiration and when to drive toward specific goals.</p>
+                    </div>
+                    
+                    <div class="approach-card">
+                        <h3>Flow & Frustration</h3>
+                        <p>Navigate the natural cycles of creative work. Understand that frustration often precedes breakthrough, and learn to work with these rhythms rather than against them.</p>
+                    </div>
+                    
+                    <div class="approach-card">
+                        <h3>Set And Achieve Exciting Goals</h3>
+                        <p>Create goals that energize rather than drain you. Learn to set objectives that align with your deeper purpose and maintain your creative spark.</p>
+                    </div>
+                    
+                    <div class="approach-card">
+                        <h3>Play Our Favorite Song...Again!</h3>
+                        <p>Modeled after the experience of performers who need to repetitively play the same crowd favorite song night after night. Learn how to keep your work fresh and engaging, even when doing similar tasks repeatedly.</p>
+                    </div>
+                    
+                    <div class="approach-card">
+                        <h3>Soulful Systems</h3>
+                        <p>Create systems that preserve your creative essence while embracing the efficiencies that drive growth. Build a business that feels both accomplished and creatively fulfilling.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- About Craig Section -->
+            <section class="about-craig">
+                <h2 class="about-title">About Coach Craig</h2>
+                <div class="about-content">
+                    <p>
+                        I am a builder—one of you. I draw from the deepest waters of effective psychology and artistic process to help creative entrepreneurs navigate the builder's paradox.
+                    </p>
+                    <p>
+                        My approach combines the wisdom of both business strategy and creative process. I understand what it's like to build something successful only to feel trapped by your own creation. 
+                        I've been there, and I've found a way through.
+                    </p>
+                    <p>
+                        I help you create "soulful systems"—approaches that preserve your creative essence while still embracing the efficiencies that drive growth. 
+                        It's all about helping you feel both accomplished and creatively fulfilled.
+                    </p>
+                </div>
+            </section>
+
+            <!-- Call to Action Section -->
+            <section class="cta-section">
+                <div class="cta-content">
+                    <h2 class="cta-title">Ready to Break Free?</h2>
+                    <p class="cta-description">
+                        If you're a creative entrepreneur who's successful but feeling trapped by your own systems, 
+                        let's work together to create a path forward that honors both your business success and your creative soul.
+                    </p>
+                    <a href="/contact" class="cta-button">Start Your Journey</a>
+                </div>
+            </section>
+        </main>
+    </div>
+</body>
+</html>
+

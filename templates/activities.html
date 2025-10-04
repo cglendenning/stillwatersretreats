@@ -10,6 +10,51 @@
     <title>Activities</title>
     <link href="/static/styles.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;700&family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        .activities-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .activity-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            max-width: 300px;
+        }
+        .activity-link {
+            display: block;
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+        .activity-link:hover {
+            transform: translateY(-5px);
+        }
+        .activity-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: box-shadow 0.3s ease;
+        }
+        .activity-link:hover .activity-image {
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+        .activity-title {
+            margin-top: 1rem;
+            font-size: 1.5rem;
+            font-weight: 300;
+            color: #333;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+    </style>
     <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-analytics-compat.js"></script>
    <script>
@@ -45,6 +90,29 @@
 	<section class="intro">
 	    <h2>Activities</h2>
 	    <p>Discover the activities available during your retreat.</p>
+	</section>
+	
+	<section class="activities-container">
+	    <div class="activity-item">
+	        <a href="/coaching" class="activity-link">
+	            <img src="/assets/photo/journaling.jpg" alt="Coaching Activity" class="activity-image">
+	        </a>
+	        <h3 class="activity-title">Coaching</h3>
+	    </div>
+	    
+	    <div class="activity-item">
+	        <a href="/coffee" class="activity-link">
+	            <img src="/assets/photo/bvc/Morning_Coffee.jpg" alt="Coffee Service" class="activity-image">
+	        </a>
+	        <h3 class="activity-title">Coffee</h3>
+	    </div>
+	    
+	    <div class="activity-item">
+	        <a href="/crossfit" class="activity-link">
+	            <img src="/assets/photo/7kcrossfit.webp" alt="CrossFit Training" class="activity-image">
+	        </a>
+	        <h3 class="activity-title">CrossFit</h3>
+	    </div>
 	</section>
     </main>
 </div>

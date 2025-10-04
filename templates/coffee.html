@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" href="/assets/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png" type="image/png">
+    <link rel="icon" sizes="192x192" href="/assets/android-chrome-192x192.png" type="image/png">
+    <link rel="icon" sizes="512x512" href="/assets/android-chrome-512x512.png" type="image/png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coffee Service - Still Waters Retreat</title>
+    <link href="/static/styles.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        .coffee-hero {
+            background: linear-gradient(135deg, #8B4513 0%, #D2691E 100%);
+            color: white;
+            padding: 6rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .coffee-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('/assets/photo/journaling.jpg') center/cover;
+            opacity: 0.1;
+            z-index: 0;
+        }
+        
+        .coffee-hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .coffee-hero h1 {
+            font-size: 3.5rem;
+            font-weight: 300;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+        
+        .coffee-hero .subtitle {
+            font-size: 1.5rem;
+            font-weight: 300;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            line-height: 1.4;
+        }
+        
+        .coffee-hero .tagline {
+            font-size: 1.1rem;
+            font-style: italic;
+            opacity: 0.8;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .coffee-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+        
+        .coffee-intro {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        
+        .coffee-intro h2 {
+            font-size: 2.5rem;
+            font-weight: 300;
+            color: #2c3e50;
+            margin-bottom: 2rem;
+        }
+        
+        .coffee-intro p {
+            font-size: 1.2rem;
+            color: #666;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+        }
+        
+        .coffee-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 4rem 0;
+        }
+        
+        .feature-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .feature-card h3 {
+            font-size: 1.5rem;
+            font-weight: 500;
+            color: #2c3e50;
+            margin-bottom: 1rem;
+        }
+        
+        .feature-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        .coffee-company {
+            background: linear-gradient(135deg, #4C6633 0%, #654321 100%);
+            color: white;
+            padding: 4rem 2rem;
+            margin: 4rem 0;
+            border-radius: 15px;
+        }
+        
+        .company-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .company-title {
+            font-size: 2.5rem;
+            font-weight: 300;
+            margin-bottom: 2rem;
+        }
+        
+        .company-description {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        
+        .company-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .company-detail {
+            background: rgba(255,255,255,0.1);
+            padding: 1.5rem;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .company-detail h4 {
+            font-size: 1.2rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+        
+        .company-detail p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        
+        .delivery-info {
+            background: #f8f9fa;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+        
+        .delivery-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .delivery-title {
+            font-size: 2.5rem;
+            font-weight: 300;
+            color: #2c3e50;
+            margin-bottom: 2rem;
+        }
+        
+        .delivery-description {
+            font-size: 1.2rem;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+        }
+        
+        .delivery-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .delivery-feature {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .delivery-feature h4 {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+        }
+        
+        .delivery-feature p {
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .cta-section {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: linear-gradient(135deg, #8B4513 0%, #D2691E 100%);
+            color: white;
+        }
+        
+        .cta-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .cta-title {
+            font-size: 2.5rem;
+            font-weight: 300;
+            margin-bottom: 1.5rem;
+        }
+        
+        .cta-description {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: white;
+            color: #8B4513;
+            padding: 1rem 2rem;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .cta-button:hover {
+            background: #f8f9fa;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+        
+        .external-link {
+            color: #D2691E;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .external-link:hover {
+            text-decoration: underline;
+        }
+        
+        @media (max-width: 768px) {
+            .coffee-hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .coffee-hero .subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .coffee-intro h2,
+            .company-title,
+            .delivery-title,
+            .cta-title {
+                font-size: 2rem;
+            }
+            
+            .coffee-features,
+            .company-details,
+            .delivery-features {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+    <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-analytics-compat.js"></script>
+    <script>
+        var firebaseConfig = {
+            apiKey: "{{ FIREBASE_API_KEY }}",
+            authDomain: "stillwatersretre-1713628649908.firebaseapp.com",
+            projectId: "stillwatersretre-1713628649908",
+            storageBucket: "stillwatersretre-1713628649908.appspot.com",
+            messagingSenderId: "340290043055",
+            appId: "1:340290043055:web:db8af11f4310619847285a",
+            measurementId: "G-VY28D4VWH1"
+        };
+        firebase.initializeApp(firebaseConfig);
+        firebase.analytics();
+    </script>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-1036707259"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'AW-1036707259');
+    </script>
+</head>
+<body>
+    <div id="app">
+        {{ template "nav.html" . }}
+        
+        <main>
+            <!-- Hero Section -->
+            <section class="coffee-hero">
+                <div class="coffee-hero-content">
+                    <h1>Fresh Coffee Delivery</h1>
+                    <p class="subtitle">Start Your Day with Mountain-Roasted Perfection</p>
+                    <p class="tagline">Have your coffee delivered at the time of your choosing each morning from Big Bear Coffee Roasting Company</p>
+                </div>
+            </section>
+
+            <!-- Coffee Introduction -->
+            <section class="coffee-intro">
+                <h2>Elevate Your Morning Ritual</h2>
+                <p>
+                    There's nothing quite like starting your day with a perfectly crafted cup of coffee, especially when it's delivered fresh to your cabin door. 
+                    We've partnered with <a href="https://www.bigbearcoffeeroastingcompany.com" target="_blank" class="external-link">Big Bear Coffee Roasting Company</a> 
+                    to bring you the finest locally roasted coffee, delivered at your preferred time each morning.
+                </p>
+                <p>
+                    Whether you're beginning a day of deep work, creative thinking, or simply want to savor the mountain air with a perfect cup, 
+                    our coffee service ensures your morning ritual is nothing short of exceptional.
+                </p>
+            </section>
+
+            <!-- Coffee Features -->
+            <section class="coffee-content">
+                <div class="coffee-features">
+                    <div class="feature-card">
+                        <div class="feature-icon">☕</div>
+                        <h3>Fresh Daily Roasting</h3>
+                        <p>Each morning, your coffee is freshly roasted by skilled artisans who understand the craft from seed to cup. No automated processes, just pure craftsmanship.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">⏰</div>
+                        <h3>Flexible Timing</h3>
+                        <p>Choose your preferred delivery time each morning. Whether you're an early riser or prefer a leisurely start, we accommodate your schedule.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">🏔️</div>
+                        <h3>Mountain Crafted</h3>
+                        <p>Roasted at altitude in Big Bear Lake, our coffee captures the essence of the mountains in every cup. Experience coffee with true altitude.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">🌱</div>
+                        <h3>Quality Beans</h3>
+                        <p>We source only the finest green coffee beans, respecting the entire process from growing and farming to processing and sorting.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">❄️</div>
+                        <h3>Cold Brew Options</h3>
+                        <p>Enjoy our signature 72-hour cold brew process that yields lower acidity and a smooth, refreshing flavor that's twice as strong.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">🚪</div>
+                        <h3>Doorstep Delivery</h3>
+                        <p>Your coffee arrives fresh at your cabin door, allowing you to focus on your work or relaxation without any interruption to your flow.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Big Bear Coffee Roasting Company -->
+            <section class="coffee-company">
+                <div class="company-content">
+                    <h2 class="company-title">About Big Bear Coffee Roasting Company</h2>
+                    <p class="company-description">
+                        At <a href="https://www.bigbearcoffeeroastingcompany.com" target="_blank" class="external-link" style="color: #D2691E;">Big Bear Coffee Roasting Company</a>, 
+                        they believe that a cup of coffee is beautiful in its simplicity, but the process from seed to cup is far from simple. 
+                        It's an unbelievable result stemming from growing, farming, processing & sorting the fruit.
+                    </p>
+                    
+                    <div class="company-details">
+                        <div class="company-detail">
+                            <h4>Artisan Roasting</h4>
+                            <p>Using a Diedrich Roaster, they constantly evaluate and experiment with each new arrival, searching for that bean's optimal finish temperature and roast time.</p>
+                        </div>
+                        
+                        <div class="company-detail">
+                            <h4>No Automation</h4>
+                            <p>Their roaster is not automated and they don't use profiling software. Every batch is carefully crafted by skilled roasters who understand the craft.</p>
+                        </div>
+                        
+                        <div class="company-detail">
+                            <h4>Health Benefits</h4>
+                            <p>Their cold brew process takes 72 hours, yielding lower acidity and providing antioxidants, phytochemicals, and other nutrients without the discomfort of hot coffee.</p>
+                        </div>
+                        
+                        <div class="company-detail">
+                            <h4>Local Craft</h4>
+                            <p>Located at 41080 Big Bear Blvd, they're a true local business that understands the mountain community and the importance of quality coffee.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Delivery Information -->
+            <section class="delivery-info">
+                <div class="delivery-content">
+                    <h2 class="delivery-title">How It Works</h2>
+                    <p class="delivery-description">
+                        Our coffee delivery service is designed to seamlessly integrate into your retreat experience, 
+                        ensuring you never have to compromise on quality or convenience.
+                    </p>
+                    
+                    <div class="delivery-features">
+                        <div class="delivery-feature">
+                            <h4>1. Choose Your Time</h4>
+                            <p>Select your preferred delivery time when booking your retreat or upon arrival.</p>
+                        </div>
+                        
+                        <div class="delivery-feature">
+                            <h4>2. Fresh Preparation</h4>
+                            <p>Your coffee is prepared fresh each morning using the finest locally roasted beans.</p>
+                        </div>
+                        
+                        <div class="delivery-feature">
+                            <h4>3. Timely Delivery</h4>
+                            <p>Arrives at your cabin door at your chosen time, ready to start your day.</p>
+                        </div>
+                        
+                        <div class="delivery-feature">
+                            <h4>4. Enjoy & Focus</h4>
+                            <p>Savor your perfect cup while diving into your deep work or creative projects.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Call to Action -->
+            <section class="cta-section">
+                <div class="cta-content">
+                    <h2 class="cta-title">Ready to Elevate Your Retreat?</h2>
+                    <p class="cta-description">
+                        Add our coffee delivery service to your retreat experience and start each day with the perfect cup of mountain-roasted coffee.
+                    </p>
+                    <a href="/contact" class="cta-button">Book Your Retreat</a>
+                </div>
+            </section>
+        </main>
+    </div>
+</body>
+</html>
+

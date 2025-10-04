@@ -59,6 +59,9 @@ func main() {
 		"templates/bearviewcove.html",
 		"templates/victoriapines.html",
 		"templates/activities.html",
+		"templates/coaching.html",
+		"templates/coffee.html",
+		"templates/crossfit.html",
 		"templates/howitworks.html",
 		"templates/pricing.html",
 		"templates/packages.html",
@@ -109,6 +112,15 @@ func main() {
 	})
 	e.GET("/activities", func(c echo.Context) error {
 		return c.Render(http.StatusOK, "activities.html", getTemplateData("Activities"))
+	})
+	e.GET("/coaching", func(c echo.Context) error {
+		return c.Render(http.StatusOK, "coaching.html", getTemplateData("Coaching with Craig"))
+	})
+	e.GET("/coffee", func(c echo.Context) error {
+		return c.Render(http.StatusOK, "coffee.html", getTemplateData("Coffee Service"))
+	})
+	e.GET("/crossfit", func(c echo.Context) error {
+		return c.Render(http.StatusOK, "crossfit.html", getTemplateData("CrossFit Training"))
 	})
 	e.GET("/howitworks", func(c echo.Context) error {
 		return c.Render(http.StatusOK, "howitworks.html", getTemplateData("How It Works"))

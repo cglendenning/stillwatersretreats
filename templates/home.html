@@ -18,7 +18,102 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Still Waters Retreats - Quiet Cabins for Deep Thinking</title>
     <link href="/static/styles.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;700&family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+         .cabin-chooser {
+             margin: 3rem auto;
+             max-width: 1200px;
+             width: 100%;
+         }
+        
+         .cabin-options {
+             display: grid;
+             grid-template-columns: 1fr 1fr;
+             gap: 2rem;
+             margin-top: 3rem;
+         }
+        
+         .cabin-option {
+             display: block;
+             background: rgba(255, 255, 255, 0.95);
+             border-radius: 15px;
+             overflow: hidden;
+             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+             transition: transform 0.3s ease, box-shadow 0.3s ease;
+             backdrop-filter: blur(10px);
+             text-decoration: none;
+             color: inherit;
+         }
+        
+        .cabin-option:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+        }
+        
+        .cabin-image {
+            width: 100%;
+            height: 250px;
+            overflow: hidden;
+        }
+        
+        .cabin-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        
+        .cabin-option:hover .cabin-image img {
+            transform: scale(1.05);
+        }
+        
+         .cabin-info {
+             padding: 2rem;
+             text-align: center;
+         }
+        
+        .cabin-info h3 {
+            font-family: 'Ubuntu', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 300;
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+        }
+        
+         .cabin-subtitle {
+             font-size: 1rem;
+             color: #666;
+             margin-bottom: 1rem;
+             font-style: italic;
+         }
+        
+         .cabin-description {
+             font-size: 0.95rem;
+             color: #555;
+             line-height: 1.5;
+             margin-bottom: 1.5rem;
+         }
+        
+        
+        @media (max-width: 768px) {
+            .cabin-options {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .cabin-option {
+                margin: 0 1rem;
+            }
+            
+            .cabin-info {
+                padding: 1.5rem;
+            }
+            
+            .cabin-info h3 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
     <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-analytics-compat.js"></script>
     <script>
@@ -57,17 +152,44 @@
 	Choose from Bear View Cove or Victoria Pines to begin your next breakthrough.<br>
 	Each cabin is perfectly located, quiet, modern and ready for deep work.<br> 	
         </p>
-        <div class="yellow-container">
-            <a href="/howitworks" class="yellow-btn">Cabins</a>
+        
+        <!-- Cabin Chooser Section -->
+        <div class="cabin-chooser">
+            <div class="cabin-options">
+                <a href="/bearviewcove" class="cabin-option">
+                    <div class="cabin-image">
+                        <img src="/assets/photo/bvc/bvc.jpg" alt="Bear View Cove Cabin">
+                    </div>
+                    <div class="cabin-info">
+                        <h3>Bear View Cove</h3>
+                <p class="cabin-subtitle">Deck with view • 1 BR (Queen) + Loft (2 Full) • 1 Bath</p>
+                <p class="cabin-description">Mountain peace and quiet awaits you in this cozy, clean and bright perfect mountain cabin in the coveted upper moonridge area.</p>
+                    </div>
+                </a>
+                
+                <a href="/victoriapines" class="cabin-option">
+                    <div class="cabin-image">
+                        <img src="/assets/photo/vp/vp.jpg" alt="Victoria Pines Cabin">
+                    </div>
+                    <div class="cabin-info">
+                        <h3>Victoria Pines</h3>
+                        <p class="cabin-subtitle">Deck • Walk To Zoo • 2 Bed, 2 Bath • BBQ • Firepit • Trails</p>
+			<p class="cabin-description">Escape to our mountain cottage in the coveted lower moonridge neighborhood with a 5 minute walk to the free Big Bear Trolley.</p>
+                    </div>
+                </a>
+            </div>
         </div>
         <script>
             window.onload = function() {
-                var learnMoreButton = document.querySelector('.yellow-btn');
-                if (learnMoreButton) {
-                    learnMoreButton.addEventListener('click', function() {
-                        firebase.analytics().logEvent('learn_more_clicked');
+                var cabinOptions = document.querySelectorAll('.cabin-option');
+                cabinOptions.forEach(function(option) {
+                    option.addEventListener('click', function() {
+                        var cabinName = this.href.includes('bearviewcove') ? 'bear_view_cove' : 'victoria_pines';
+                        firebase.analytics().logEvent('cabin_selected', {
+                            cabin: cabinName
+                        });
                     });
-                }
+                });
                 
                 var video = document.getElementById('background-video');
                 var staticImage = document.getElementById('static-image');
