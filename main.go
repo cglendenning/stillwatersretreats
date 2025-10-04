@@ -70,7 +70,10 @@ func main() {
 	e.POST("/send-email", sendEmailHandler)
 	e.POST("/send-booking", sendBookingHandler)
 
-	e.Pre(middleware.HTTPSRedirect())
+	// Only enable HTTPS redirect in production (not localhost)
+	if os.Getenv("ENVIRONMENT") != "local" {
+		e.Pre(middleware.HTTPSRedirect())
+	}
 	e.Logger.Fatal(e.Start(":8080"))
 }
 
