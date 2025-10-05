@@ -644,4 +644,32 @@ img {
     nav a {
         padding: 8px 10px; /* Smaller padding on smaller screens */
     }
+}
+
+/* Mobile-specific fixes for iPhone 12 mini and similar small screens */
+@media (max-width: 390px) {
+    nav {
+        padding: 0.5rem 0.5rem;
+    }
+    
+    .nav-links {
+        gap: 1.5vw;
+        padding: 0 1vw;
+        margin-left: 60px; /* Account for logo space */
+    }
+    
+    nav a {
+        font-size: 13px;
+        padding: 6px 8px;
+    }
+    
+    .nav-logo {
+        height: 40px;
+        width: 40px;
+    }
+    
+    .logo-link {
+        left: 0.5rem;
+    }
+}
 
