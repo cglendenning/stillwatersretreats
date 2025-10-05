@@ -20,6 +20,54 @@
     <link href="/static/styles.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
+        /* Video Hero - Top 50% only */
+        .video-hero {
+            position: relative;
+            width: 100%;
+            height: 50vh; /* Only top 50% of viewport */
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .video-hero img,
+        .video-hero video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        
+        /* Home Content - Below video */
+        .home-content {
+            position: relative;
+            z-index: 2;
+            background: white;
+            padding: 3rem 2rem;
+        }
+        
+        .intro-text {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 3rem auto;
+        }
+        
+        .intro-text h1 {
+            font-family: 'Ubuntu', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 300;
+            color: #2c3e50;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+        
+        .intro-text p {
+            font-family: 'Open Sans', sans-serif;
+            font-size: 1.1rem;
+            color: #555;
+            line-height: 1.6;
+            margin: 0;
+        }
+        
         .cabin-chooser {
             margin: 3rem auto 0 auto; /* remove bottom margin to tighten spacing above gallery */
             max-width: 90vw;
@@ -108,6 +156,22 @@
         .gallery-caption { display: none; }
         
         @media (max-width: 768px) {
+            .video-hero {
+                height: 40vh; /* Slightly smaller on mobile */
+            }
+            
+            .home-content {
+                padding: 2rem 1rem;
+            }
+            
+            .intro-text h1 {
+                font-size: 2rem;
+            }
+            
+            .intro-text p {
+                font-size: 1rem;
+            }
+            
             .cabin-options {
                 grid-template-columns: 1fr;
                 gap: 1.25rem;
@@ -137,7 +201,8 @@
 </head>
 <body>
     {{ template "nav.html" . }}
-    <div class="video-container">
+    <!-- Video Section - Top 50% only -->
+    <div class="video-hero">
         <!-- Static Image Placeholder -->
         <img src="/static/Lake.jpg" id="static-image" alt="Still Waters Retreat">
         <!-- Video Element Hidden Initially -->
@@ -146,14 +211,17 @@
             Your browser does not support the video tag.
         </video>
     </div>
-    <div class="home-page-content">
-        <h1>COME TO THE MOUNTAINS TO THINK.</h1>
-	Build your next breakthrough just minutes from Big Bear Lake in the mountains of California.<br>
-	Experience the sanctuary of the mountains and engage in the tranquility of your craft.<br>
-	Environment is <i>everything</i>.<br><br>
-	Choose from Bear View Cove or Victoria Pines to begin your next breakthrough.<br>
-	Each cabin is perfectly located, quiet, modern and ready for deep work.<br> 	
-        </p>
+    
+    <!-- Content Section - Below video -->
+    <div class="home-content">
+        <div class="intro-text">
+            <h1>COME TO THE MOUNTAINS TO THINK.</h1>
+            <p>Build your next breakthrough just minutes from Big Bear Lake in the mountains of California.<br>
+            Experience the sanctuary of the mountains and engage in the tranquility of your craft.<br>
+            Environment is <i>everything</i>.<br><br>
+            Choose from Bear View Cove or Victoria Pines to begin your next breakthrough.<br>
+            Each cabin is perfectly located, quiet, modern and ready for deep work.</p>
+        </div>
         
         <!-- Cabin Images with Overlay Titles -->
         <div class="cabin-chooser">
