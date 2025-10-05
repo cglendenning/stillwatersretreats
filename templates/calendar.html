@@ -38,19 +38,316 @@
 
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js'></script>
     <style>
-	#selected-image {
+        /* Calendar Container Styling */
+        #calendar-container {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 2rem auto;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            max-width: 1000px;
+        }
+
+        /* FullCalendar Custom Styling */
+        .fc {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .fc-toolbar {
+            margin-bottom: 2rem !important;
+            padding: 1rem 0;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .fc-toolbar-title {
+            font-family: 'Ubuntu', sans-serif !important;
+            font-size: 2rem !important;
+            font-weight: 600 !important;
+            color: #2c3e50 !important;
+            margin: 0 !important;
+        }
+
+        .fc-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+            border: none !important;
+            border-radius: 8px !important;
+            padding: 0.5rem 1rem !important;
+            font-weight: 500 !important;
+            transition: all 0.3s ease !important;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3) !important;
+        }
+
+        .fc-button:hover {
+            transform: translateY(-2px) !important;
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4) !important;
+        }
+
+        .fc-button:active {
+            transform: translateY(0) !important;
+        }
+
+        .fc-button-primary:not(:disabled):active {
+            background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%) !important;
+        }
+
+        /* Calendar Grid Styling */
+        .fc-daygrid-day {
+            border: 1px solid #e9ecef !important;
+            transition: all 0.3s ease !important;
+        }
+
+        .fc-daygrid-day:hover {
+            background-color: #f8f9fa !important;
+        }
+
+        .fc-daygrid-day-number {
+            font-weight: 500 !important;
+            color: #2c3e50 !important;
+            padding: 0.5rem !important;
+        }
+
+        .fc-day-today {
+            background-color: #e3f2fd !important;
+        }
+
+        .fc-day-today .fc-daygrid-day-number {
+            color: #1976d2 !important;
+            font-weight: 700 !important;
+        }
+
+        /* Selection Styling - Simplified */
+        .fc-highlight {
+            background: #000000 !important;
+            opacity: 0.2 !important;
+        }
+
+        .fc-daygrid-day.fc-day-today.fc-highlight {
+            background: #000000 !important;
+            opacity: 0.3 !important;
+        }
+
+        /* Hover effect for selectable days */
+        .fc-daygrid-day:hover {
+            background: #f8f9fa !important;
+            cursor: pointer !important;
+        }
+
+        /* Event Styling - Booked dates */
+        .fc-event {
+            background: #6c757d !important;
+            border: none !important;
+            border-radius: 4px !important;
+            padding: 2px 6px !important;
+            font-size: 0.8rem !important;
+            font-weight: 500 !important;
+            position: relative !important;
+        }
+
+        .fc-event-title {
+            color: white !important;
+        }
+
+        /* Crossed out indicator for booked dates */
+        .fc-event::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 10%;
+            right: 10%;
+            height: 2px;
+            background: #dc3545;
+            transform: translateY(-50%) rotate(-45deg);
+            z-index: 1;
+        }
+
+        /* Available dates styling */
+        .fc-event.available-day {
+            background: #28a745 !important;
+        }
+
+        .fc-event.available-day::after {
+            display: none;
+        }
+
+        /* Booked dates styling */
+        .fc-event.booked-day {
+            background: #6c757d !important;
+        }
+
+        .fc-event.booked-day::after {
+            display: block;
+        }
+
+        /* Simplified day cell styling */
+        .fc-daygrid-day {
+            transition: background-color 0.2s ease;
+        }
+
+        /* Header Styling */
+        .fc-col-header-cell {
+            background: #f8f9fa !important;
+            color: #2c3e50 !important;
+            font-weight: 600 !important;
+            padding: 1rem 0.5rem !important;
+            border: 1px solid #e9ecef !important;
+        }
+
+        /* Do not dim next/prev month days; show them normally */
+        .fc-day-other { opacity: 1 !important; }
+        .fc-day-other .fc-daygrid-day-number { color: #2c3e50 !important; }
+
+        /* Month prefix for other-month days injected via data attribute */
+        .fc-day-other .fc-daygrid-day-number::before {
+            content: attr(data-month-prefix) " ";
+            color: #2c3e50;
+            font-weight: 600;
+        }
+
+        /* Selected Dates Display */
+        #selected-dates {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin: 2rem auto;
+            max-width: 600px;
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: #2c3e50;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            border: 2px solid #e9ecef;
+        }
+
+        /* Submit Button Styling */
+        .next-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 1rem 3rem;
+            font-size: 1.2rem;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+            margin-top: 2rem;
+            /* ensure text perfectly centered */
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 1;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        .next-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(102, 126, 234, 0.4);
+        }
+
+        .next-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Cabin Image Styling */
+        #selected-image {
             width: auto;
             height: auto;
             max-width: 45%;
             max-height: 100%;
-            display: none; /* Hidden by default */
+            display: none;
+            margin: 0 auto; /* center horizontally */
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            pointer-events: none; /* not clickable */
+            cursor: default;
         }
 
+        .cabin-box {
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        /* Cabin summary styling */
+        .cabin-summary {
+            max-width: 900px;
+            margin: 0.5rem auto 2rem auto;
+            background: #ffffff;
+            border-radius: 14px;
+            border: 1px solid #e9ecef;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+            padding: 1.25rem 1.5rem;
+            color: #2c3e50;
+        }
+        .cabin-summary h3 {
+            font-family: 'Ubuntu', sans-serif;
+            margin: 0 0 0.5rem 0;
+            font-weight: 500;
+        }
+        .cabin-summary p {
+            margin: 0.25rem 0;
+            color: #556;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            #calendar-container {
+                margin: 1rem;
+                padding: 1rem;
+            }
+            
+            .fc-toolbar-title {
+                font-size: 1.5rem !important;
+            }
+            
+            .fc-button {
+                padding: 0.4rem 0.8rem !important;
+                font-size: 0.9rem !important;
+            }
+            
+            #selected-dates {
+                margin: 1rem;
+                padding: 1rem;
+                font-size: 1rem;
+            }
+        }
+
+        /* Loading Animation */
+        .calendar-loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 200px;
+            font-size: 1.2rem;
+            color: #667eea;
+        }
+
+        .calendar-loading::after {
+            content: '';
+            width: 20px;
+            height: 20px;
+            border: 2px solid #f3f3f3;
+            border-top: 2px solid #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-left: 10px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
     </style>
 </head>
 <body>
         {{ template "nav.html" . }}    <div class="cabin-box">
-	    <img id="selected-image" src="" style="border-radius: 20px;">  
+        <img id="selected-image" src="" style="border-radius: 20px;">  
+        <div class="cabin-summary" id="cabin-summary" style="display:none;"></div>
         </div>
     <div id="calendar-container">
         <div id='calendar'></div>
@@ -87,7 +384,15 @@
                     let end = info.endStr;
 
                     if (allDaysAvailable(start, end, eventData)) {
-                        document.getElementById('selected-dates').textContent = `Check-in on ${start} and check-out on ${end}`;
+                        // Nice summary with MM/DD/YYYY and nights count
+                        const [y1, m1, d1] = start.split('-');
+                        const [y2, m2, d2] = end.split('-');
+                        const startFmt = `${m1}/${d1}/${y1}`;
+                        const endFmt = `${m2}/${d2}/${y2}`;
+                        const startDateObj = new Date(start);
+                        const endDateObj = new Date(end);
+                        const nights = Math.max(1, Math.round((endDateObj - startDateObj) / (1000 * 60 * 60 * 24)));
+                        document.getElementById('selected-dates').textContent = `Selected stay: Check-in ${startFmt} · Check-out ${endFmt} (${nights} night${nights!==1?'s':''})`;
                         document.getElementById('start-date').value = start;
                         document.getElementById('end-date').value = end;
                         document.getElementById('prop').value = queryParams.get('prop');
@@ -118,7 +423,8 @@
                                 start: day.date,
                                 end: day.date,
                                 allDay: true,
-                                color: day.status === "AVAILABLE" ? 'green' : 'red',
+                                color: day.status === "AVAILABLE" ? 'green' : 'grey',
+                                classNames: day.status === "AVAILABLE" ? 'available-day' : 'booked-day'
                             }));
                             successCallback(events);
                         })
@@ -127,8 +433,46 @@
                             failureCallback(error);
                         });
                 }
+                ,
+                datesSet: function() {
+                    // Annotate other-month days with (MonAbbrev)
+                    annotateOtherMonthLabels();
+                }
             });
             calendar.render();
+            // Initial annotate after first render
+            annotateOtherMonthLabels();
+
+            function annotateOtherMonthLabels() {
+                // Clear any prior attribute
+                document.querySelectorAll('.fc-daygrid-day-number').forEach(function(numEl){
+                    numEl.removeAttribute('data-month-prefix');
+                });
+                // Apply prefixes only to other-month days via attribute (CSS ::before renders it)
+                var cells = document.querySelectorAll('.fc-daygrid-day.fc-day-other');
+                cells.forEach(function(cell){
+                    var dateStr = cell.getAttribute('data-date');
+                    var numEl = cell.querySelector('.fc-daygrid-day-number');
+                    if (!dateStr || !numEl) return;
+                    var d = new Date(dateStr + 'T00:00:00');
+                    var monthAbbrev = d.toLocaleString('en-US', { month: 'short' });
+                    numEl.setAttribute('data-month-prefix', '(' + monthAbbrev + ')');
+                });
+            }
+            // Deselect when clicking outside the calendar and disable NEXT
+            document.addEventListener('click', function(e) {
+                var container = document.getElementById('calendar-container');
+                var form = document.getElementById('date-range-form');
+                // Only clear selection when clicking outside BOTH the calendar and the form/button
+                if (!container.contains(e.target) && !form.contains(e.target)) {
+                    calendar.unselect();
+                    submitButton.disabled = true;
+                    // Clear displayed selection and hidden fields
+                    document.getElementById('selected-dates').textContent = 'Please select the dates for your retreat!';
+                    document.getElementById('start-date').value = '';
+                    document.getElementById('end-date').value = '';
+                }
+            });
         });
 
         function allDaysAvailable(start, end, eventData) {
@@ -161,15 +505,25 @@
         function displaySelectedImage() {
             const prop = getQueryParameter('prop');
             const imageElement = document.getElementById('selected-image');
+            const summary = document.getElementById('cabin-summary');
             if (prop === 'vp') {
                 imageElement.src = '/assets/photo/vp/vp.jpg';
+                if (summary) {
+                    summary.style.display = 'block';
+                    summary.innerHTML = '<h3>Victoria Pines</h3><p>2 BR (King + Queen) · 2 Bath · Walk to Zoo · BBQ · Firepit</p>';
+                }
             } else if (prop === 'bvc') {
                 imageElement.src = '/assets/photo/bvc/bvc.jpg';
+                if (summary) {
+                    summary.style.display = 'block';
+                    summary.innerHTML = '<h3>Bear View Cove</h3><p>1 BR (Queen) + Loft (2 Full) · 1 Bath · Deck with View</p>';
+                }
             }
             if (prop) {
                 imageElement.style.display = 'block';
             } else {
                 console.warn(`No image for selected value: '${prop}'`);
+                if (summary) { summary.style.display = 'none'; }
             }
         }
 

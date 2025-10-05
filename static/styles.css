@@ -214,25 +214,7 @@ video {
     margin-top: 0; /* Remove top margin since header is fixed */
 }
 
-#calendar-container {
-    width: 100%; /* Default to full width on smaller screens */
-}
-
-@media (min-width: 600px) {
-    #calendar-container {
-	    margin-left: auto;
-    margin-right: auto;
-        width: 50%; /* Makes the form take up 90% of the screen width */
-    }
-}
-
-#calendar {
-    width: 100%;
-}
-
-.fc-highlight {
-    background-color: #AACCFF !important;
-}
+/* Calendar styling moved to calendar.html for better customization */
 
 #selected-image {
     width: auto;

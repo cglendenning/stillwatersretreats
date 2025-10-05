@@ -28,56 +28,113 @@
     <link href="/static/styles.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;700&family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        input, textarea {
+        .contact-hero {
+            max-width: 1100px;
+            margin: 2rem auto 1rem auto;
+            padding: 0 1rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            align-items: center;
+        }
+        .contact-hero img {
             width: 100%;
+            height: auto; /* show full image height proportionally */
+            object-fit: contain; /* prevent cropping */
+            border-radius: 14px;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+            background: #000; /* letterbox background where needed */
         }
-        .info-container {
-            position: relative;
-            overflow: hidden;
-	    padding-bottom: 56.25%;
-	    height: 0;
-            max-width: 100%;
-            margin: 20px auto; /* Center the video */
+        .contact-copy h1 { font-family: 'Ubuntu', sans-serif; font-weight: 500; margin: 0 0 .5rem 0; }
+        .contact-copy p { color: #445; line-height: 1.6; margin: .25rem 0; }
+
+        .contact-grid {
+            max-width: 1100px;
+            margin: 1rem auto 3rem auto;
+            padding: 0 1rem;
+            display: grid;
+            grid-template-columns: 2fr 1fr; /* widen form column */
+            gap: 2rem;
+            align-items: start;
         }
-        .info-container iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
+        .card {
+            background: #fff;
+            border: 1px solid #e9ecef;
+            border-radius: 14px;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.07);
+            padding: 1.5rem;
+        }
+        .card h3 { font-family: 'Ubuntu', sans-serif; margin: 0 0 .75rem 0; }
+
+        .contact form label { display: block; font-weight: 600; margin: .75rem 0 .35rem; }
+        .contact input, .contact textarea {
             width: 100%;
-            height: 100%;
+            border: 1px solid #dfe3e8;
+            border-radius: 10px;
+            padding: .8rem 1rem;
+            font-size: 1rem;
+            outline: none;
+            background: #f9fafb;
+            transition: border-color .2s ease, box-shadow .2s ease;
         }
-        @media (min-width: 600px) {
-            .info-container {
-                width: 50%;
-            }
+        .contact input:focus, .contact textarea:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 4px rgba(102,126,234,0.15);
+            background: #fff;
         }
-        @media (max-width: 599px) {
-            .info-container {
-                width: 100%;
-            }
+        .contact textarea { min-height: 140px; resize: vertical; }
+        .contact button {
+            margin-top: 1rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff; border: none; padding: .9rem 1.5rem; border-radius: 999px;
+            font-weight: 700; cursor: pointer; box-shadow: 0 10px 25px rgba(102,126,234,.35);
+            transition: transform .2s ease, box-shadow .2s ease;
         }
+        .contact button:hover { transform: translateY(-1px); box-shadow: 0 14px 30px rgba(102,126,234,.45); }
+
+        @media (max-width: 599px) { .contact-hero, .contact-grid { grid-template-columns: 1fr; } .contact-hero img { height: 260px; } }
     </style>
 </head>
 <body>
     <div id="app">
         {{ template "nav.html" . }}
         <main>
-            <center>
-                <p class="info">How can I help? Please reach out for anything. I check email a couple times a day, so I will get back to you soon.</p>
-                <div class="info-container">
-                    <iframe src="https://www.youtube.com/embed/{{ YOUTUBE_VIDEO_ID }}" 
-                            frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                            allowfullscreen></iframe>
+            <section class="contact-hero">
+                <img src="/assets/photo/host.jpg" alt="Your Host">
+                <div class="contact-copy">
+                    <h1>We’d Love to Host Your Deep Work Retreat</h1>
+                    <p>At Still Waters Retreats, intentional design meets quiet mountain air. Each cabin is curated for clarity and flow—fast Wi‑Fi when you need it; stillness when you want it. Step onto a deck with pine‑scented breezes, reset your pace, and do your best thinking.</p>
+                    <p>Whether you’re architecting a product, drafting a book, or taking a reset from the noise—our spaces are built for focus, comfort, and restoration.</p>
+                    <p>Questions? Ideas? Special requests? Send a note—I respond quickly.</p>
                 </div>
-            </center>
-            <form class="contact" id="contact" action="/send-email" method="POST">
-                <label for="email">Email:</label>
-                <input type="email" name="email" placeholder="Your email" required>
-                <label for="message">Tell me how I can help:</label>
-                <textarea name="message" placeholder="Enter details here." required></textarea>
-                <input type="hidden" id="g-recaptcha-response" name="g-recaptcha-response">
-                <button type="submit">Send it!</button>
-            </form>
+            </section>
+
+            <section class="contact-grid">
+                <div class="card contact">
+                    <h3>Send a Message</h3>
+                    <form id="contact" action="/send-email" method="POST">
+                        <label for="email">Email</label>
+                        <input type="email" name="email" placeholder="you@example.com" required>
+                        <label for="message">How can I help?</label>
+                        <textarea name="message" placeholder="Tell me about your retreat goals, dates, or questions." required></textarea>
+                        <input type="hidden" name="cabin-send" value="contact">
+                        <input type="hidden" name="checkin-send" value="">
+                        <input type="hidden" name="checkout-send" value="">
+                        <input type="hidden" name="pkg-send" value="">
+                        <input type="hidden" name="price-send" value="">
+                        <input type="hidden" id="g-recaptcha-response" name="g-recaptcha-response">
+                        <button type="submit">Send Message</button>
+                    </form>
+                </div>
+                <div class="card">
+                    <h3>What to Expect</h3>
+                    <p><strong>Designed for Deep Work:</strong> Bright, quiet spaces with fast Wi‑Fi, ergonomic seating, and intentional lighting. Every detail helps you focus longer with less friction.</p>
+                    <p><strong>Mountain Calm:</strong> Decks with forest views, starlit skies, and nearby trails when you need to reset. It’s easy to step away for a thinking walk and come back with clarity.</p>
+                    <p><strong>Simple Comforts:</strong> Quality linens, complete kitchens, easy parking, and thoughtful touches to make staying in a pleasure when you’re in the zone.</p>
+                    <p><strong>Optional Add‑Ons:</strong> In‑cabin massage, guided meditation, or a nature hike—gentle ways to restore your nervous system while you build something meaningful.</p>
+                    <p><strong>Care You Can Feel:</strong> Clear communication, flexible check‑in, and a host who understands the rhythm of focused work. Tell us what you need—quiet hours, coffee delivery, or blackout mornings—and we’ll make it happen.</p>
+                </div>
+            </section>
         </main>
     </div>
 </body>

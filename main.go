@@ -10,6 +10,7 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
+	"strconv"
 	"strings"
 	"time"
 
@@ -24,6 +25,31 @@ import (
 
 type Template struct {
 	templates *template.Template
+}
+
+// isDebug controls verbose logging via env var DEBUG_LOG=1
+func isDebug() bool { return os.Getenv("DEBUG_LOG") == "1" }
+
+// newSMTPDialer creates a gomail dialer using env configuration.
+// Supports STARTTLS on port 587 (default) and SSL on port 465 when SMTP_PORT=465.
+func newSMTPDialer() *gomail.Dialer {
+	host := os.Getenv("SMTP_HOST")
+	user := os.Getenv("SMTP_USERNAME")
+	pass := os.Getenv("SMTP_PASSWORD")
+	portStr := os.Getenv("SMTP_PORT")
+	if portStr == "" {
+		portStr = "587"
+	}
+	port, err := strconv.Atoi(portStr)
+	if err != nil {
+		port = 587
+	}
+	d := gomail.NewDialer(host, port, user, pass)
+	// If using implicit SSL (465), enable SSL mode
+	if port == 465 {
+		d.SSL = true
+	}
+	return d
 }
 
 func (t *Template) Render(w io.Writer, name string, data interface{}, c echo.Context) error {
@@ -372,6 +398,27 @@ func getImages(c echo.Context) error {
 }
 
 func sendEmailHandler(c echo.Context) error {
+	// Allow skipping reCAPTCHA locally via env flag
+	if os.Getenv("SKIP_RECAPTCHA") == "1" {
+		// Parse form data
+		email := c.FormValue("email")
+		message := c.FormValue("message")
+
+		m := gomail.NewMessage()
+		m.SetHeader("From", os.Getenv("SMTP_FROM_EMAIL"))
+		m.SetHeader("To", os.Getenv("SMTP_TO_EMAIL"))
+		m.SetHeader("Subject", "Still Waters Contact Form")
+		m.SetBody("text/html", "Email: "+email+"<br>Message: "+message)
+
+		d := newSMTPDialer()
+
+		if err := d.DialAndSend(m); err != nil {
+			return c.String(http.StatusInternalServerError, "Failed to send email: "+err.Error())
+		}
+
+		return c.Redirect(http.StatusFound, "/email-sent")
+	}
+
 	recaptchaResponse := c.FormValue("g-recaptcha-response")
 
 	projectID := os.Getenv("RECAPTCHA_PROJECT_ID")
@@ -419,7 +466,7 @@ func sendEmailHandler(c echo.Context) error {
 			m.SetHeader("Subject", "Still Waters Contact Form")
 			m.SetBody("text/html", "Email: "+email+"<br>Message: "+message)
 
-			d := gomail.NewDialer(os.Getenv("SMTP_HOST"), 587, os.Getenv("SMTP_USERNAME"), os.Getenv("SMTP_PASSWORD"))
+			d := newSMTPDialer()
 
 			// Send the email
 			if err := d.DialAndSend(m); err != nil {
@@ -479,42 +526,58 @@ func getCalendar(c echo.Context) error {
 	} else if c.QueryParam("prop") == "bvc" {
 		propId = "dd5e28be-2406-4624-908d-30313972781d"
 	} else {
-		fmt.Println("[DEBUG] Invalid or missing prop param:", c.QueryParam("prop"))
+		if isDebug() {
+			fmt.Println("[DEBUG] Invalid or missing prop param:", c.QueryParam("prop"))
+		}
 		return c.Redirect(http.StatusFound, "/contact")
 	}
 
 	url := "https://public.api.hospitable.com/v2/properties/" + propId + "/calendar?start_date=" + beginDate + "&end_date=" + endDate
-	fmt.Println("[DEBUG] Calendar API URL:", url)
+	if isDebug() {
+		fmt.Println("[DEBUG] Calendar API URL:", url)
+	}
 
 	client := &http.Client{}
 
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
-		fmt.Println("[DEBUG] Error creating request:", err)
+		if isDebug() {
+			fmt.Println("[DEBUG] Error creating request:", err)
+		}
 		return c.String(http.StatusInternalServerError, err.Error())
 	}
 
 	apiKey := os.Getenv("HOSPITABLE_API_KEY")
-	fmt.Println("[DEBUG] HOSPITABLE_API_KEY in getCalendar:", apiKey)
+	if isDebug() {
+		fmt.Println("[DEBUG] HOSPITABLE_API_KEY in getCalendar:", apiKey)
+	}
 
 	req.Header.Add("Authorization", "Bearer "+apiKey)
 
 	resp, err := client.Do(req)
 	if err != nil {
-		fmt.Println("[DEBUG] Error making request:", err)
+		if isDebug() {
+			fmt.Println("[DEBUG] Error making request:", err)
+		}
 		return c.String(http.StatusInternalServerError, err.Error())
 	}
 	defer resp.Body.Close()
 
-	fmt.Println("[DEBUG] Calendar API response status:", resp.Status)
+	if isDebug() {
+		fmt.Println("[DEBUG] Calendar API response status:", resp.Status)
+	}
 
 	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
-		fmt.Println("[DEBUG] Error reading response body:", err)
+		if isDebug() {
+			fmt.Println("[DEBUG] Error reading response body:", err)
+		}
 		return c.String(http.StatusInternalServerError, err.Error())
 	}
 
-	fmt.Println("[DEBUG] Calendar API response body:", string(body))
+	if isDebug() {
+		fmt.Println("[DEBUG] Calendar API response body:", string(body))
+	}
 
 	return c.JSONBlob(http.StatusOK, body)
 }
@@ -692,7 +755,7 @@ func sendBookingHandler(c echo.Context) error {
 			m.SetHeader("Subject", "Still Waters Booking Request!")
 			m.SetBody("text/html", "Cabin: "+cabin+"<br>Email: "+email+"<br>Message: "+message+"<br>Checkin: "+checkin+"<br>Checkout: "+checkout+"<br>Package: "+pkg+"<br>Price: "+price)
 
-			d := gomail.NewDialer(os.Getenv("SMTP_HOST"), 587, os.Getenv("SMTP_USERNAME"), os.Getenv("SMTP_PASSWORD"))
+			d := newSMTPDialer()
 
 			// Send the email
 			if err := d.DialAndSend(m); err != nil {

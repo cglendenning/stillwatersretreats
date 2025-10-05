@@ -20,98 +20,100 @@
     <link href="/static/styles.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
-         .cabin-chooser {
-             margin: 3rem auto;
-             max-width: 1200px;
-             width: 100%;
-         }
-        
-         .cabin-options {
-             display: grid;
-             grid-template-columns: 1fr 1fr;
-             gap: 2rem;
-             margin-top: 3rem;
-         }
-        
-         .cabin-option {
-             display: block;
-             background: rgba(255, 255, 255, 0.95);
-             border-radius: 15px;
-             overflow: hidden;
-             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
-             transition: transform 0.3s ease, box-shadow 0.3s ease;
-             backdrop-filter: blur(10px);
-             text-decoration: none;
-             color: inherit;
-         }
-        
-        .cabin-option:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+        .cabin-chooser {
+            margin: 3rem auto 0 auto; /* remove bottom margin to tighten spacing above gallery */
+            max-width: 90vw;
+            width: 100%;
         }
         
-        .cabin-image {
-            width: 100%;
-            height: 250px;
-            overflow: hidden;
+        .cabin-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+            margin-top: 1rem; /* reduce top margin inside chooser */
         }
         
-        .cabin-image img {
+        .cabin-card {
+            position: relative;
+            display: block;
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        .cabin-card img {
+            display: block;
             width: 100%;
-            height: 100%;
+            height: 420px;
             object-fit: cover;
-            transition: transform 0.3s ease;
         }
         
-        .cabin-option:hover .cabin-image img {
-            transform: scale(1.05);
-        }
-        
-         .cabin-info {
-             padding: 2rem;
-             text-align: center;
-         }
-        
-        .cabin-info h3 {
+        .overlay-title {
+            position: absolute;
+            bottom: 14px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 6px 12px;
+            background: transparent;
+            color: #ffffff;
             font-family: 'Ubuntu', sans-serif;
-            font-size: 1.8rem;
-            font-weight: 300;
-            color: #2c3e50;
-            margin-bottom: 0.5rem;
+            font-weight: 500;
+            font-size: 2rem;
+            letter-spacing: 0.3px;
+            text-transform: uppercase;
+            white-space: nowrap;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.45);
+        }
+
+        /* Mimic top nav hover underline effect */
+        .overlay-title::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: -4px;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.9), transparent);
+            transform: translateX(-50%);
+            transition: width 0.3s ease;
+        }
+        .cabin-card:hover .overlay-title::after { width: 80%; }
+        
+        /* Scrolling gallery */
+        .gallery-container {
+            margin: 0.25rem auto 1rem auto; /* slight space between cabin photos and gallery */
+            max-width: 90vw;
+            overflow: hidden;
+            position: relative;
         }
         
-         .cabin-subtitle {
-             font-size: 1rem;
-             color: #666;
-             margin-bottom: 1rem;
-             font-style: italic;
-         }
+        .gallery-track {
+            display: flex;
+            gap: 6px;
+            will-change: transform;
+        }
         
-         .cabin-description {
-             font-size: 0.95rem;
-             color: #555;
-             line-height: 1.5;
-             margin-bottom: 1.5rem;
-         }
-        
+        .gallery-track img {
+            height: 180px;
+            width: auto;
+            object-fit: cover;
+            border-radius: 0;
+            flex-shrink: 0;
+        }
+
+        /* Gallery item with filename overlay */
+        .gallery-item {
+            position: relative;
+            display: inline-block;
+        }
+        .gallery-caption { display: none; }
         
         @media (max-width: 768px) {
             .cabin-options {
                 grid-template-columns: 1fr;
-                gap: 1.5rem;
+                gap: 1.25rem;
             }
-            
-            .cabin-option {
-                margin: 0 1rem;
-            }
-            
-            .cabin-info {
-                padding: 1.5rem;
-            }
-            
-            .cabin-info h3 {
-                font-size: 1.5rem;
-            }
+            .cabin-card img { height: 240px; }
+            .gallery-track img { height: 140px; }
         }
     </style>
     <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-app-compat.js"></script>
@@ -153,55 +155,96 @@
 	Each cabin is perfectly located, quiet, modern and ready for deep work.<br> 	
         </p>
         
-        <!-- Cabin Chooser Section -->
+        <!-- Cabin Images with Overlay Titles -->
         <div class="cabin-chooser">
             <div class="cabin-options">
-                <a href="/bearviewcove" class="cabin-option">
-                    <div class="cabin-image">
-                        <img src="/assets/photo/bvc/bvc.jpg" alt="Bear View Cove Cabin">
-                    </div>
-                    <div class="cabin-info">
-                        <h3>Bear View Cove</h3>
-                <p class="cabin-subtitle">Deck with view • 1 BR (Queen) + Loft (2 Full) • 1 Bath</p>
-                <p class="cabin-description">Mountain peace and quiet awaits you in this cozy, clean and bright perfect mountain cabin in the coveted upper moonridge area.</p>
-                    </div>
+                <a href="/bearviewcove" class="cabin-card">
+                    <img src="/assets/photo/bvc/bvc.jpg" alt="Bear View Cove">
+                    <div class="overlay-title">Bear View Cove</div>
                 </a>
-                
-                <a href="/victoriapines" class="cabin-option">
-                    <div class="cabin-image">
-                        <img src="/assets/photo/vp/vp.jpg" alt="Victoria Pines Cabin">
-                    </div>
-                    <div class="cabin-info">
-                        <h3>Victoria Pines</h3>
-                        <p class="cabin-subtitle">Deck • Walk To Zoo • 2 Bed, 2 Bath • BBQ • Firepit • Trails</p>
-			<p class="cabin-description">Escape to our mountain cottage in the coveted lower moonridge neighborhood with a 5 minute walk to the free Big Bear Trolley.</p>
-                    </div>
+                <a href="/victoriapines" class="cabin-card">
+                    <img src="/assets/photo/vp/vp.jpg" alt="Victoria Pines">
+                    <div class="overlay-title">Victoria Pines</div>
                 </a>
             </div>
         </div>
+
+        <!-- Auto-scrolling randomized gallery -->
+        <div class="gallery-container">
+            <div class="gallery-track" id="gallery-track"></div>
+        </div>
         <script>
             window.onload = function() {
-                var cabinOptions = document.querySelectorAll('.cabin-option');
-                cabinOptions.forEach(function(option) {
-                    option.addEventListener('click', function() {
+                // Track cabin clicks
+                var cabinCards = document.querySelectorAll('.cabin-card');
+                cabinCards.forEach(function(card) {
+                    card.addEventListener('click', function() {
                         var cabinName = this.href.includes('bearviewcove') ? 'bear_view_cove' : 'victoria_pines';
-                        firebase.analytics().logEvent('cabin_selected', {
-                            cabin: cabinName
-                        });
+                        firebase.analytics().logEvent('cabin_selected', { cabin: cabinName });
                     });
                 });
-                
+
+                // Background video handling
                 var video = document.getElementById('background-video');
                 var staticImage = document.getElementById('static-image');
-
                 video.oncanplaythrough = function() {
                     staticImage.style.display = 'none';
                     video.style.display = 'block';
                     video.play();
                 };
-
-                // Preload video to trigger oncanplaythrough event
                 video.load();
+
+                // Build randomized gallery from both cabins
+                const gallery = document.getElementById('gallery-track');
+                const sources = [
+                    // Bear View Cove
+                    	'/assets/photo/bvc/Back1.jpg',
+                    	'/assets/photo/bvc/Back4.jpg',
+			'/assets/photo/bvc/Deck5.jpg',
+			'/assets/photo/bvc/Deck7.jpg',
+			'/assets/photo/bvc/Deck13.jpg',
+			'/assets/photo/bvc/Kitchen2.jpg',
+                    	'/assets/photo/bvc/Morning_Coffee.jpg',
+                    	'/assets/photo/bvc/Overview2.jpg',
+                    	'/assets/photo/bvc/Overview4.jpg',
+                    	// Victoria Pines
+                    	'/assets/photo/vp/Back6.jpg',
+			'/assets/photo/vp/Back11.jpg',
+                    	'/assets/photo/vp/Nook1.jpg',
+                ];
+                // Shuffle
+                for (let i = sources.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [sources[i], sources[j]] = [sources[j], sources[i]];
+                }
+                // Render images (duplicate for seamless scroll)
+                const renderList = sources.concat(sources);
+                renderList.forEach(src => {
+                    const wrap = document.createElement('div');
+                    wrap.className = 'gallery-item';
+                    const img = document.createElement('img');
+                    img.src = src;
+                    img.alt = 'Cabin photo';
+                    wrap.appendChild(img);
+                    gallery.appendChild(wrap);
+                });
+
+                // Auto-scroll right-to-left one image every 2 seconds
+                let index = 0;
+                const step = () => {
+                    const firstItem = gallery.querySelector('.gallery-item');
+                    const width = firstItem ? (firstItem.getBoundingClientRect().width + 6) : 0; // width + gap
+                    gallery.style.transition = 'transform 600ms ease';
+                    gallery.style.transform = `translateX(-${width}px)`;
+                    setTimeout(() => {
+                        gallery.style.transition = 'none';
+                        gallery.style.transform = 'translateX(0)';
+                        if (firstItem) {
+                            gallery.appendChild(firstItem);
+                        }
+                    }, 650);
+                };
+                setInterval(step, 4000);
             };
         </script>
     </div>
