@@ -3,26 +3,310 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Review and Payment</title>
+    <title>Review and Payment - Still Waters Retreats</title>
     <link href="/static/styles.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;700&family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
     <script src="https://js.stripe.com/v3/"></script>
+    <style>
+        .review-hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 4rem 0;
+            text-align: center;
+        }
+        
+        .review-hero h1 {
+            font-family: 'Ubuntu', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 300;
+            margin-bottom: 1rem;
+        }
+        
+        .review-hero p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .review-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: start;
+        }
+        
+        .booking-summary {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            padding: 2.5rem;
+            position: sticky;
+            top: 2rem;
+        }
+        
+        .stripe-checkout {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            padding: 2.5rem;
+            position: sticky;
+            top: 2rem;
+        }
+        
+        .summary-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 2px solid #f0f0f0;
+        }
+        
+        .summary-header h2 {
+            font-family: 'Ubuntu', sans-serif;
+            font-size: 2rem;
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+        }
+        
+        .summary-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .summary-section {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+        }
+        
+        .summary-section h3 {
+            font-family: 'Ubuntu', sans-serif;
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+        
+        .summary-section p {
+            color: #555;
+            margin: 0;
+            font-size: 1rem;
+        }
+        
+        .dates-section {
+            grid-column: 1 / -1;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-left: none;
+        }
+        
+        .dates-section h3 {
+            color: white;
+        }
+        
+        .dates-section p {
+            color: rgba(255, 255, 255, 0.9);
+        }
+        
+        .add-ons-section {
+            grid-column: 1 / -1;
+        }
+        
+        .add-ons-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .add-on-item {
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+            border: 2px solid #e9ecef;
+        }
+        
+        .add-on-item.selected {
+            border-color: #667eea;
+            background: #f0f4ff;
+        }
+        
+        .add-on-item h4 {
+            margin: 0 0 0.5rem 0;
+            color: #2c3e50;
+            font-size: 0.9rem;
+        }
+        
+        .add-on-item p {
+            margin: 0;
+            color: #666;
+            font-size: 0.85rem;
+        }
+        
+        .total-section {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+        }
+        
+        .total-section h3 {
+            color: white;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .total-amount {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin: 0;
+        }
+        
+        .payment-section {
+            text-align: center;
+        }
+        
+        .pay-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 1rem 3rem;
+            font-size: 1.2rem;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+        }
+        
+        .pay-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 35px rgba(102, 126, 234, 0.4);
+        }
+        
+        .pay-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .stripe-checkout h3 {
+            font-family: 'Ubuntu', sans-serif;
+            color: #2c3e50;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            font-size: 1.5rem;
+        }
+        
+        .stripe-checkout-content {
+            text-align: center;
+        }
+        
+        .stripe-checkout-content p {
+            color: #666;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+        
+        .stripe-checkout-content .pay-button {
+            width: 100%;
+            margin-top: 1rem;
+        }
+        
+        #stripe-checkout-iframe {
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        @media (max-width: 768px) {
+            .review-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                padding: 2rem 1rem;
+            }
+            
+            .summary-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .review-hero h1 {
+                font-size: 2rem;
+            }
+            
+            .booking-summary,
+            .stripe-checkout {
+                padding: 1.5rem;
+                position: static;
+            }
+        }
+    </style>
 </head>
 <body>
     <div id="app">
-        {{ template "nav.html" . }}    </div>
+        {{ template "nav.html" . }}
+    </div>
+    
+    <div class="review-hero">
+        <h1>Review Your Retreat</h1>
+        <p>Please review your booking details before proceeding to payment</p>
+    </div>
+    
     <main>
         <div class="review-container">
-            <h2>Your Retreat Choices</h2>
-            <div id="cabin-details"></div>
-            <div id="retreat-details"></div>
-            <div id="massage"></div>
-            <div id="meditation"></div>
-            <div id="hike"></div>
-            <div id="total-price-details"></div>
-            <button id="pay-button" class="btn">Book It!</button>
+            <!-- Left Column: Booking Summary -->
+            <div class="booking-summary">
+                <div class="summary-header">
+                    <h2 id="cabin-name">Bear View Cove Cabin</h2>
+                    <p id="retreat-structure">Custom Retreat Structure</p>
+                </div>
+                
+                <div class="summary-grid">
+                    <div class="summary-section dates-section">
+                        <h3>📅 Stay Dates</h3>
+                        <p><strong>Check in:</strong> <span id="checkin-date">10/28/2025</span></p>
+                        <p><strong>Check out:</strong> <span id="checkout-date">10/31/2025</span></p>
+                    </div>
+                    
+                    <div class="summary-section">
+                        <h3>🏠 Cabin Details</h3>
+                        <p id="cabin-description">Mountain peace and quiet awaits you in this cozy, clean and bright perfect mountain cabin in the coveted upper moonridge area.</p>
+                    </div>
+                </div>
+                
+                <div class="summary-section add-ons-section">
+                    <h3>✨ Add-ons & Services</h3>
+                    <div class="add-ons-grid" id="add-ons-container">
+                        <!-- Add-ons will be populated by JavaScript -->
+                    </div>
+                </div>
+                
+                <div class="total-section">
+                    <h3>Total Amount</h3>
+                    <p class="total-amount" id="total-amount">$964</p>
+                </div>
+            </div>
+            
+            <!-- Right Column: Payment -->
+            <div class="stripe-checkout">
+                <h3>Complete Your Booking</h3>
+                <div class="stripe-checkout-content">
+                    <p>Review your booking details on the left, then click the button below to proceed to secure payment.</p>
+                    <p><strong>Secure Payment Processing</strong><br>
+                    Your payment information is encrypted and processed securely by Stripe.</p>
+                    
+                    <button id="pay-button" class="pay-button">
+                        Book It!
+                    </button>
+                </div>
+            </div>
         </div>
     </main>
+    
     <script src="/static/payment.js"></script>
 </body>
 </html>

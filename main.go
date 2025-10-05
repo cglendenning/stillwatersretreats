@@ -18,6 +18,7 @@ import (
 	"github.com/labstack/echo/v4/middleware"
 	"github.com/stripe/stripe-go/v78"
 	"github.com/stripe/stripe-go/v78/checkout/session"
+	"github.com/stripe/stripe-go/v78/paymentintent"
 	"gopkg.in/gomail.v2"
 )
 
@@ -37,6 +38,17 @@ func getTemplateData(title string) map[string]interface{} {
 		"YOUTUBE_VIDEO_ID":   os.Getenv("YOUTUBE_VIDEO_ID"),
 		"RECAPTCHA_SITE_KEY": os.Getenv("RECAPTCHA_SITE_KEY"),
 	}
+}
+
+func convertDateFormat(dateStr string) string {
+	// Parse the input date (assuming YYYY-MM-DD format)
+	t, err := time.Parse("2006-01-02", dateStr)
+	if err != nil {
+		// If parsing fails, return the original string
+		return dateStr
+	}
+	// Format as MM/DD/YYYY
+	return t.Format("01/02/2006")
 }
 
 func main() {
@@ -166,6 +178,7 @@ func main() {
 
 	// handling data
 	e.POST("/create-checkout-session", createCheckoutSessionHandler)
+	e.POST("/create-payment-intent", createPaymentIntentHandler)
 	e.GET("/calendar-data", getCalendar)
 	e.GET("/property-data", getProperties)
 	e.GET("/dates-chosen", selectedDates)
@@ -185,13 +198,62 @@ func createCheckoutSessionHandler(c echo.Context) error {
 	stripe.Key = os.Getenv("STRIPE_SECRET_KEY")
 
 	var requestData struct {
-		Amount   int64  `json:"amount"`
-		ImageURL string `json:"image_url"`
+		Amount           int64  `json:"amount"`
+		ImageURL         string `json:"image_url"`
+		Cabin            string `json:"cabin"`
+		StartDate        string `json:"start_date"`
+		EndDate          string `json:"end_date"`
+		RetreatStructure string `json:"retreat_structure"`
+		Massage          string `json:"massage"`
+		Meditation       string `json:"meditation"`
+		Hike             string `json:"hike"`
 	}
 
 	if err := c.Bind(&requestData); err != nil {
 		fmt.Println(err.Error())
 		return c.String(http.StatusBadRequest, err.Error())
+	}
+
+	// Debug: Print received data
+	fmt.Printf("Received booking data: %+v\n", requestData)
+
+	// Convert cabin code to proper name
+	cabinName := requestData.Cabin
+	switch requestData.Cabin {
+	case "bvc":
+		cabinName = "Bear View Cove"
+	case "vp":
+		cabinName = "Victoria Pines"
+	}
+
+	// Convert dates to MM/DD/YYYY format
+	startDate := convertDateFormat(requestData.StartDate)
+	endDate := convertDateFormat(requestData.EndDate)
+
+	// Build detailed description with better formatting
+	description := fmt.Sprintf("%s Cabin\nCheck in: %s\nCheck out: %s",
+		cabinName, startDate, endDate)
+
+	// Add retreat structure if it's not empty and not "my-own"
+	if requestData.RetreatStructure != "" && requestData.RetreatStructure != "my-own" {
+		description += fmt.Sprintf(" | Structure: %s", requestData.RetreatStructure)
+	}
+
+	// Filter out "no" entries and build add-ons list
+	addOns := []string{}
+	if requestData.Massage != "" && requestData.Massage != "no" && requestData.Massage != "None" {
+		addOns = append(addOns, requestData.Massage)
+	}
+	if requestData.Meditation != "" && requestData.Meditation != "no" && requestData.Meditation != "None" {
+		addOns = append(addOns, requestData.Meditation)
+	}
+	if requestData.Hike != "" && requestData.Hike != "no" && requestData.Hike != "None" {
+		addOns = append(addOns, requestData.Hike)
+	}
+
+	// Only add add-ons section if there are actual add-ons
+	if len(addOns) > 0 {
+		description += fmt.Sprintf("\nAdd-ons: %s", strings.Join(addOns, ", "))
 	}
 
 	params := &stripe.CheckoutSessionParams{
@@ -201,8 +263,9 @@ func createCheckoutSessionHandler(c echo.Context) error {
 				PriceData: &stripe.CheckoutSessionLineItemPriceDataParams{
 					Currency: stripe.String("usd"),
 					ProductData: &stripe.CheckoutSessionLineItemPriceDataProductDataParams{
-						Name:   stripe.String("Your Retreat Booking"),
-						Images: stripe.StringSlice([]string{requestData.ImageURL}),
+						Name:        stripe.String(description),
+						Description: stripe.String(description),
+						Images:      stripe.StringSlice([]string{requestData.ImageURL}),
 					},
 					UnitAmount: stripe.Int64(requestData.Amount),
 				},
@@ -219,6 +282,66 @@ func createCheckoutSessionHandler(c echo.Context) error {
 	}
 
 	return c.JSON(http.StatusOK, map[string]string{"sessionId": s.ID})
+}
+
+func createPaymentIntentHandler(c echo.Context) error {
+	stripe.Key = os.Getenv("STRIPE_SECRET_KEY")
+
+	var requestData struct {
+		Amount           int64  `json:"amount"`
+		ImageURL         string `json:"image_url"`
+		Cabin            string `json:"cabin"`
+		StartDate        string `json:"start_date"`
+		EndDate          string `json:"end_date"`
+		RetreatStructure string `json:"retreat_structure"`
+		Massage          string `json:"massage"`
+		Meditation       string `json:"meditation"`
+		Hike             string `json:"hike"`
+	}
+
+	if err := c.Bind(&requestData); err != nil {
+		fmt.Println(err.Error())
+		return c.String(http.StatusBadRequest, err.Error())
+	}
+
+	// Convert cabin code to proper name
+	cabinName := requestData.Cabin
+	switch requestData.Cabin {
+	case "bvc":
+		cabinName = "Bear View Cove"
+	case "vp":
+		cabinName = "Victoria Pines"
+	}
+
+	// Convert dates to MM/DD/YYYY format
+	startDate := convertDateFormat(requestData.StartDate)
+	endDate := convertDateFormat(requestData.EndDate)
+
+	// Build description
+	description := fmt.Sprintf("%s Cabin (%s to %s)", cabinName, startDate, endDate)
+
+	// Create payment intent
+	params := &stripe.PaymentIntentParams{
+		Amount:   stripe.Int64(requestData.Amount),
+		Currency: stripe.String("usd"),
+		Metadata: map[string]string{
+			"cabin":             requestData.Cabin,
+			"start_date":        requestData.StartDate,
+			"end_date":          requestData.EndDate,
+			"retreat_structure": requestData.RetreatStructure,
+			"massage":           requestData.Massage,
+			"meditation":        requestData.Meditation,
+			"hike":              requestData.Hike,
+		},
+		Description: stripe.String(description),
+	}
+
+	pi, err := paymentintent.New(params)
+	if err != nil {
+		return c.String(http.StatusInternalServerError, err.Error())
+	}
+
+	return c.JSON(http.StatusOK, map[string]string{"client_secret": pi.ClientSecret})
 }
 
 func getImages(c echo.Context) error {
