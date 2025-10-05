@@ -43,11 +43,19 @@
         {{ template "nav.html" . }}    </div>
     <main>
 
+    <style>
+      .pricing-container { max-width: 1100px; margin: 1rem auto 3rem auto; padding: 0 1rem; display: grid; grid-template-columns: 2fr 1fr; gap: 1rem; align-items: start; }
+      .price-box { background:#fff; border:1px solid #e9ecef; border-radius:12px; box-shadow:0 10px 24px rgba(0,0,0,.06); padding:1rem; }
+      .price-header { color:#fff; padding:.6rem 1rem; border-radius:10px; margin-bottom:.75rem; font-weight:600; }
+      .next-btn { display:block; margin: 1rem auto 0 auto; }
+      .pricing-container .next-btn { grid-column: 1 / -1; }
+      .next-btn:disabled { opacity:.5; cursor:not-allowed; }
+      @media (max-width: 768px){ .pricing-container { grid-template-columns: 1fr; } }
+    </style>
+
     <form class="pricing-container" action="/booking-get"  method="GET">
         <div class="price-box" package="cabin">
             <div class="price-header" id="cabin-title" style="background-color: #F5A623;"></div>
-            <div class="price-tag" id="base-rate"></div>
-            <div class="price-tag" id="cleaning-fee"></div>
 	    <b><div class="price-tag" id="cabin-total"></div></b>
 
             <img id="cabin-image" src="" alt="Cabin Image" style="width:100%; height:auto; margin: 10px 0;">
@@ -55,18 +63,13 @@
         </div>
        
         <div class="price-box">
-	    <div class="price-header" style="background-color: #5fa55a;">Retreat Structure Options</div>
-	    <label> <input type="radio" name="retreat-structure" value="my-own" data-price="0"> I'm good. I have my own plan. ($0)</input></label><br>
-	    <label> <input type="radio" name="retreat-structure" value="on-demand" data-price="99"> On-demand video course ($99)</input></label><br>
-            <label><input type="radio" name="retreat-structure" value="virtual-coaching" data-price="299"> Live virtual coaching sessions with Craig ($299)</label><br>
-	    <label><input type="radio" name="retreat-structure" value="onsite-coaching" data-price="499"> 4-hour onsite coaching session with Craig ($499)</label><br>
-        </div>
-        
-        <div class="price-box">
-            <div class="price-header" style="background-color: #3B86FF;">Additional Deep Work Options</div>
-            <label><input type="checkbox" name="deep-work-options" value="massage" data-price="999"> On-site massage from Unthai My Knots ($999)</label><br>
-            <label><input type="checkbox" name="deep-work-options" value="meditation" data-price="299"> Guided on-site meditation ($299)</label><br>
-            <label><input type="checkbox" name="deep-work-options" value="hike" data-price="199"> Guided Big Bear nature hike ($199)</label>
+            <div class="price-header" style="background-color: #5fa55a;">Enhancements</div>
+            <label><input type="radio" name="coaching-option" value="none" data-price="0"> No coaching add-on ($0)</label><br>
+            <label><input type="radio" name="coaching-option" value="virtual-live" data-price="499"> Virtual live coaching with Craig ($499)</label>
+            <div class="intro" style="margin:.25rem 0 .5rem 1.75rem; opacity:.85;">Real-time 1:1 sessions via video to clarify goals, remove blockers, and keep momentum.</div>
+            <label><input type="radio" name="coaching-option" value="in-person-4hr" data-price="997"> In-person 1:1 coaching (4 hours) ($997)</label>
+            <div class="intro" style="margin:.25rem 0 .5rem 1.75rem; opacity:.85;">Focused, on‑site deep dive tailored to your retreat objectives and creative rhythm.</div>
+            <div class="intro" style="margin:.5rem 0 0 0;">Want details? <a href="/coaching">Explore Coaching</a> (you can click back to return here).</div>
         </div>
         
         <input type="hidden" id="start-date" name="start-date">
@@ -84,7 +87,7 @@
         }
 
         var submitButton = document.getElementById('submit-button');
-        submitButton.disabled = true;
+        submitButton.disabled = true; // start disabled until a selection is made
 
         // Retrieve the total parameter and parse it as an integer
         let base = parseInt(getQueryParam('total'), 10) || 0; // Default to 0 if total is not provided
@@ -100,9 +103,7 @@
         const cabinDescription = document.getElementById('cabin-description');
 
         // Update the cabin details on the page
-        baseRate.textContent = `Base Rate: $${base.toLocaleString()}`;
-        cleaningFee.textContent = `Cleaning Fee: $${cleaning.toLocaleString()}`;
-        cabinTotal.textContent = `Cabin Total: $${total.toLocaleString()}`;
+        cabinTotal.textContent = `Cabin: $${total.toLocaleString()}`;
         const prop = getQueryParam('prop');
         if (prop === 'bvc') {
             cabinTitle.textContent = 'Bear View Cove Cabin'; 
@@ -119,17 +120,9 @@
         document.getElementById('end-date').value = getQueryParam('end');
         document.getElementById('prop').value = getQueryParam('prop');
 
-        const retreatOptions = document.querySelectorAll('input[name="retreat-structure"]');
-        const deepWorkOptions = document.querySelectorAll('input[name="deep-work-options"]');
+        const coachingOptions = document.querySelectorAll('input[name="coaching-option"]');
 
-        retreatOptions.forEach(option => {
-            option.addEventListener('change', function() {
-                updateTotalPrice();
-                submitButton.disabled = false;
-            });
-        });
-
-        deepWorkOptions.forEach(option => {
+        coachingOptions.forEach(option => {
             option.addEventListener('change', function() {
                 updateTotalPrice();
                 submitButton.disabled = false;
@@ -137,9 +130,8 @@
         });
 
         function updateTotalPrice() {
-            let selectedRetreatPrice = parseInt(document.querySelector('input[name="retreat-structure"]:checked').dataset.price || 0);
-            let selectedDeepWorkPrices = Array.from(document.querySelectorAll('input[name="deep-work-options"]:checked')).reduce((sum, checkbox) => sum + parseInt(checkbox.dataset.price), 0);
-            let newTotal = total + selectedRetreatPrice + selectedDeepWorkPrices;
+            let selectedCoachingPrice = parseInt(document.querySelector('input[name="coaching-option"]:checked').dataset.price || 0);
+            let newTotal = total + selectedCoachingPrice;
             document.getElementById('total-price').value = newTotal;
         }
     });

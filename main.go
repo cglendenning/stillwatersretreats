@@ -8,6 +8,7 @@ import (
 	"io"
 	"io/ioutil"
 	"net/http"
+	"net/url"
 	"os"
 	"path/filepath"
 	"strconv"
@@ -92,6 +93,7 @@ func main() {
 	// Template renderer - parse main templates with custom functions
 	mainTemplates := []string{
 		"templates/nav.html",
+		"templates/footer.html",
 		"templates/home.html",
 		"templates/cabins.html",
 		"templates/bearviewcove.html",
@@ -282,6 +284,14 @@ func createCheckoutSessionHandler(c echo.Context) error {
 		description += fmt.Sprintf("\nAdd-ons: %s", strings.Join(addOns, ", "))
 	}
 
+	// Build dynamic base URL from current request (works locally and in production)
+	scheme := c.Scheme()
+	if xf := c.Request().Header.Get("X-Forwarded-Proto"); xf != "" {
+		scheme = xf
+	}
+	host := c.Request().Host
+	baseURL := scheme + "://" + host
+
 	params := &stripe.CheckoutSessionParams{
 		Mode: stripe.String(string(stripe.CheckoutSessionModePayment)),
 		LineItems: []*stripe.CheckoutSessionLineItemParams{
@@ -298,8 +308,8 @@ func createCheckoutSessionHandler(c echo.Context) error {
 				Quantity: stripe.Int64(1),
 			},
 		},
-		SuccessURL: stripe.String("https://stillwatersretreats.com/success"),
-		CancelURL:  stripe.String("https://stillwatersretreats.com/cancel"),
+		SuccessURL: stripe.String(baseURL + "/success"),
+		CancelURL:  stripe.String(baseURL + "/cancel"),
 	}
 
 	s, err := session.New(params)
@@ -680,24 +690,21 @@ func bookingGet(c echo.Context) error {
 	total := c.FormValue("total-price")
 	prop := c.FormValue("prop")
 	rs := c.FormValue("retreat-structure")
-	dwo := c.Request().Form["deep-work-options"]
-	fmt.Println(dwo)
 
-	massage := "no"
-	meditation := "no"
-	hike := "no"
-	for _, d := range dwo {
-		switch d {
-		case "massage":
-			massage = "yes"
-		case "meditation":
-			meditation = "yes"
-		case "hike":
-			hike = "yes"
-		}
+	// New coaching add-on from pricing page
+	coachingOption := c.FormValue("coaching-option")
+	coachingLabel := ""
+	switch coachingOption {
+	case "virtual-live":
+		coachingLabel = "Virtual live coaching ($499)"
+	case "in-person-4hr":
+		coachingLabel = "In-person 1:1 coaching (4 hours) ($997)"
 	}
 
-	qs := "start=" + start + "&end=" + end + "&total=" + total + "&prop=" + prop + "&rs=" + rs + "&massage=" + massage + "&meditation=" + meditation + "&hike=" + hike
+	qs := "start=" + start + "&end=" + end + "&total=" + total + "&prop=" + prop + "&rs=" + rs
+	if coachingLabel != "" {
+		qs += "&coaching=" + url.QueryEscape(coachingLabel)
+	}
 	return c.Redirect(http.StatusFound, "/review?"+qs)
 }
 

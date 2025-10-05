@@ -20,6 +20,11 @@
             max-width: 1200px;
             margin: 0 auto;
         }
+        .add-ons-bar{ text-align:center; margin-top:1rem; }
+        .addons-form{ max-width: 900px; margin: 0 auto; padding: 0 1rem; text-align:center; }
+        .addons-form .options{ display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; margin: .5rem 0 1rem; }
+        .addons-form label{ display:inline-flex; align-items:center; gap:.5rem; padding:.5rem .75rem; border:1px solid #e3e7ee; border-radius:999px; cursor:pointer; background:#fff; }
+        .addons-form button{ background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color:#fff; border:none; padding:.7rem 1.25rem; border-radius:999px; font-weight:700; cursor:pointer; }
         .activity-item {
             display: flex;
             flex-direction: column;
@@ -54,6 +59,24 @@
             text-transform: uppercase;
             letter-spacing: 0.1em;
         }
+        .intro{ padding:2rem 1rem; }
+        .intro-card{ max-width:900px; margin:1rem auto 0; background:#fff; border:1px solid #e3e7ee; border-radius:12px; padding:1.25rem 1.5rem; box-shadow:0 2px 10px rgba(0,0,0,0.04); }
+        .intro-lead{ font-size:1.15rem; color:#2c3e50; line-height:1.6; margin:0 0 .5rem; text-align:center; }
+        .intro-sub{ font-size:1rem; color:#555; line-height:1.6; margin:0; text-align:center; }
+        .activity-desc{
+            margin-top:.5rem;
+            color:#555;
+            line-height:1.5;
+            font-size:1rem;
+        }
+        .activity-cta{
+            display:inline-block;
+            margin-top:.75rem;
+            color:#4C6633;
+            text-decoration:none;
+            font-weight:600;
+        }
+        .activity-cta:hover{ text-decoration:underline; }
     </style>
     <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-analytics-compat.js"></script>
@@ -89,8 +112,13 @@
     <main>
 	<section class="intro">
 	    <h2>Activities</h2>
-	    <p>Discover the activities available during your retreat.</p>
+	    <div class="intro-card">
+	        <p class="intro-lead">Enhance your retreat with experiences that restore clarity, energy, and delight.</p>
+	        <p class="intro-sub">From 1:1 coaching to fresh coffee delivery and invigorating mountain training, each activity is designed to complement your goals and schedule.</p>
+	    </div>
 	</section>
+
+	
 	
 	<section class="activities-container">
 	    <div class="activity-item">
@@ -98,6 +126,8 @@
 	            <img src="/assets/photo/journaling.jpg" alt="Coaching Activity" class="activity-image">
 	        </a>
 	        <h3 class="activity-title">Coaching</h3>
+	        <p class="activity-desc">Break free from the builder's paradox without burning everything down. Reconnect with the soul of your work, expand your options, and build soulful systems that support your creativity and momentum.</p>
+	        <a class="activity-cta" href="/coaching">Learn more →</a>
 	    </div>
 	    
 	    <div class="activity-item">
@@ -105,6 +135,8 @@
 	            <img src="/assets/photo/bvc/Morning_Coffee.jpg" alt="Coffee Service" class="activity-image">
 	        </a>
 	        <h3 class="activity-title">Coffee</h3>
+	        <p class="activity-desc">Have fresh, locally roasted coffee delivered to your cabin each morning. Choose your time and enjoy artisan, mountain-roasted perfection from Big Bear Coffee Roasting Company—without breaking your flow.</p>
+	        <a class="activity-cta" href="/coffee">Learn more →</a>
 	    </div>
 	    
 	    <div class="activity-item">
@@ -112,9 +144,21 @@
 	            <img src="/assets/photo/7kcrossfit.webp" alt="CrossFit Training" class="activity-image">
 	        </a>
 	        <h3 class="activity-title">CrossFit</h3>
+	        <p class="activity-desc">Add drop-in sessions at 7K CrossFit to your retreat. Scalable workouts, expert coaching, and a supportive mountain community—flexible class times to fit your schedule, whether you're new or experienced.</p>
+	        <a class="activity-cta" href="/crossfit">Learn more →</a>
 	    </div>
 	</section>
     </main>
+    <script>
+      (function(){
+        const params = new URLSearchParams(window.location.search);
+        ['start','end','total','prop','rs'].forEach(k=>{
+          const el = document.getElementById(k);
+          if (el) el.value = params.get(k)||'';
+        });
+      })();
+    </script>
 </div>
+    {{ template "footer.html" . }}
 </body>
 </html>

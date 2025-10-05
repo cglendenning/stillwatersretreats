@@ -354,7 +354,7 @@
     </div>
     <p id="selected-dates" class="intro"></p>
     <center>
-        <form id="date-range-form" action="/dates-chosen"  method="GET">
+        <form id="date-range-form" action="/dates-chosen"  method="GET" style="display:inline-block;">
             <input type="hidden" id="start-date" name="start-date">
             <input type="hidden" id="end-date" name="end-date">
             <input type="hidden" id="total-price" name="total-price">
@@ -397,6 +397,7 @@
                         document.getElementById('end-date').value = end;
                         document.getElementById('prop').value = queryParams.get('prop');
                         submitButton.disabled = false;
+                        // Activities step available from review; no secondary button here
                     } else {
                         alert("One or more days in the selected range are not available.");
                         calendar.unselect();
@@ -471,6 +472,7 @@
                     document.getElementById('selected-dates').textContent = 'Please select the dates for your retreat!';
                     document.getElementById('start-date').value = '';
                     document.getElementById('end-date').value = '';
+                    // hide any secondary actions (none currently)
                 }
             });
         });
@@ -542,6 +544,7 @@
 
         };
     </script>
+    {{ template "footer.html" . }}
 </body>
 </html>
 

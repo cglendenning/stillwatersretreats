@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const massage = getQueryParam('massage');
         const meditation = getQueryParam('meditation');
         const hike = getQueryParam('hike');
+        const coaching = getQueryParam('coaching');
 
         const response = await fetch('/create-checkout-session', {
             method: 'POST',
@@ -31,7 +32,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 retreat_structure: retreatStructure,
                 massage: massage,
                 meditation: meditation,
-                hike: hike
+                hike: hike,
+                coaching: coaching
             }),
         });
         const data = await response.json();
@@ -98,7 +100,8 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('retreat-structure').textContent = retreatStructure === 'my-own' ? 'Custom Retreat Structure' : `Retreat Structure: ${retreatStructure}`;
     document.getElementById('checkin-date').textContent = convertDateFormat(startDate);
     document.getElementById('checkout-date').textContent = convertDateFormat(endDate);
-    document.getElementById('total-amount').textContent = `$${parseInt(total).toLocaleString()}`;
+    const totalInt = parseInt(total) || 0;
+    document.getElementById('total-amount').textContent = `$${totalInt.toLocaleString()}`;
 
     // Set cabin description based on cabin type
     let cabinDescription = '';
@@ -111,6 +114,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Populate add-ons
     const addOnsContainer = document.getElementById('add-ons-container');
+    if (addOnsContainer) { addOnsContainer.innerHTML = ''; }
     const addOns = [];
     
     if (massage && massage !== 'no' && massage !== 'None') {
@@ -123,22 +127,52 @@ document.addEventListener('DOMContentLoaded', function() {
         addOns.push({ name: 'Nature Hike', value: hike });
     }
 
-    if (addOns.length > 0) {
+    // Coaching add-on from pricing page (when coming from pricing)
+    const coaching = getQueryParam('coaching');
+    let enhancementPrice = 0;
+    if (coaching) {
+        addOns.push({ name: 'Coaching', value: coaching });
+        const m = coaching.match(/\$([\d,]+)/);
+        if (m && m[1]) {
+            enhancementPrice = parseInt(m[1].replace(/,/g, '')) || 0;
+        }
+    }
+
+    if (addOns.length > 0 && addOnsContainer) {
         addOns.forEach(addon => {
             const addonDiv = document.createElement('div');
             addonDiv.className = 'add-on-item selected';
-            addonDiv.innerHTML = `
-                <h4>${addon.name}</h4>
-                <p>${addon.value}</p>
-            `;
+            // Try to extract price for display, fallback to plain label
+            let line = addon.value;
+            const priceMatch = addon.value.match(/\$([\d,]+)/);
+            if (priceMatch) {
+                line = `${addon.name}: $${priceMatch[1]}`;
+            }
+            addonDiv.innerHTML = `<h4>${addon.name}</h4><p>${line}</p>`;
             addOnsContainer.appendChild(addonDiv);
         });
-    } else {
-        addOnsContainer.innerHTML = '<p style="text-align: center; color: #666; font-style: italic;">No add-ons selected</p>';
+    } else if (addOnsContainer) {
+        addOnsContainer.innerHTML = '<p style="text-align: center; color: #666; font-style: italic;">No enhancements selected</p>';
     }
 
-    // Initialize Stripe Elements after the page is populated
-    initializeStripeElements();
+    // Price breakdown (cabin + add-ons) if any
+    const breakdown = [];
+    if (addOns.length > 0) {
+        const cabinBase = Math.max(0, totalInt - enhancementPrice);
+        breakdown.push(`Cabin: $${cabinBase.toLocaleString()}`);
+        if (enhancementPrice > 0) {
+            breakdown.push(`Enhancement: $${enhancementPrice.toLocaleString()}`);
+        } else {
+            breakdown.push(`Enhancement: ${addOns.map(a => a.name).join(', ')}`);
+        }
+        const bd = document.getElementById('price-breakdown');
+        if (bd) bd.textContent = breakdown.join(' · ');
+    } else {
+        const bd = document.getElementById('price-breakdown');
+        if (bd) bd.textContent = `Cabin: $${totalInt.toLocaleString()}`;
+    }
+
+    // (Removed) Stripe Elements init is not used on review page
 
 });
 

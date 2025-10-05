@@ -208,6 +208,8 @@
             padding: 4rem 2rem;
             background: #f8f9fa;
         }
+        /* Inline CTA under main image - no background rectangle */
+        .inline-cta { text-align: center; padding: 1.25rem 0; background: transparent; }
         
         .cta-content {
             max-width: 600px;
@@ -380,6 +382,11 @@
                 <img src="/assets/photo/bvc/bvc.jpg" alt="Bear View Cove Cabin" class="cabin-main-image" onclick="openGallery()">
             </section>
 
+            <!-- Inline CTA directly under the main image (floating button) -->
+            <div class="inline-cta">
+                <a href="/calendar?prop=bvc" class="cta-button">Choose Your Dates</a>
+            </div>
+
             <!-- Cabin Details Section -->
             <section class="cabin-content">
                 <div class="cabin-details">
@@ -494,6 +501,7 @@
             </div>
         </div>
 </div>
+    {{ template "footer.html" . }}
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {

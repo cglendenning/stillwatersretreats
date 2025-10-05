@@ -5,8 +5,11 @@ body {
 	padding: 0;
 	color: #333;
 	background-color: #f4f4f4;
-	padding-top: 80px; /* Add padding to account for fixed header */
+    padding-top: 60px; /* smaller topnav */
 }
+
+/* Ensure page content never hides behind footer */
+main { padding-bottom: 80px; }
 header {
 	background: rgba(0, 0, 0, 0.15); /* Darker translucent base for better contrast */
 	backdrop-filter: blur(20px); /* Glass blur effect */
@@ -19,7 +22,7 @@ header {
 	right: 0;
 	z-index: 1000; /* Ensure it stays on top */
 	width: 100%;
-	padding: 1rem 0;
+    padding: 0.75rem 0;
 	text-align: center;
 	color: #fff;
 }
@@ -61,13 +64,13 @@ nav {
 }
 
 .nav-logo {
-	height: 60px;
-	width: 60px;
+    height: 48px;
+    width: 48px;
 	object-fit: contain;
 }
 nav a {
 	flex-shrink: 0;       /* Prevents flex items from shrinking below their content size */
-	padding: 1.5vh 2vw;   /* More generous padding for elegance */
+	padding: 1vh 2vw;   /* reduce vertical padding */
 	font-weight: 300;     /* Light font weight for sophistication */
 	letter-spacing: 0.05em; /* Subtle letter spacing for elegance */
         display: inline-block; /* Ensures padding is applied correctly */
@@ -76,7 +79,7 @@ nav a {
 	position: relative;   /* For pseudo-element effects */
 	transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); /* Smooth, sophisticated transition */
 	text-transform: uppercase; /* Elegant uppercase styling */
-	font-size: 16px;      /* Increased size for better readability */
+	font-size: 15px;
 	opacity: 1;           /* Full opacity for better readability */
 }
 nav a:hover {

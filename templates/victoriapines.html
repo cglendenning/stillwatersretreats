@@ -277,8 +277,8 @@
         
         .cta-button {
             display: inline-block;
-            background: white;
-            color: #4C6633;
+            background: #4C6633;
+            color: #ffffff;
             padding: 1rem 2rem;
             text-decoration: none;
             border-radius: 5px;
@@ -290,10 +290,12 @@
         }
         
         .cta-button:hover {
-            background: #f8f9fa;
+            background: #3c5129;
             transform: translateY(-2px);
             box-shadow: 0 4px 12px rgba(0,0,0,0.2);
         }
+        /* Inline CTA under main image - center the button and no background */
+        .inline-cta { text-align: center; padding: 1.25rem 0; background: transparent; }
         
         .modal {
             display: none;
@@ -428,6 +430,11 @@
             <section class="cabin-image-section">
                 <img src="/assets/photo/vp/vp.jpg" alt="Victoria Pines Cabin" class="cabin-main-image" onclick="openGallery()">
             </section>
+
+            <!-- Inline CTA directly under the main image (floating button) -->
+            <div class="inline-cta">
+                <a href="/calendar?prop=vp" class="cta-button">Choose Your Dates</a>
+            </div>
 
             <!-- Cabin Details Section -->
             <section class="cabin-content">
@@ -641,5 +648,6 @@
             }
         });
     </script>
+    {{ template "footer.html" . }}
 </body>
 </html>
