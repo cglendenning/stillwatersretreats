@@ -155,21 +155,35 @@ document.addEventListener('DOMContentLoaded', function() {
         addOnsContainer.innerHTML = '<p style="text-align: center; color: #666; font-style: italic;">No enhancements selected</p>';
     }
 
-    // Price breakdown (cabin + add-ons) if any
+    // Enhanced price breakdown with clear financial breakdown
     const breakdown = [];
-    if (addOns.length > 0) {
-        const cabinBase = Math.max(0, totalInt - enhancementPrice);
-        breakdown.push(`Cabin: $${cabinBase.toLocaleString()}`);
-        if (enhancementPrice > 0) {
-            breakdown.push(`Enhancement: $${enhancementPrice.toLocaleString()}`);
-        } else {
-            breakdown.push(`Enhancement: ${addOns.map(a => a.name).join(', ')}`);
+    let cabinPrice = totalInt;
+    let enhancementPrice = 0;
+    
+    // Calculate enhancement price from coaching parameter
+    if (coaching) {
+        const m = coaching.match(/\$([\d,]+)/);
+        if (m && m[1]) {
+            enhancementPrice = parseInt(m[1].replace(/,/g, '')) || 0;
+            cabinPrice = totalInt - enhancementPrice;
         }
-        const bd = document.getElementById('price-breakdown');
-        if (bd) bd.textContent = breakdown.join(' · ');
+    }
+    
+    // Build breakdown display
+    if (enhancementPrice > 0) {
+        breakdown.push(`Cabin: $${cabinPrice.toLocaleString()}`);
+        breakdown.push(`Enhancement: $${enhancementPrice.toLocaleString()}`);
+        breakdown.push(`Total: $${totalInt.toLocaleString()}`);
+    } else if (addOns.length > 0) {
+        breakdown.push(`Cabin: $${totalInt.toLocaleString()}`);
+        breakdown.push(`Enhancements: ${addOns.map(a => a.name).join(', ')}`);
     } else {
-        const bd = document.getElementById('price-breakdown');
-        if (bd) bd.textContent = `Cabin: $${totalInt.toLocaleString()}`;
+        breakdown.push(`Cabin: $${totalInt.toLocaleString()}`);
+    }
+    
+    const bd = document.getElementById('price-breakdown');
+    if (bd) {
+        bd.innerHTML = breakdown.join('<br>');
     }
 
     // (Removed) Stripe Elements init is not used on review page
