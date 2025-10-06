@@ -9,6 +9,9 @@ import (
 	"strings"
 )
 
+// Example of how I ran it before...
+// go run parse_reviews.go -input ../assets/data/vp-raw.txt -output ../assets/data/vp-test.json
+
 type Review struct {
 	Name     string `json:"name"`
 	Date     string `json:"date"`
@@ -87,7 +90,7 @@ func parseReviews(inputFile, outputFile string, overwrite bool) error {
 			break
 		}
 
-		// Next line is either location or "X on Airbnb"
+		// Next line is either location or "X on Airbnb" or empty
 		location := ""
 		if i < len(lines) {
 			nextLine := strings.TrimSpace(lines[i])
@@ -99,9 +102,12 @@ func parseReviews(inputFile, outputFile string, overwrite bool) error {
 			}
 		}
 
-		// Skip duplicate reviewer name
-		if i < len(lines) && strings.TrimSpace(lines[i]) == reviewerName {
-			i++
+		// Skip duplicate reviewer name or empty line
+		if i < len(lines) {
+			line := strings.TrimSpace(lines[i])
+			if line == reviewerName || line == "" {
+				i++
+			}
 		}
 
 		// Must have rating line
