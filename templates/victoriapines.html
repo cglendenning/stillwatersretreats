@@ -400,9 +400,10 @@
         .reviews-backdrop.show { display: block; }
         .review-card.expanded { position: fixed; z-index: 2000; left: 50%; transform: translateX(-50%); top: 10vh; width: min(820px, 92vw); height: auto; max-height: 80vh; padding: 1.25rem; box-shadow: 0 16px 40px rgba(0,0,0,0.35); }
         .review-card.expanded .text-wrap { max-height: calc(80vh - 110px); }
-        .review-card .text-wrap::after { content:""; position:absolute; left:0; right:0; bottom:0; height:24px; background:linear-gradient(180deg, rgba(255,255,255,0), #fff); pointer-events:none; }
+        /* subtle fade for truncated text - only show when there's a "Show more" button */
+        .review-card.has-toggle .text-wrap::after { content:""; position:absolute; left:0; right:0; bottom:0; height:24px; background:linear-gradient(180deg, rgba(255,255,255,0), #fff); pointer-events:none; }
         .review-card.expanded .text-wrap::after { display:none; }
-        .review-toggle { background:transparent; color:#4C6633; border:none; padding:0; cursor:pointer; font-weight:600; margin-top:.25rem; }
+        .review-toggle { background:transparent; color:#4C6633; border:none; padding:0; cursor:pointer; font-weight:600; margin-top:.25rem; position: relative; z-index: 10; }
         .reviews-wrapper { position: relative; }
         .review-arrow { position:absolute; top:50%; transform:translateY(-50%); background:#4C6633; color:#fff; border:none; width:40px; height:40px; border-radius:50%; cursor:pointer; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 10px rgba(0,0,0,0.15); }
         .review-arrow.left { left:-10px; }
@@ -752,10 +753,11 @@
                             const maxLen = 220;
                             const needsToggle = fullText.length > maxLen;
                             const shortText = needsToggle ? fullText.slice(0, maxLen) + '…' : fullText;
-                            const location = (rv.location || '').trim();
+                            if (needsToggle) {
+                                card.classList.add('has-toggle');
+                            }
                             card.innerHTML = `
                                 <div><span class="reviewer">${rv.name || 'Guest'}</span><span class="date"> · ${rv.date || ''}</span></div>
-                                ${location ? `<div class=\"location\">${location}</div>` : ''}
                                 <div class="stars" aria-label="5 star rating">${stars}</div>
                                 <div class="text-wrap">
                                     <div class="text text-short">${shortText}</div>

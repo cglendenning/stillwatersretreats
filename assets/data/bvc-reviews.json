@@ -1,842 +1,1286 @@
 [
   {
     "name": "Andrey",
-    "date": "Sep 2025",
-    "location": "Baltimore, MD",
-    "text": "Had a great stay. Cabin is absolutely wonderful and cozy. Would be happy to return. Hosts are helpful and instructions are clear - 10/10aa aaaaaa aaaa aaaaa aaaa aaaaa aaaa aaaaa aaaaaaaaa aaaaaaaaaaaaaa aaaaaaaaaaaaaaaa aaaaa aaaaaaaaaaaaaaaaaaaaaaaaa"
-  },
-  {
-    "name": "Guest 2",
-    "date": "Feb 2024",
-    "location": "Colorado Springs, CO",
-    "text": "Immaculate cabin, cozy and thoughtfully prepared."
-  },
-  {
-    "name": "Guest 3",
-    "date": "Mar 2024",
-    "location": "Nashville, TN",
-    "text": "Loved morning coffee on the deck—pure quiet."
-  },
-  {
-    "name": "Guest 4",
-    "date": "Apr 2024",
-    "location": "Chicago, IL",
-    "text": "Fast Wi‑Fi and comfortable beds; perfect retreat spot."
-  },
-  {
-    "name": "Guest 5",
-    "date": "May 2024",
-    "location": "Denver, CO",
-    "text": "Felt brand new; bright, airy, and serene."
-  },
-  {
-    "name": "Guest 6",
-    "date": "Jun 2024",
-    "location": "Virginia Beach, VA",
-    "text": "Great location near trails and everything we needed."
-  },
-  {
-    "name": "Guest 7",
-    "date": "Jul 2024",
-    "location": "Miami, FL",
-    "text": "The deck sunsets were incredible—will return."
-  },
-  {
-    "name": "Guest 8",
-    "date": "Aug 2024",
-    "location": "Miami, FL",
-    "text": "Exactly as described: calm, clean, inspiring."
-  },
-  {
-    "name": "Guest 9",
-    "date": "Sep 2024",
-    "location": "Louisville, KY",
-    "text": "Simple check‑in and a truly peaceful neighborhood."
-  },
-  {
-    "name": "Guest 10",
-    "date": "Oct 2024",
-    "location": "Virginia Beach, VA",
-    "text": "Thoughtful touches throughout; felt like home."
-  },
-  {
-    "name": "Guest 11",
-    "date": "Nov 2024",
-    "location": "Nashville, TN",
-    "text": "Cozy fireplace nights and starry skies—amazing."
-  },
-  {
-    "name": "Guest 12",
-    "date": "Dec 2024",
-    "location": "Raleigh, NC",
-    "text": "Perfect winter escape, spotless and warm."
-  },
-  {
-    "name": "Guest 13",
-    "date": "Jan 2025",
-    "location": "Omaha, NE",
-    "text": "Quiet mornings and great light in every room."
-  },
-  {
-    "name": "Guest 14",
-    "date": "Feb 2025",
-    "location": "Indianapolis, IN",
-    "text": "Comfortable linens and well‑stocked kitchen."
-  },
-  {
-    "name": "Guest 15",
-    "date": "Mar 2025",
-    "location": "Fresno, CA",
-    "text": "Felt like a private treehouse among the pines."
-  },
-  {
-    "name": "Guest 16",
-    "date": "Apr 2025",
-    "location": "Mesa, AZ",
-    "text": "Clean, modern, and perfectly located."
-  },
-  {
-    "name": "Guest 17",
-    "date": "May 2025",
-    "location": "Long Beach, CA",
-    "text": "Loved the open loft and relaxing vibe."
-  },
-  {
-    "name": "Guest 18",
-    "date": "Jun 2025",
-    "location": "Raleigh, NC",
-    "text": "Everything worked flawlessly; highly recommend."
-  },
-  {
-    "name": "Guest 19",
-    "date": "Jul 2025",
-    "location": "Mesa, AZ",
-    "text": "Peaceful, bright, and beautifully maintained."
-  },
-  {
-    "name": "Guest 20",
-    "date": "Aug 2025",
-    "location": "San Francisco, CA",
-    "text": "An inspiring place to read, write, and reset."
-  },
-  {
-    "name": "Guest 21",
-    "date": "Sep 2025",
-    "location": "Phoenix, AZ",
-    "text": "Deck views and quiet mornings were our favorite."
-  },
-  {
-    "name": "Guest 22",
-    "date": "Oct 2025",
-    "location": "Louisville, KY",
-    "text": "Great communication and easy access to everything."
-  },
-  {
-    "name": "Guest 23",
-    "date": "Nov 2025",
-    "location": "Tampa, FL",
-    "text": "Spotless spaces and calming design."
-  },
-  {
-    "name": "Guest 24",
-    "date": "Dec 2025",
-    "location": "Albuquerque, NM",
-    "text": "Warm fireplace and serene surroundings."
-  },
-  {
-    "name": "Guest 25",
-    "date": "Jan 2026",
-    "location": "Miami, FL",
-    "text": "A true getaway—quiet and comfortable."
-  },
-  {
-    "name": "Guest 26",
-    "date": "Feb 2026",
-    "location": "Tucson, AZ",
-    "text": "Loved the treetop view from the deck."
-  },
-  {
-    "name": "Guest 27",
-    "date": "Mar 2026",
-    "location": "Tampa, FL",
-    "text": "Very clean and perfectly appointed."
-  },
-  {
-    "name": "Guest 28",
-    "date": "Apr 2026",
-    "location": "San Francisco, CA",
-    "text": "Felt refreshed and inspired after our stay."
-  },
-  {
-    "name": "Guest 29",
-    "date": "May 2026",
-    "location": "Minneapolis, MN",
-    "text": "Beds were super comfortable, slept great."
-  },
-  {
-    "name": "Guest 30",
-    "date": "Jun 2026",
-    "location": "Fresno, CA",
-    "text": "Ideal base for hiking and exploring."
-  },
-  {
-    "name": "Guest 31",
-    "date": "Jul 2026",
-    "location": "Nashville, TN",
-    "text": "Everything was just as pictured—beautiful."
-  },
-  {
-    "name": "Guest 32",
-    "date": "Aug 2026",
-    "location": "Minneapolis, MN",
-    "text": "The quiet here is restorative—loved it."
-  },
-  {
-    "name": "Guest 33",
-    "date": "Sep 2026",
-    "location": "San Francisco, CA",
-    "text": "Kitchen had everything we needed."
-  },
-  {
-    "name": "Guest 34",
-    "date": "Oct 2026",
-    "location": "Arlington, TX",
-    "text": "The loft is charming and comfortable."
-  },
-  {
-    "name": "Guest 35",
-    "date": "Nov 2026",
-    "location": "Tulsa, OK",
-    "text": "Thoughtful host and seamless stay."
-  },
-  {
-    "name": "Guest 36",
-    "date": "Dec 2026",
-    "location": "Long Beach, CA",
-    "text": "A bright, airy cabin that feels special."
-  },
-  {
-    "name": "Guest 37",
-    "date": "Jan 2027",
-    "location": "El Paso, TX",
-    "text": "Loved journaling on the deck each morning."
-  },
-  {
-    "name": "Guest 38",
-    "date": "Feb 2027",
-    "location": "Fresno, CA",
-    "text": "Tidy, modern, and very peaceful."
-  },
-  {
-    "name": "Guest 39",
-    "date": "Mar 2027",
-    "location": "San Jose, CA",
-    "text": "We recharged here—exactly what we needed."
-  },
-  {
-    "name": "Guest 40",
-    "date": "Apr 2027",
-    "location": "Boston, MA",
-    "text": "Great spot for deep thinking and rest."
-  },
-  {
-    "name": "Guest 41",
-    "date": "May 2027",
-    "location": "Portland, OR",
-    "text": "Easy check‑in and clear instructions."
-  },
-  {
-    "name": "Guest 42",
-    "date": "Jun 2027",
-    "location": "Tucson, AZ",
-    "text": "Lovely light throughout the day."
-  },
-  {
-    "name": "Guest 43",
-    "date": "Jul 2027",
-    "location": "El Paso, TX",
-    "text": "Quiet neighborhood and beautiful trees."
-  },
-  {
-    "name": "Guest 44",
-    "date": "Aug 2027",
-    "location": "Las Vegas, NV",
-    "text": "Felt safe, clean, and welcoming."
-  },
-  {
-    "name": "Guest 45",
-    "date": "Sep 2027",
-    "location": "Kansas City, MO",
-    "text": "Perfect for a focused, creative retreat."
-  },
-  {
-    "name": "Guest 46",
-    "date": "Oct 2027",
-    "location": "Louisville, KY",
-    "text": "Loved the design and simplicity."
-  },
-  {
-    "name": "Guest 47",
-    "date": "Nov 2027",
-    "location": "San Jose, CA",
-    "text": "Everything as promised—thank you!"
-  },
-  {
-    "name": "Guest 48",
-    "date": "Dec 2027",
-    "location": "Sacramento, CA",
-    "text": "We’ll be back—so restful here."
-  },
-  {
-    "name": "Guest 49",
-    "date": "Jan 2028",
-    "location": "Philadelphia, PA",
-    "text": "A bright, quiet nest among pines."
-  },
-  {
-    "name": "Guest 50",
-    "date": "Feb 2028",
-    "location": "Jacksonville, FL",
-    "text": "Sparkling clean and thoughtfully furnished."
-  },
-  {
-    "name": "Guest 51",
-    "date": "Mar 2028",
-    "location": "Philadelphia, PA",
-    "text": "Exactly the calm we were seeking."
-  },
-  {
-    "name": "Guest 52",
-    "date": "Apr 2028",
-    "location": "Washington, DC",
-    "text": "Beautiful space to unwind and think."
-  },
-  {
-    "name": "Guest 53",
-    "date": "May 2028",
-    "location": "Philadelphia, PA",
-    "text": "Beds and linens were top notch."
-  },
-  {
-    "name": "Guest 54",
-    "date": "Jun 2028",
-    "location": "Las Vegas, NV",
-    "text": "Great basecamp for lake days and hikes."
-  },
-  {
-    "name": "Guest 55",
-    "date": "Jul 2028",
-    "location": "Fort Worth, TX",
-    "text": "Felt private and tucked away—perfect."
-  },
-  {
-    "name": "Guest 56",
-    "date": "Aug 2028",
-    "location": "Oklahoma City, OK",
-    "text": "Loved evenings on the deck under stars."
-  },
-  {
-    "name": "Guest 57",
-    "date": "Sep 2028",
-    "location": "Seattle, WA",
-    "text": "Everything was simple and smooth."
-  },
-  {
-    "name": "Guest 58",
-    "date": "Oct 2028",
-    "location": "San Francisco, CA",
-    "text": "Quiet, clean, and comfortable—A+."
-  },
-  {
-    "name": "Guest 59",
-    "date": "Nov 2028",
-    "location": "Denver, CO",
-    "text": "We felt so relaxed the entire time."
-  },
-  {
-    "name": "Guest 60",
-    "date": "Dec 2028",
-    "location": "Jacksonville, FL",
-    "text": "Wonderful winter hideaway—highly recommend."
-  },
-  {
-    "name": "Guest 61",
-    "date": "Jan 2029",
-    "location": "Virginia Beach, VA",
-    "text": "Great energy and a calming space."
-  },
-  {
-    "name": "Guest 62",
-    "date": "Feb 2029",
-    "location": "Raleigh, NC",
-    "text": "Appreciated the clear, friendly instructions."
-  },
-  {
-    "name": "Guest 63",
-    "date": "Mar 2029",
-    "location": "Charlotte, NC",
-    "text": "Loved the aesthetic—minimal and warm."
-  },
-  {
-    "name": "Guest 64",
-    "date": "Apr 2029",
-    "location": "Omaha, NE",
-    "text": "Exactly what a retreat should feel like."
-  },
-  {
-    "name": "Guest 65",
-    "date": "May 2029",
-    "location": "New Orleans, LA",
-    "text": "Quiet mornings, bright days, cozy nights."
-  },
-  {
-    "name": "Guest 66",
-    "date": "Jun 2029",
-    "location": "Chicago, IL",
-    "text": "Impeccably maintained and very comfortable."
-  },
-  {
-    "name": "Guest 67",
-    "date": "Jul 2029",
-    "location": "Kansas City, MO",
-    "text": "Great for writing and reflecting."
-  },
-  {
-    "name": "Guest 68",
-    "date": "Aug 2029",
-    "location": "Albuquerque, NM",
-    "text": "Close to trails and still so peaceful."
-  },
-  {
-    "name": "Guest 69",
-    "date": "Sep 2029",
-    "location": "Long Beach, CA",
-    "text": "We felt restored after our stay."
-  },
-  {
-    "name": "Guest 70",
-    "date": "Oct 2029",
-    "location": "Tucson, AZ",
-    "text": "Loved every detail—thank you!"
-  },
-  {
-    "name": "Guest 71",
-    "date": "Nov 2029",
-    "location": "San Diego, CA",
-    "text": "Such a calm, inspiring environment."
-  },
-  {
-    "name": "Guest 72",
-    "date": "Dec 2029",
-    "location": "San Diego, CA",
-    "text": "We’ll recommend this to friends."
-  },
-  {
-    "name": "Guest 73",
-    "date": "Jan 2030",
-    "location": "Omaha, NE",
-    "text": "Everything was spotless and inviting."
-  },
-  {
-    "name": "Guest 74",
-    "date": "Feb 2030",
-    "location": "Los Angeles, CA",
-    "text": "The deck is the perfect thinking spot."
-  },
-  {
-    "name": "Guest 75",
-    "date": "Mar 2030",
-    "location": "Louisville, KY",
-    "text": "Quiet, bright, and thoughtfully appointed."
-  },
-  {
-    "name": "Guest 76",
-    "date": "Apr 2030",
-    "location": "Virginia Beach, VA",
-    "text": "Had everything we needed and more."
-  },
-  {
-    "name": "Guest 77",
-    "date": "May 2030",
-    "location": "Jacksonville, FL",
-    "text": "Felt instantly at ease here."
-  },
-  {
-    "name": "Guest 78",
-    "date": "Jun 2030",
-    "location": "New Orleans, LA",
-    "text": "Great cabin—would absolutely return."
-  },
-  {
-    "name": "Guest 79",
-    "date": "Jul 2030",
-    "location": "San Diego, CA",
-    "text": "Loved how quiet the neighborhood is."
-  },
-  {
-    "name": "Guest 80",
-    "date": "Aug 2030",
-    "location": "Dallas, TX",
-    "text": "A beautiful, restorative space."
-  },
-  {
-    "name": "Guest 81",
-    "date": "Sep 2030",
-    "location": "Raleigh, NC",
-    "text": "Check‑in was easy and quick."
-  },
-  {
-    "name": "Guest 82",
-    "date": "Oct 2030",
-    "location": "Miami, FL",
-    "text": "Felt like a sanctuary among the trees."
-  },
-  {
-    "name": "Guest 83",
-    "date": "Nov 2030",
-    "location": "Mesa, AZ",
-    "text": "Everything was comfortable and simple."
-  },
-  {
-    "name": "Guest 84",
-    "date": "Dec 2030",
-    "location": "Arlington, TX",
-    "text": "Warm and inviting the whole time."
-  },
-  {
-    "name": "Guest 85",
-    "date": "Jan 2031",
-    "location": "Washington, DC",
-    "text": "Perfect for a quiet weekend away."
-  },
-  {
-    "name": "Guest 86",
-    "date": "Feb 2031",
-    "location": "San Jose, CA",
-    "text": "Loved the light in the living room."
-  },
-  {
-    "name": "Guest 87",
-    "date": "Mar 2031",
-    "location": "Dallas, TX",
-    "text": "Relaxing, clean, and well located."
-  },
-  {
-    "name": "Guest 88",
-    "date": "Apr 2031",
-    "location": "Tampa, FL",
-    "text": "We were very comfortable throughout."
-  },
-  {
-    "name": "Guest 89",
-    "date": "May 2031",
-    "location": "Oklahoma City, OK",
-    "text": "Deck time was the highlight for us."
-  },
-  {
-    "name": "Guest 90",
-    "date": "Jun 2031",
-    "location": "Mesa, AZ",
-    "text": "A truly peaceful and bright cabin."
-  },
-  {
-    "name": "Guest 91",
-    "date": "Jul 2031",
-    "location": "Kansas City, MO",
-    "text": "Simple, elegant, and restorative."
-  },
-  {
-    "name": "Guest 92",
-    "date": "Aug 2031",
-    "location": "Dallas, TX",
-    "text": "The quiet here is unmatched."
-  },
-  {
-    "name": "Guest 93",
-    "date": "Sep 2031",
-    "location": "San Diego, CA",
-    "text": "Everything was thoughtfully arranged."
-  },
-  {
-    "name": "Guest 94",
-    "date": "Oct 2031",
-    "location": "Phoenix, AZ",
-    "text": "Felt taken care of from start to finish."
-  },
-  {
-    "name": "Guest 95",
-    "date": "Nov 2031",
-    "location": "Virginia Beach, VA",
-    "text": "Lovely details and very clean."
-  },
-  {
-    "name": "Guest 96",
-    "date": "Dec 2031",
-    "location": "Fresno, CA",
-    "text": "Warm fireplace nights—so cozy."
-  },
-  {
-    "name": "Guest 97",
-    "date": "Jan 2032",
-    "location": "Milwaukee, WI",
-    "text": "We’ll absolutely be back here."
-  },
-  {
-    "name": "Guest 98",
-    "date": "Feb 2032",
-    "location": "Nashville, TN",
-    "text": "Great host, clear and kind communication."
-  },
-  {
-    "name": "Guest 99",
-    "date": "Mar 2032",
-    "location": "Austin, TX",
-    "text": "Exactly what we needed to reset."
-  },
-  {
-    "name": "Guest 100",
-    "date": "Apr 2032",
-    "location": "Raleigh, NC",
-    "text": "A calm, bright space we loved."
-  },
-  {
-    "name": "Guest 101",
-    "date": "May 2032",
-    "location": "Dallas, TX",
-    "text": "Felt private and peaceful all day."
-  },
-  {
-    "name": "Guest 102",
-    "date": "Jun 2032",
-    "location": "Chicago, IL",
-    "text": "Clean, quiet, and comfortable."
-  },
-  {
-    "name": "Guest 103",
-    "date": "Jul 2032",
-    "location": "New Orleans, LA",
-    "text": "Perfect for deep work and rest."
-  },
-  {
-    "name": "Guest 104",
-    "date": "Aug 2032",
-    "location": "Las Vegas, NV",
-    "text": "Loved the minimal, warm design."
-  },
-  {
-    "name": "Guest 105",
-    "date": "Sep 2032",
-    "location": "Detroit, MI",
-    "text": "Felt at ease the entire time."
-  },
-  {
-    "name": "Guest 106",
-    "date": "Oct 2032",
-    "location": "Austin, TX",
-    "text": "Bright mornings, cozy evenings—excellent."
-  },
-  {
-    "name": "Guest 107",
-    "date": "Nov 2032",
-    "location": "Omaha, NE",
-    "text": "Everything was as promised and more."
-  },
-  {
-    "name": "Guest 108",
-    "date": "Dec 2032",
-    "location": "Omaha, NE",
-    "text": "The deck is truly special here."
-  },
-  {
-    "name": "Guest 109",
-    "date": "Jan 2033",
-    "location": "Oakland, CA",
-    "text": "A beautiful, quiet place to think."
-  },
-  {
-    "name": "Guest 110",
-    "date": "Feb 2033",
-    "location": "Detroit, MI",
-    "text": "We appreciated all the details."
-  },
-  {
-    "name": "Guest 111",
-    "date": "Mar 2033",
-    "location": "Kansas City, MO",
-    "text": "Felt renewed after our stay."
-  },
-  {
-    "name": "Guest 112",
-    "date": "Apr 2033",
-    "location": "Portland, OR",
-    "text": "Highly recommend this bright cabin."
-  },
-  {
-    "name": "Guest 113",
-    "date": "May 2033",
-    "location": "Fort Worth, TX",
-    "text": "Quiet neighborhood and lovely trees."
-  },
-  {
-    "name": "Guest 114",
-    "date": "Jun 2033",
-    "location": "Oklahoma City, OK",
-    "text": "Everything we needed for a reset."
-  },
-  {
-    "name": "Guest 115",
-    "date": "Jul 2033",
-    "location": "Tampa, FL",
-    "text": "Clean, beautiful, and relaxing."
-  },
-  {
-    "name": "Guest 116",
-    "date": "Aug 2033",
-    "location": "Omaha, NE",
-    "text": "A gem in the mountains—thank you."
-  },
-  {
-    "name": "Guest 117",
-    "date": "Sep 2033",
-    "location": "Las Vegas, NV",
-    "text": "We loved the peaceful mornings."
-  },
-  {
-    "name": "Guest 118",
-    "date": "Oct 2033",
-    "location": "Portland, OR",
-    "text": "Super comfortable beds and linens."
-  },
-  {
-    "name": "Guest 119",
-    "date": "Nov 2033",
-    "location": "Louisville, KY",
-    "text": "Perfect blend of modern and cozy."
-  },
-  {
-    "name": "Guest 120",
-    "date": "Dec 2033",
-    "location": "Baltimore, MD",
-    "text": "Exactly the retreat we hoped for."
-  },
-  {
-    "name": "Alex",
-    "date": "Aug 2025",
-    "location": "Chicago, IL",
-    "text": "Absolutely magical stay. Immaculate, peaceful, and the deck views are unreal."
-  },
-  {
-    "name": "Kim",
-    "date": "Aug 2025",
-    "location": "Oklahoma City, OK",
-    "text": "Perfect cabin for a reflective retreat. Super clean and cozy."
-  },
-  {
-    "name": "Jordan",
-    "date": "Jul 2025",
-    "location": "Jacksonville, FL",
-    "text": "Loved the treetop vibe. Quiet mornings with coffee on the deck were everything."
-  },
-  {
-    "name": "Priya",
-    "date": "Jul 2025",
-    "location": "Albuquerque, NM",
-    "text": "Exactly as described—spotless, comfortable, and thoughtfully equipped."
-  },
-  {
-    "name": "Diego",
-    "date": "Jun 2025",
-    "location": "Columbus, OH",
-    "text": "Great location near trails. Fast Wi‑Fi and comfy beds. We’ll be back."
-  },
-  {
-    "name": "Hannah",
-    "date": "Jun 2025",
-    "location": "Milwaukee, WI",
-    "text": "Five stars across the board. The energy here is calm and inspiring."
-  },
-  {
-    "name": "Marcus",
-    "date": "May 2025",
-    "location": "Long Beach, CA",
-    "text": "Deck sunsets were stunning. The cabin feels brand new and very well kept."
-  },
-  {
-    "name": "Sam",
-    "date": "May 2025",
-    "location": "Oakland, CA",
-    "text": "Check‑in was easy, neighborhood is quiet, and everything worked perfectly."
-  },
-  {
-    "name": "Tanya",
-    "date": "Apr 2025",
-    "location": "Fort Worth, TX",
-    "text": "Perfect balance of modern comforts and mountain charm. Highly recommend."
-  },
-  {
-    "name": "Omar",
-    "date": "Apr 2025",
-    "location": "Philadelphia, PA",
-    "text": "Super clean, bright, and comfortable. Great spot to unwind and think."
-  },
-  {
-    "name": "Rachel",
-    "date": "Mar 2025",
-    "location": "El Paso, TX",
-    "text": "Felt like a private treehouse. We loved every minute of it."
-  },
-  {
-    "name": "Chris",
-    "date": "Mar 2025",
-    "location": "Columbus, OH",
-    "text": "The deck, the light, the quiet—everything we hoped for. 5/5."
-  },
-  {
-    "name": "Nina",
-    "date": "Feb 2025",
-    "location": "Houston, TX",
-    "text": "Thoughtful touches throughout the cabin. Warm, inviting, and spotless."
+    "date": "1 week ago",
+    "location": "Los Angeles, California",
+    "text": "Had a great stay. Cabin is absolutely wonderful and cozy. Would be happy to return. Hosts are helpful and instructions are clear - 10/10"
+  },
+  {
+    "name": "Polina",
+    "date": "1 week ago",
+    "location": "",
+    "text": "Amazing place! Will definitely come back later."
   },
   {
     "name": "Ethan",
-    "date": "Feb 2025",
-    "location": "Baltimore, MD",
-    "text": "Fantastic retreat space. Close to everything yet peaceful and secluded."
+    "date": "3 weeks ago",
+    "location": "",
+    "text": "We had a great stay!! This was my first ever time staying here and Craig made it a great first experience!! Will definitely plan a return visit in the future"
   },
   {
-    "name": "Lena",
-    "date": "Jan 2025",
-    "location": "Columbus, OH",
-    "text": "Beautiful cabin with fast internet and comfy linens. Great host!"
+    "name": "Michael",
+    "date": "3 weeks ago",
+    "location": "Santa Ana, California",
+    "text": "The cabin was very beautiful. my girlfriend enjoyed the view and the fresh breeze. having morning coffee at the patio with a great view was a great experience. I really recommend checking them out."
   },
   {
-    "name": "Victor",
-    "date": "Jan 2025",
-    "location": "Arlington, TX",
-    "text": "Exactly what we needed to recharge. Would definitely return."
+    "name": "Shannon",
+    "date": "August 2025",
+    "location": "Katy, Texas",
+    "text": "Great place! Perfect for a couple or small family"
   },
   {
-    "name": "Sofia",
-    "date": "Dec 2024",
-    "location": "San Jose, CA",
-    "text": "A serene escape. The fireplace and forest views were perfection."
+    "name": "Jennifer",
+    "date": "August 2025",
+    "location": "Riverside, California",
+    "text": "Had everything needed. The deck was the best part of this house! Close to amenities."
   },
   {
-    "name": "Ben",
-    "date": "Dec 2024",
-    "location": "Fort Worth, TX",
-    "text": "Spotless and stylish. Loved the loft and the overall vibe."
+    "name": "Ryan",
+    "date": "August 2025",
+    "location": "Escondido, California",
+    "text": "The home was lovely, very peaceful, quiet, and close to the shops and restaurants. Craig were so communicative and prompt. It really felt like they went the extra mile, especially adding in a list of things to do and foods to try at Big Bear. Overall a great experience and would definitely use their services again!"
   },
   {
-    "name": "Ivy",
-    "date": "Nov 2024",
-    "location": "Minneapolis, MN",
-    "text": "Wonderful stay. Peaceful mornings and starry nights on the deck."
+    "name": "Mariana",
+    "date": "July 2025",
+    "location": "Oxnard, California",
+    "text": "Me and my friends loved this place! The cabin was clean, cozy, and exactly as described. The host was very welcoming and made communication super easy, which made check-in and check-out smooth. The location was perfect close to everything we needed but still quiet enough to relax. We really appreciated the thoughtful touches and would definitely stay here again. Highly recommend!"
+  },
+  {
+    "name": "Priya",
+    "date": "July 2025",
+    "location": "",
+    "text": "Great place. Friendly host and very responsive. The house itself has a cozy vibes. We enjoyed our stay!! Thank you Craig!!"
+  },
+  {
+    "name": "Daniel",
+    "date": "July 2025",
+    "location": "Palmdale, California",
+    "text": "The place was very clean and it was in a beautiful location. This place is not very far from the shopping center."
+  },
+  {
+    "name": "Nathaniel",
+    "date": "July 2025",
+    "location": "",
+    "text": "Great place! Easy to walk to the local busses if you don’t want to drive!"
+  },
+  {
+    "name": "Johannes",
+    "date": "July 2025",
+    "location": "",
+    "text": "Great cabin to enjoy the nature while sitting outside on the terrace. Equipped with everything you need to supply yourself. Would definitely come back!"
+  },
+  {
+    "name": "Vanessa",
+    "date": "June 2025",
+    "location": "Somerton, Arizona",
+    "text": "Craig home was the perfect spot for my parents and I have to have a fun and relaxing getaway. The house was the perfect size for us 3 and had everything we needed. The area and neighborhood were quiet and very peaceful. Amazing views! They were so responsive and helpful with questions we had and were checking in with us during our stay which I appreciated. Would definitely recommend to anyone staying in Big Bear."
+  },
+  {
+    "name": "Jennifer",
+    "date": "May 2025",
+    "location": "San Juan Capistrano, California",
+    "text": "Such a cute cozy cabin. Very clean and well stocked with everything we needed. Great kitchen with new appliances. Fast WiFi. Check in was super easy. The deck space was great and had a spectacular view."
+  },
+  {
+    "name": "Tahmeka",
+    "date": "May 2025",
+    "location": "",
+    "text": "Our stay was great! Nice view points, very cozy & plenty of space for 2 people. Everything was super close by, even the lake. Craig respond quickly whenever we had a questions or needed suggestions. I definitely see us coming back to stay again."
+  },
+  {
+    "name": "Chris",
+    "date": "April 2025",
+    "location": "Upland, California",
+    "text": "This magnificent cabin was an amazing and beautiful place for a romantic birthday getaway. The host was very helpful. I definitely recommend it."
+  },
+  {
+    "name": "Alyssa",
+    "date": "April 2025",
+    "location": "Pasadena, California",
+    "text": "Staying here was such a pleasure! Working fulltime with three kids is hard and this place gave me such a blessed amount of relaxation. It snowed that was such a great bonus. Definitely would rebook!"
+  },
+  {
+    "name": "Diana",
+    "date": "March 2025",
+    "location": "Los Angeles, California",
+    "text": "My family and I had such an amazing time in this cabin! I highly recommended this hidden gem to other families looking for a convinient and a comfortable place to relax. We can call this place our home away from home and Craig's responsiveness was top notch and friendly. We look forward to reserving this home again in the summer!! Amazing hosts!"
+  },
+  {
+    "name": "Hailey",
+    "date": "March 2025",
+    "location": "Long Beach, California",
+    "text": "Such a cute and cozy get away! Hosts responded very quickly to any questions and the cabin was so close to everywhere you would want to go. Great stay!"
+  },
+  {
+    "name": "Christy",
+    "date": "March 2025",
+    "location": "",
+    "text": "Our stay was great! Cozy, cute little cabin, exactly as advertised (except that the post said dryer is in building, but it’s actually in the home, which was a great surprise!). No firewood for the fire, so if you want to have a fire grab some in advance. They did provide fire starter. Parking space was flat which is nice for snowy conditions. Location is great, easy to find and close to the mountain. It was perfect for our use, would definitely go back!"
+  },
+  {
+    "name": "Alyssa",
+    "date": "March 2025",
+    "location": "",
+    "text": "It was really nice a little smaller then I thought but it was super cute and I would definitely stay here again"
+  },
+  {
+    "name": "Fernandou",
+    "date": "February 2025",
+    "location": "",
+    "text": "Thank you for everything. It's very nice customer service."
+  },
+  {
+    "name": "Scott",
+    "date": "February 2025",
+    "location": "Redondo Beach, California",
+    "text": "Great proximity to the slopes! It was a perfect stay and met our expectations. Craig were responsive hosts and made it quick and easy to check-in after a long day of traveling and skiing."
+  },
+  {
+    "name": "Frank",
+    "date": "February 2025",
+    "location": "Los Angeles, California",
+    "text": "Very cozy place my wife and kids loved it. Thank you for having us."
+  },
+  {
+    "name": "Jose",
+    "date": "February 2025",
+    "location": "",
+    "text": "Everything was beautiful cozy and organized."
+  },
+  {
+    "name": "Jesus",
+    "date": "February 2025",
+    "location": "Monterrey, Mexico",
+    "text": "Excelent"
+  },
+  {
+    "name": "Liliana",
+    "date": "February 2025",
+    "location": "",
+    "text": "Such a lovely place! Great location, very close to the slopes, village and lake. The cabin is warm and welcoming, has everything you need and more, we had a great time in it too playing loteria at night :) everything about it is very convenient such as the parking lot, the wash and dryer, the dishwasher, all of it really, including the way to access to it and the distribution of the whole cabin. The communication with the hosts was on point. We will definitely come back in the future!"
+  },
+  {
+    "name": "Elliot",
+    "date": "January 2025",
+    "location": "",
+    "text": "Good place to stay"
+  },
+  {
+    "name": "Kevin",
+    "date": "January 2025",
+    "location": "",
+    "text": "Great location and great stay!"
+  },
+  {
+    "name": "Andy",
+    "date": "January 2025",
+    "location": "Whittier, California",
+    "text": "This was an amazing space! We had a great time and the host were very friendly! They gave us great recommendations for local activities and were very responsive!"
+  },
+  {
+    "name": "Jesus",
+    "date": "January 2025",
+    "location": "Mexico City, Mexico",
+    "text": "Super host always aware  and the very comfortable and pleasant cabin and the cabin well located"
+  },
+  {
+    "name": "Tal",
+    "date": "December 2024",
+    "location": "",
+    "text": "We thoroughly enjoyed our stay in the cabin! All the facilities were in excellent working order and spotlessly clean. Thank you!"
+  },
+  {
+    "name": "Mohammad Suha",
+    "date": "December 2024",
+    "location": "Irvine, California",
+    "text": "Everything was the way that we expected!"
+  },
+  {
+    "name": "Hovig",
+    "date": "December 2024",
+    "location": "",
+    "text": "Very nice house everything was as described, the balcony was very nice lots of chairs and tables made making dinner very convenient, everything was less than a 10 minute drive away and Ubers were easily attainable no matter the time. One thing to note if you are over 6 foot you should call dibs on the downstairs bedroom. Overall great stay and well worth the price."
+  },
+  {
+    "name": "Peter",
+    "date": "December 2024",
+    "location": "Los Angeles, California",
+    "text": "Fantastic Stay. Two thumbs up. It is so quiet and I was able to really get some deep work done."
+  },
+  {
+    "name": "Julianna",
+    "date": "December 2024",
+    "location": "",
+    "text": "This place exceeded my expectations everything about it was perfect for us😊Will for sure be returning to this place for another vacation 😁Great hosts as well very kind!"
+  },
+  {
+    "name": "Lori",
+    "date": "December 2024",
+    "location": "Corona, California",
+    "text": "Peaceful stay in a great location. The deck provides a great place to relax and a surprising amount of privacy in a neighborhood. We enjoyed exploring the area and went on a nearby hike.  Craig were friendly and helpful."
+  },
+  {
+    "name": "Moises",
+    "date": "November 2024",
+    "location": "",
+    "text": "Everything was as advertised. Great communication."
+  },
+  {
+    "name": "David",
+    "date": "November 2024",
+    "location": "Santa Ana, California",
+    "text": "Beautiful, amazing place to stay! Very well organized and laid out. Host was very responsive and friendly. This is far and above the best air bnb I’ve had the pleasure of staying at. I highly recommend this place!"
+  },
+  {
+    "name": "Iván",
+    "date": "November 2024",
+    "location": "Tijuana, Mexico",
+    "text": "A good place to stay, quiet and comfortable, I went with my wife and 2 year old daughter, the kitchen, the fret and spices that have a lot of ease not to buy too many things, the cafes they provide is a plus to enjoy a cold morning. Overall a very cozy and quiet place. Thanks for having us 😁"
+  },
+  {
+    "name": "Richard",
+    "date": "November 2024",
+    "location": "",
+    "text": "On of the most amazing stays I’ve had. Great location super comfy and beautiful scenery. Would def recommend and or stay again if I’m back in the area in the future. Great host and location was clean and smelled amazing upon entering."
+  },
+  {
+    "name": "Annet",
+    "date": "November 2024",
+    "location": "",
+    "text": "The Cabin went beyond our expectations, it was super cozy and my family loved the place! Would most definitely go back again!"
+  },
+  {
+    "name": "Tumur",
+    "date": "October 2024",
+    "location": "Irvine, California",
+    "text": "A lovely place to relax! The apartment was even better than in the photos — clean, cozy and very stylishly decorated. The bed is comfortable and the kitchen has all the essentials for cooking. I especially liked the view and proximity to the main attractions. The host was very hospitable and was always in touch, answered all questions quickly. I recommend this place for those looking for comfort and convenient location!”"
+  },
+  {
+    "name": "Justyne",
+    "date": "October 2024",
+    "location": "Murrieta, California",
+    "text": "We really enjoyed our stay at the house! We drove down to the zoo one of the days and were able to take the trolley right into town for lunch, super nice to not have to drive much. The house is cozy and perfect for board games or watching shows as the wifi runs very fast."
+  },
+  {
+    "name": "Austin",
+    "date": "October 2024",
+    "location": "",
+    "text": "Was a great time, everything was in good order when we arrived, and the location was great, not too far from the main attractions of Big Bear, but still private enough. Had all the amenities that we needed, and the back deck was great for enjoying the scenery."
+  },
+  {
+    "name": "Alejandra",
+    "date": "September 2024",
+    "location": "Tijuana, Mexico",
+    "text": "Amazing place! Super beautiful, fully equipped... you don't need to bring anything but your personal things, you will find everything you need in the cabin. I will definitely come back and highly recommend it."
+  },
+  {
+    "name": "William",
+    "date": "September 2024",
+    "location": "Las Vegas, Nevada",
+    "text": "Really enjoyed my self. This cabin was the perfect location to be in. I’ll definitely be back!"
+  },
+  {
+    "name": "Ethan",
+    "date": "September 2024",
+    "location": "Highland, California",
+    "text": "Clean and in a very nice neighborhood."
+  },
+  {
+    "name": "Daniel",
+    "date": "August 2024",
+    "location": "El Centro, California",
+    "text": "Everything about Craig's place was phenomenal! Definitely recommend their home. Craig has one of best customer service I have had so far while using short term rentals. Their home is very cosy, clean, and less than 10 minutes away from your local grocery stores and about 15 minutes from The Village. Highly recommend!!!"
+  },
+  {
+    "name": "Kylea-Rose",
+    "date": "August 2024",
+    "location": "Los Angeles, California",
+    "text": "Wonderful place. Peaceful and yet close to town. Hosts had extremely good communication. Will definitely stay again next time we are in Big Bear! Thank you for having us!"
+  },
+  {
+    "name": "Michael Angelo",
+    "date": "July 2024",
+    "location": "",
+    "text": "Such a beautiful stay whether it be with a significant other or small family. My partner and I enjoyed the peaceful atmosphere and our quality time together while taking advantage of nearby activities! I’d book this place again :)"
+  },
+  {
+    "name": "Anthony",
+    "date": "July 2024",
+    "location": "Murrieta, California",
+    "text": "We had an amazing time in this cozy cabin. We will defanitly be back again."
+  },
+  {
+    "name": "Alvin",
+    "date": "July 2024",
+    "location": "Cypress, California",
+    "text": "Great and responsive host! Very nice view from the deck, and we like how squeaky clean the floor was since we do not wear shoes inside the house."
+  },
+  {
+    "name": "Laszlo",
+    "date": "July 2024",
+    "location": "Tustin, California",
+    "text": "We had an amazing getaway with my family of 6. The house is clean, the view is beautiful. Location is great. Highly recommend"
+  },
+  {
+    "name": "Ashley",
+    "date": "June 2024",
+    "location": "Ramona, California",
+    "text": "We had a great stay at Craig’s house. We had one small hiccup when we arrived but Craig was so responsive and corrected it right away! He was on top of things and sent local recommendations which was so nice. The house was comfortable and well equipped with what we needed. The neighborhood was very peaceful and an easy drive to everything."
+  },
+  {
+    "name": "Liliana",
+    "date": "June 2024",
+    "location": "Indio, California",
+    "text": "No complaints. Beautiful views, great location, really clean. Satisfied for sure."
+  },
+  {
+    "name": "Bobbi",
+    "date": "June 2024",
+    "location": "Encinitas, California",
+    "text": "Great location. Much needed quite get away!"
+  },
+  {
+    "name": "Eveaunna",
+    "date": "June 2024",
+    "location": "San Bernardino, California",
+    "text": "I rented Craig’s cabin twice and both times were so worth it.  It was the most peaceful I’ve felt in so long. You can go out to the patio early morning and watch and hear all the birds soaring through the trees. The neighborhood is quiet, parking is right next to the door/walkway. Craig is so good with giving local recommendations and super great with responding fast for any questions. I will always look for their cabin first if I want to vacation in big bear. Thank you Craig!"
+  },
+  {
+    "name": "Vanessa",
+    "date": "May 2024",
+    "location": "",
+    "text": "Comfortable and beautiful deck to enjoy a morning coffee. Location is great!"
+  },
+  {
+    "name": "Luke",
+    "date": "May 2024",
+    "location": "Murrieta, California",
+    "text": "Really enjoyed our stay. Thanks"
+  },
+  {
+    "name": "John",
+    "date": "May 2024",
+    "location": "Fort Lauderdale, Florida",
+    "text": "Craig was awesome in communication about the place. The cabin was comfortable and very quiet. the bedrooms were clean and the beds were very comfortable. We would definitely consider it for our next trip to Big Bear!"
   },
   {
     "name": "Jake",
-    "date": "Nov 2024",
-    "location": "Long Beach, CA",
-    "text": "Five stars—clean, cozy, and close to trails and the zoo."
+    "date": "May 2024",
+    "location": "",
+    "text": "This was a perfect getaway for the vacation that we needed. Craig has an excellent cabin that I’d certainly recommend!"
+  },
+  {
+    "name": "Jade",
+    "date": "April 2024",
+    "location": "",
+    "text": "Beautiful place, me and my friends had a blast, and they accommodated us on short notice! perfect place to hang with friends and explore, plus amazing views. it’s like a big tree house"
+  },
+  {
+    "name": "Michael",
+    "date": "April 2024",
+    "location": "Rancho Cucamonga, California",
+    "text": "Amazing place for a getaway🙌🏽"
+  },
+  {
+    "name": "Joshua",
+    "date": "April 2024",
+    "location": "Orange, California",
+    "text": "Craig was very nice and helpful.  The cabin was beautiful and clean. The view of the cabin was wonderful. We look forward to stay in here again!"
+  },
+  {
+    "name": "Jan",
+    "date": "April 2024",
+    "location": "Arcadia, California",
+    "text": "Craig’s place was nice. Takes about 7-10 minutes to get to the Village and other places. Very quiet at night. Good for a family of 4.  The family and I needed an escape and we got what we wanted.  Very responsive hosts."
+  },
+  {
+    "name": "Zilan",
+    "date": "March 2024",
+    "location": "Torrance, California",
+    "text": "We really enjoyed our stay. We stayed during a winter storm. Craig was extremely helpful accomendating our needs."
+  },
+  {
+    "name": "Alexander",
+    "date": "March 2024",
+    "location": "Whittier, California",
+    "text": "Cabin is clean, cozy and well equipped with everything that is needed. Perfect for our small family and near the zoo and village. We had a relaxing time at their cabin and it was very peaceful. Thank you for a great stay!"
+  },
+  {
+    "name": "André",
+    "date": "March 2024",
+    "location": "Fremont, California",
+    "text": "Lovely cabin! Wonderfully gracious hosts who respond and accommodate over messaging in minutes."
+  },
+  {
+    "name": "Romelia",
+    "date": "March 2024",
+    "location": "",
+    "text": "we absolutely loved the cabin it was beautiful and very peaceful would definitely book again."
+  },
+  {
+    "name": "Joshua",
+    "date": "March 2024",
+    "location": "",
+    "text": "Place was awesome to get away with the family and enjoy the outdoors and relax"
+  },
+  {
+    "name": "Ricardo",
+    "date": "February 2024",
+    "location": "Los Angeles, California",
+    "text": "Craig is such a great host.  Super quick to respond and extremely helpful with any questions we had.  It was clear they care about the guest experience and the place was perfect for kids and adults alike.  One special bonus that I have to mention for those potential renters with kids that love sledding is that the property sits on a hill that makes for epic sledding right on the property.  Great fireplace and comfortable temperature regulation with the nest thermostat.  I often find big bear homes to be hit and miss when it comes to being too cold or too hot but this place was great.  It’s a great home but for sure what earned the 5 stars was Craig being such a warm and helpful host.  Would stay again in a heartbeat."
+  },
+  {
+    "name": "Margaretha",
+    "date": "February 2024",
+    "location": "",
+    "text": "Great Place"
+  },
+  {
+    "name": "Natalia",
+    "date": "February 2024",
+    "location": "Irvine, California",
+    "text": "This cabin exceeded expectations, equipped with everything we needed. The host's attention to detail made our stay seamless, from easy check-in to thoughtful local recommendations. The cozy ambiance and scenic surroundings made it a memorable retreat. Very happy that we came here and even weather was so nice – highly recommend! Thank you!"
+  },
+  {
+    "name": "Allegra",
+    "date": "February 2024",
+    "location": "Altadena, California",
+    "text": "Perfect cozy getaway for us! Super responsive hosts. Loved curling up by the fire to relax in the evenings."
+  },
+  {
+    "name": "Benjamin",
+    "date": "January 2024",
+    "location": "",
+    "text": "nice and cozy place"
+  },
+  {
+    "name": "Thalia",
+    "date": "January 2024",
+    "location": "Mexico City, Mexico",
+    "text": "I'm very happy with all the service, the instructions were clear, answer and clarify all of your questions. I feel very satisfied with the cleanliness. An excellent place that I would definitely book again. Thank you for everything…"
+  },
+  {
+    "name": "Anthony",
+    "date": "January 2024",
+    "location": "San Diego, California",
+    "text": "Beautiful cabin, came for the slopes at Bear Mountain and was super pleased to find it only a few minutes away! Great location overall and very peaceful. Amazing hosts that were very responsive, also had great suggestions for anyone’s first time at Big Bear!"
+  },
+  {
+    "name": "Treishawn",
+    "date": "January 2024",
+    "location": "",
+    "text": "Gorgeous place and the hospitality was outstanding! Highly recommend coming to this spot if you ever wanna check out big bear! Perfect little weekend getaway!"
+  },
+  {
+    "name": "Liliana",
+    "date": "January 2024",
+    "location": "",
+    "text": "This is a perfect place to stay for a Big Bear getaway. The home is cozy and clean. The bedrooms are spacious and comfortable. The kitchen is fully equipped with all items needed to prepare your own meals. We felt right at home. The hosts are very friendly and reponsive."
+  },
+  {
+    "name": "Sami",
+    "date": "January 2024",
+    "location": "",
+    "text": "We loved to stay at the cabin of Craig in our first time in Big Bear! Adorable experience!"
+  },
+  {
+    "name": "Maria",
+    "date": "December 2023",
+    "location": "",
+    "text": "Craig was an amazing host. Responsible, accurate but most important reachable. The response time was easy and quick. My family really enjoyed their cozy home therefore we hope to go back soon. Amazing host."
+  },
+  {
+    "name": "Joseph",
+    "date": "December 2023",
+    "location": "",
+    "text": "Craig was extremely responsive and helped whenever needed. They made our stay very enjoyable and relaxing. Would definitely come back!"
+  },
+  {
+    "name": "Franky",
+    "date": "December 2023",
+    "location": "",
+    "text": "I’ll keep it short, very cozy cabin and clean convenient location close to most activities in big bear perfect for the family and kids or even for couples on a peaceful getaway definitely recommend this place!"
+  },
+  {
+    "name": "Jose",
+    "date": "December 2023",
+    "location": "San Diego, California",
+    "text": "We loved the cabin! Cozy and have everything we need and else! Great location easy access and close to town, we definitely going back! Thanks Craig 💕"
+  },
+  {
+    "name": "Armen",
+    "date": "November 2023",
+    "location": "Irvine, California",
+    "text": "We had a great time at this cabin for the Thanksgiving Holiday. The cabin is very clean and the hosts are very friendly. Exceeded our expectations and we plan on coming back. Top tier accommodations. The worst part was having to leave!"
+  },
+  {
+    "name": "Peter Bernard Arriola",
+    "date": "November 2023",
+    "location": "",
+    "text": "We had a wonderful stay at your cabin in Big Bear. The cozy atmosphere and cleanliness made our experience truly enjoyable. Craig was an incredibly responsive hosts, making our stay even more pleasant. Thank you for providing such a welcoming retreat!"
+  },
+  {
+    "name": "Ryan",
+    "date": "November 2023",
+    "location": "Jurupa Valley, California",
+    "text": "The cabin was awesome, definitely would stay again on our next trip up to Big Bear!"
+  },
+  {
+    "name": "Donna",
+    "date": "November 2023",
+    "location": "Buhler, Kansas",
+    "text": "Craig was an amazing host"
+  },
+  {
+    "name": "Joel",
+    "date": "October 2023",
+    "location": "Mecca, California",
+    "text": "Extremely cozy and private place, beautiful scenery in a very quiet neighborhood, enjoyed every second of it would definitely recommend."
+  },
+  {
+    "name": "Luis",
+    "date": "October 2023",
+    "location": "Palmdale, California",
+    "text": "Wonderful little place for a couple/ small family getaway! Craig was amazing about reaching out, and making sure that we had a great stay. Would love to go back sometime during the winter!"
+  },
+  {
+    "name": "Daniel",
+    "date": "October 2023",
+    "location": "",
+    "text": "Great place to stay!"
+  },
+  {
+    "name": "Jeff",
+    "date": "October 2023",
+    "location": "",
+    "text": "Amazing location. Great view. Just far enough from the lake to have space and quiet, but close enough to drive to take in the lake activities!!"
+  },
+  {
+    "name": "Gricelia",
+    "date": "October 2023",
+    "location": "West Palm Beach, Florida",
+    "text": "Beautiful and cozy cabin for our weekend vacay!!"
+  },
+  {
+    "name": "Bob",
+    "date": "October 2023",
+    "location": "Austin, Texas",
+    "text": "Thank you, Craig. Place is great, will come again."
+  },
+  {
+    "name": "Adriana",
+    "date": "October 2023",
+    "location": "",
+    "text": "Very clean! Pictures of property where accurate, the host checked in and made sure everything was going good and we were comfortable and happy in a way that was to not impede our stay. Cabin was everything advertised and more. Sunrise from the deck over the tree line was perfect. Thank you!"
+  },
+  {
+    "name": "DMZ Digital",
+    "date": "October 2023",
+    "location": "Curridabat, Costa Rica",
+    "text": "Great beautiful Cabin, peaceful with all you need."
+  },
+  {
+    "name": "Carlos",
+    "date": "September 2023",
+    "location": "San Diego, California",
+    "text": "Me and my Wife really enjoyed the stay! we did not had to bother the host due to Craig had a home manual  and it clearly indicated the cabins features we love that. Back patio was private and peacefull and close by everything. we will definitely come back soon! Thank you for being super host."
+  },
+  {
+    "name": "Arianna",
+    "date": "September 2023",
+    "location": "Tijuana, Mexico",
+    "text": "Staying at Craig’s was our best decision. The cabin is lovely, comfortable, clean and close to the main bulevar. Also, it has all the things you need to have great weekend with your family and friends. Craig was friendly and attentive during our whole stay, I strongly suggest staying with them if you want to have a great getaway weekend."
+  },
+  {
+    "name": "Cindy",
+    "date": "September 2023",
+    "location": "Pagosa Springs, Colorado",
+    "text": "Loved this place! Really enjoyed the deck ❤️ super peaceful"
+  },
+  {
+    "name": "Linda",
+    "date": "September 2023",
+    "location": "Mission Viejo, California",
+    "text": "Great hosts. Very available and responsive. Property was perfect. Cabin was lacking nothing. Couldn't ask for anything more. Would happily stay there again and again!"
+  },
+  {
+    "name": "Michelle",
+    "date": "August 2023",
+    "location": "Los Angeles, California",
+    "text": "What a lovely cabin! My boyfriend and I do little getaways every few months, and he told me this is the best airbnb we’ve booked so far! The view is amazing, the whole place was clean and spacious. We didn’t find any olive oil to cook pasta with, and Craig sent us 2 bottles of olive oil right away, it was on the porch in less than 30min. Super responsive hosts. Location was also pristine. Only 10min drive to all the shops and trails. The only thing is some of the cooking utensils and pans are not in the best condition. But this is me being nitpicky. We really wanted to stay another night because of how cozy it was! Would stay again."
+  },
+  {
+    "name": "Isaac",
+    "date": "August 2023",
+    "location": "",
+    "text": "Awesome place to go and relax"
+  },
+  {
+    "name": "Rubi",
+    "date": "August 2023",
+    "location": "Los Angeles, California",
+    "text": "It was an Amazing, Most beautiful Views & Cabin. Would definitely come back. Very Peaceful. The host are Awesome."
+  },
+  {
+    "name": "Gabriel",
+    "date": "August 2023",
+    "location": "Willow Springs, California",
+    "text": "Great place. Very serene. Enjoyed our stay"
+  },
+  {
+    "name": "Elsie",
+    "date": "August 2023",
+    "location": "",
+    "text": "Loved our stay! We wanted to visit the area for my dad’s birthday and absolutely loved this place! So clean, peaceful, and calm. Thank you!"
+  },
+  {
+    "name": "Jose",
+    "date": "August 2023",
+    "location": "Hemet, California",
+    "text": "Really enjoyed the place it was worth the stay. Craig was really attentive and fast to respond back if I had questions. Definitely would recommend this place."
+  },
+  {
+    "name": "Melanie",
+    "date": "July 2023",
+    "location": "Downey, California",
+    "text": "Very cute cabin, felt very cozy. I loved sitting on the deck while seeing the stars at night. Craig responded to me right away with my questions and were very helpful. Would definitely come back here!"
+  },
+  {
+    "name": "Otto",
+    "date": "July 2023",
+    "location": "Los Angeles, California",
+    "text": "Craig’s place was great. Super comfortable to hang out. Would def stay there again."
+  },
+  {
+    "name": "Miles",
+    "date": "July 2023",
+    "location": "Los Angeles, California",
+    "text": "Great and accurate listing!"
+  },
+  {
+    "name": "Jose Luis",
+    "date": "July 2023",
+    "location": "Aurora, Colorado",
+    "text": "Its was a great place to be, we were please with the place"
+  },
+  {
+    "name": "Laura",
+    "date": "June 2023",
+    "location": "New Cumberland, West Virginia",
+    "text": "The cabin is beautiful and the view from the deck felt like you were standing in the tree tops."
+  },
+  {
+    "name": "Danielle",
+    "date": "June 2023",
+    "location": "",
+    "text": "Cozy & at home feel cabin ! Great location, close to grocery stores, fast food & restaurants, and by the lake. Quiet and peaceful neighborhood."
+  },
+  {
+    "name": "Richard",
+    "date": "June 2023",
+    "location": "",
+    "text": "It was a delight staying at this cabin. The balcony view is breathtaking and the cabin has all amenities listed. Craig did an excellent job ensuring that our stay was good and responded to all our needs. Overall a wonderful experience."
+  },
+  {
+    "name": "Valente",
+    "date": "June 2023",
+    "location": "Los Angeles, California",
+    "text": "Cozy place with a view. Perfect get away home that feels like HOME! Everything needed is there and the host are very helpful. I’m definitely saving this place for another trip."
+  },
+  {
+    "name": "Valerie",
+    "date": "June 2023",
+    "location": "Jurupa Valley, California",
+    "text": "Honestly the house was so beautiful and the host were so kind and helpful. It felt like home! 🙂"
+  },
+  {
+    "name": "Dennis",
+    "date": "May 2023",
+    "location": "",
+    "text": "Nice cabin with view for a change of scenery.  Bright and clean.  Had a great time with the family. Woke up to beautiful sunrise view every morning right from the loft."
+  },
+  {
+    "name": "Gerald",
+    "date": "April 2023",
+    "location": "",
+    "text": "Very nice place in a quiet neighborhood. Everything is close in Big Bear. The place felt like home.  Thank you!"
+  },
+  {
+    "name": "Abel",
+    "date": "April 2023",
+    "location": "Coachella, California",
+    "text": "Craig was a very great host! My family and I felt right at home the moment we stepped foot into the cabin, Craig was very responsive to any questions we had. we would definitely stay again."
+  },
+  {
+    "name": "Sean",
+    "date": "April 2023",
+    "location": "San Diego, California",
+    "text": "My wife and I thoroughly enjoyed our big bear cabin getaway! The cabin had it all, flexible check-in, cozy fireplace, great balcony, and very convenient for snowboarding at bear mountain."
+  },
+  {
+    "name": "Byanka",
+    "date": "April 2023",
+    "location": "Whittier, California",
+    "text": "Craig's cabin was a dream! If you’re looking for a cozy and quiet home that’s near fun activities but not in the center of the hustle and bustle, this is the place for you. The cabin was nice and warm when we arrived and very clear, concise instructions were in the counter. The cabin was smaller than I had picture in my brain but it did not disappoint! The loft area was one of my favorite places to be in. I read a ton in this space while on our trip. All you need is about an 8 minute drive down the mountain. We frequented Stater Bros, Vons and even Walgreens during our stay and we had no trouble getting to these spots. Even in the crisp cold weather we found some time to spend a few minutes in their decks taking in the sun and scenery. You can see one of the ski resorts from the loft deck! Overall we had a wonderful experience and we would love to come back."
+  },
+  {
+    "name": "Eric",
+    "date": "April 2023",
+    "location": "San Diego, California",
+    "text": "Perfect experience!"
+  },
+  {
+    "name": "Valissa",
+    "date": "March 2023",
+    "location": "California, United States",
+    "text": "Super responsive and accommodating."
+  },
+  {
+    "name": "Katie",
+    "date": "March 2023",
+    "location": "",
+    "text": "We spent our first time to Big Bear at Craig's. He was an excellent host. We had a great, cozy time and left as it began to snow. The kitchen had everything we need and was fully stocked. We appreciated the Restaurant Guide and used it a few times. The internet worked awesome with multiple phones and Kindles. We had 2 energetic boys who loved the loft. Pillows and towels were clean and as the other reviews said they definitely care about the details which made our stay very comfortable. They had a Nest and the heat worked awesome which we appreciated since we didn’t make a fire. We were a bit high maintenance and couldn’t get the Roku to work. Craig was super responsive and helpful. This place is not near restaurants but a quick drive really anywhere. Being up the hill allowed us to have a peaceful stay when we were at the cabin."
+  },
+  {
+    "name": "Harrison And Kalle",
+    "date": "February 2023",
+    "location": "San Diego, California",
+    "text": "We really enjoyed our time at this cabin! it was very comfortable, welcoming, and well set up for our family. the moonridge neighborhood is great, and our kids had fun in the snow and with the games provided. we would happily return!"
+  },
+  {
+    "name": "Jacqueline",
+    "date": "February 2023",
+    "location": "",
+    "text": "Thank for hosting and trusting us with your cabin. It was very clean and cozy. The beds were super comfy. The backyard was very spacious and the kids had a lot of fun playing in the snow. We appreciate your friendliness and attentiveness."
+  },
+  {
+    "name": "Arjud",
+    "date": "January 2023",
+    "location": "Lincoln Acres, California",
+    "text": "Craig was very welcoming and responsive. Heater throughout the whole house so we were always comfortable and cozy! The whole house was well kept, definitely recommend this place!"
+  },
+  {
+    "name": "Scott",
+    "date": "January 2023",
+    "location": "Seal Beach, California",
+    "text": "We had a wonderful stay and Craig was a great host. We had some extreme weather while they were there and they were proactive about sharing plowing contacts and making sure we were taken care of. Also place was very cozy with super comfortable beds and couches and a great heating system. Plus the kitchen was well equipped, bathroom was clean, extra bedding was easy to find. We'd definitely stay there again!"
+  },
+  {
+    "name": "Josefina",
+    "date": "January 2023",
+    "location": "",
+    "text": "We love it"
+  },
+  {
+    "name": "Shirley",
+    "date": "January 2023",
+    "location": "",
+    "text": "We had a great time at the cabin.  Everything was very well prepared at the house and we love the attention to details.   Would come back again when we have the chance."
+  },
+  {
+    "name": "Sonali",
+    "date": "January 2023",
+    "location": "",
+    "text": "Beautiful house, very clean and smells really good. Craig is really friendly and responsive. Would definitely recommend!! 5/5"
+  },
+  {
+    "name": "Elizabeth",
+    "date": "January 2023",
+    "location": "Ensenada, Mexico",
+    "text": "An excellent place to spend a wonderful days with the family, the cabin is super clean, super great view and super comfortable, we will be back!! Thank you!!!"
+  },
+  {
+    "name": "Sarah",
+    "date": "December 2022",
+    "location": "",
+    "text": "Very easy check in and the cabin looks just like the pictures. Very close to the town ( 5-7 minute drive). They host respond quickly and super nice. Would totally book again."
+  },
+  {
+    "name": "Norma",
+    "date": "December 2022",
+    "location": "",
+    "text": "Craig was exceptionally attentive to anything we needed.  The customer service was excellent.   It’s clearly evident that they care about providing an incredible stay for the guests.  Needless to say the cabin was wonderful and the perfect size for our family!  The kids had a great time playing with the snow outside.  The amenities were great.  Kids loved the hot cocoa.  Definitely kid friendly.  The parking area was clear of snow and ready for our arrival.  We are looking forward to going back!!  Thank you.  Have a blessed and prosperous new year."
+  },
+  {
+    "name": "Gustavo",
+    "date": "December 2022",
+    "location": "Los Angeles, California",
+    "text": "What a beautiful home!! The pictures are what you’d actually expect to see! The location of this home couldn’t be any better! Beautiful surroundings! Peaceful! And if you’re looking to go snowboarding at the big bear resort it’s only down the street! Everything was perfect!"
+  },
+  {
+    "name": "Laura",
+    "date": "December 2022",
+    "location": "San Diego, California",
+    "text": "This place is more than awesome. We were amazed by how beautiful the Christmas tree was the moment we arrived. Every corner was clean and well furnished. We watched Netflix on sofa while it was snowing heavily outside (an amazing experience for someone who don’t get to see snow very often!!). The host really knows and cares about what their guests want. They even prepared ice cubes in the freezer which helped us complete our self-made drink. All in all, a wonderful place that I definitely would want to revisit!!"
+  },
+  {
+    "name": "Andre",
+    "date": "December 2022",
+    "location": "Huntington Beach, California",
+    "text": "Peaceful and lovely place ❤️"
+  },
+  {
+    "name": "Stephanie",
+    "date": "December 2022",
+    "location": "Camarillo, California",
+    "text": "Craig was extremely communicative, with very quick responses. The check-in process was easy and clear. The home is in a wonderful area, very close to the zoo and some good restaurants (note- it is not walkable to restaurants, etc. given the somewhat steep hill to drive up/down). The beds were very comfortable, the couch was amazing (and they provide couch blankets), and everything was clean. Something to consider when deciding who will sleep in which bed- the bathroom is closest to the main bedroom (loft guests walk downstairs for the bathroom). Wonderful stay, great hosts, and great furniture!"
+  },
+  {
+    "name": "Vanessa",
+    "date": "November 2022",
+    "location": "Chula Vista, California",
+    "text": "Great cabin, it had everything we needed. My family and I loved it! We would love to stay here again."
+  },
+  {
+    "name": "Sean",
+    "date": "November 2022",
+    "location": "Fullerton, California",
+    "text": "Very nice place. Very quiet. Was a great retreat to get away. We would definitely go back."
+  },
+  {
+    "name": "Danny",
+    "date": "November 2022",
+    "location": "",
+    "text": "Great Stay!"
+  },
+  {
+    "name": "Rocio",
+    "date": "November 2022",
+    "location": "",
+    "text": "Place was very nice I’m  Vety pleased , it check in was very smoothly"
+  },
+  {
+    "name": "Josh",
+    "date": "November 2022",
+    "location": "Los Angeles, California",
+    "text": "Absolutely gorgeous cabin with all the amenities you need and then some! Excellent for a Big Bear getaway in a beautifully picturesque part of the mountain. The views were stunning and even when the temp gets close to single digits, the cabin stays warm and cozy! Perfect place to stay whether you come for outdoor mountains adventures and need a comfy cozy place to come home to; and even better if you plan on staying in the entire time. Craig is wonderful and you are in great hands during your stay. 10/10 would stay again!"
+  },
+  {
+    "name": "Javier And Alejandra",
+    "date": "November 2022",
+    "location": "Palm Springs, California",
+    "text": "Great place to stay and relax. Communication with Craig was perfect. We loved it!"
+  },
+  {
+    "name": "Alexis",
+    "date": "October 2022",
+    "location": "San Francisco, California",
+    "text": "Amazing cozy stay, would stay again!"
+  },
+  {
+    "name": "Jennie",
+    "date": "October 2022",
+    "location": "",
+    "text": "Nice cozy cabin. We had a short power outage that affected the whole area. Craig reassured us power would likely return within the hour and it did! We enjoyed our stay."
+  },
+  {
+    "name": "Lauren",
+    "date": "October 2022",
+    "location": "",
+    "text": "Absolutely wonderful place to stay for a fall retreat with friends! Check-in was super easy and they were readily available if I had any questions. Short drive to town and several hiking trails. We loved enjoying our morning coffee on the back deck with a great view of the trees and sunrise. So peaceful! Thank you guys for a lovely stay!"
+  },
+  {
+    "name": "Jesse",
+    "date": "October 2022",
+    "location": "",
+    "text": "Great place!"
+  },
+  {
+    "name": "Henderson, Nevada",
+    "date": "October 2022",
+    "location": "",
+    "text": "Really easy to find, great little place to stay at for awhile. Not too far from anything, while still being in a nice quiet area."
+  },
+  {
+    "name": "Max",
+    "date": "September 2022",
+    "location": "",
+    "text": "What an amazing cabin, the host was super friendly and helpful, the rooms are big and air condition works perfectly, we spent most of our time at the back porch, can’t get enough of the cabin view, definitely come back soon!!!! By the way they have super fast wifi!!!"
+  },
+  {
+    "name": "Jade",
+    "date": "September 2022",
+    "location": "Riverside, California",
+    "text": "Beautiful home with equally beautiful views. I loved my stay"
+  },
+  {
+    "name": "Lara",
+    "date": "September 2022",
+    "location": "",
+    "text": "Your cabin is excellent! I will be recommended for all my friends!"
+  },
+  {
+    "name": "Thiago",
+    "date": "August 2022",
+    "location": "Las Vegas, Nevada",
+    "text": "Great stay! Especially since the \"Lakeview\" options are really not worth it anymore due to the drought lake. This is the perfect place for a couple or 4 friends. Super high up in the mountain, quiet, just a perfect getaway to unplug from the big city! Craig was very attentive and super fast in responding to my requests."
+  },
+  {
+    "name": "Chris",
+    "date": "August 2022",
+    "location": "Irvine, California",
+    "text": "Great location for all our weekend activities: Friday golf, Saturday mountain biking and Sunday kayaking. Super close to the grocery store, too! Might not sound like a big deal, but the shampoo, body wash, and TP provided was actually good quality haha so take that as you may. Great spot and can’t wait to return!"
+  },
+  {
+    "name": "Sheena",
+    "date": "August 2022",
+    "location": "Fremont, California",
+    "text": "We had a great stay at the cabin. It is located in a convenient location close the village, restaurants, lake and trials. You still require a car to come down the hill but proximity to all attractions was great. We had all the amenities we needed. It’s a great cabin for a staycation or a day out."
+  },
+  {
+    "name": "Eric",
+    "date": "August 2022",
+    "location": "Indian Wells, California",
+    "text": "Great place, great host, would recommend!"
+  },
+  {
+    "name": "Hua",
+    "date": "July 2022",
+    "location": "Covina, California",
+    "text": "We really like the coziness Craig & Mercede’s Cabin provided. It got nice deco all throughout. We particularly appreciate the bird watching experience on the deck!"
+  },
+  {
+    "name": "Paula",
+    "date": "July 2022",
+    "location": "Los Angeles, California",
+    "text": "I absolutely loved this cabin. It was so beautiful and peaceful. Everything was so organized, I love how the kitchen had labels, it was nice not being able to have to look for things. Such a nice gesture you guys labeled everything so people don’t have to look around. The check in was so easy. The only thing was it was kind of hot inside the house. Maybe a portable AC would be nice, that was honestly the only bad of the trip. If you sleep in the top bedroom be prepared to wake up at 5 am, the sun hits you which woke up my one year old, but the view was so incredible, I loved looking at the sun rise while in bed. It was so beautiful. Overall I would love to come again, highly recommend. Plus the view …. Wow , you can’t beat that, and the quietness."
+  },
+  {
+    "name": "Irina",
+    "date": "July 2022",
+    "location": "Las Vegas, Nevada",
+    "text": "The cabin was really cozy and the back porch just made us so relaxed..Just imagine the birds tweeting, the cool breeze of the fresh air while you sit down and relax. We all stayed at the loft area in the second floor where it has two beds and a sofa. The view of the sunrise from the glass windows when you’re at the loft is just stunning. The cabin was so clean and equipped with everything that you need especially in the kitchen. We totally recommend this place and would surely go back when visiting Big bear."
+  },
+  {
+    "name": "Lucia",
+    "date": "July 2022",
+    "location": "Desert Hot Springs, California",
+    "text": "Amazing view , quiet and amazing. The host is very attentive and helpful. All instructions and suggestions are provided for you. Loved it"
+  },
+  {
+    "name": "Lorenzo",
+    "date": "July 2022",
+    "location": "Vista, California",
+    "text": "This house is nice and accommodating comfortable clean I would definitely be coming back to this place to make more memories."
+  },
+  {
+    "name": "Kai",
+    "date": "July 2022",
+    "location": "Riverside, California",
+    "text": "Craig was a great host! Very pretty deck that was nice to watch the sunrise and sunset with some coffee! Craig provides many fans for the cabin but it can still be quite hot in the summer without A/C, so keep that in mind if you you are traveling with very old or very young people. Overall amazing experience! 5/5"
+  },
+  {
+    "name": "Andrew",
+    "date": "July 2022",
+    "location": "",
+    "text": "Stayed at this lovely cabin for 3 nights in the summer and loved our stay. Had all the amenities we needed and really enjoyed the view from the deck as you can see from the photos. The hosts were super nice and very responsive. Would definitely stay again if given the opportunity. Thanks Craig!"
+  },
+  {
+    "name": "Richard",
+    "date": "July 2022",
+    "location": "Los Angeles, California",
+    "text": "We really enjoyed staying at the cabin over the July 4th weekend. I wanted something that felt very private, in the woods, and have a fantastic view of nature and we got just that. They were very kind to have left a welcome binder for us to read through that had information on how to check in and check out that helped make it very clear how we could use anything around the house. The spacious cabin could comfortable fit 6 people with it’s multiple beds and the glass frame on the backend near the ceiling is beautiful and gives the cabin a very open feel. The kitchen was fully stocked with coffee essentials. My guest, a coffee lover, was very happy with that. The porch has an incredible view of the landscape which made us feel like we were almost camping! We were concerned about it being too hot during the night – since my guest and I have never stayed in big bear and are sensitive to heat. So, we opened the windows during the day and night which cooled the place down. All in all, we really enjoyed our stay here and are already planning on making a return soon. Thank you for having us and sharing your space with us."
+  },
+  {
+    "name": "Elena",
+    "date": "June 2022",
+    "location": "",
+    "text": "We are a family of six and we had enough space for all. It is a very cozy cabin. Our kids loved having their own space in the loft. Only thing they complained about was the sunlight in their face, that was coming through the large window, waking them up really early in the morning. I, on the other hand, enjoyed watching the sunrise while still tucked in bed. We loved spending time out on the deck in the evenings, just hanging out or having dinner. We got groceries at Vons, which is pretty close. We had our own parking and that made it easy for loading and unloading. The zoo is about 6 minutes away. Some of the best hiking trails are about 8 or 9 minutes away."
+  },
+  {
+    "name": "Devin",
+    "date": "June 2022",
+    "location": "El Cajon, California",
+    "text": "The view from this house is heavenly. Have to stay here again during the winter season. Absolutely stunning."
+  },
+  {
+    "name": "Boyu",
+    "date": "June 2022",
+    "location": "Rowland Heights, California",
+    "text": "Great experience!"
+  },
+  {
+    "name": "Carly",
+    "date": "June 2022",
+    "location": "Beaverton, Oregon",
+    "text": "Lovely place to stay.  I appreciated the fast responses to questions and checking in was easy."
+  },
+  {
+    "name": "Raphael",
+    "date": "May 2022",
+    "location": "Winterthur, Switzerland",
+    "text": "Great place to stay. The balcony had an amazing view. Drinking coffee in the morning while enjoying the sun and the trees around was great. Great communication with Craig."
+  },
+  {
+    "name": "Dallas, Texas",
+    "date": "May 2022",
+    "location": "",
+    "text": "This is a lovely cabin. It’s nice and bright and the neighborhood is really quiet. The deck view is even more amazing at night!"
+  },
+  {
+    "name": "Mikael",
+    "date": "April 2022",
+    "location": "",
+    "text": "Tranquil. The nature surrounding the cabin is so peaceful in the morning."
+  },
+  {
+    "name": "Hemet, California",
+    "date": "April 2022",
+    "location": "",
+    "text": "My wife and I planned a Big Bear getaway for our 5 year anniversary and we couldn’t have picked a better location! This place was close to so many places and we got to do a lot during our stay! Our 2 year old also had a blast. We took her to the Alpine zoo and a little park over by Big Bear Lake. The cabin definitely exceeded our expectations and we would be glad to stay here again! Thank you Craig for making our stay here memorable and enjoyable!"
+  },
+  {
+    "name": "Danny",
+    "date": "April 2022",
+    "location": "Riverside, California",
+    "text": "Very cozy and great location. Will be back !"
+  },
+  {
+    "name": "Jessika",
+    "date": "April 2022",
+    "location": "Lynwood, California",
+    "text": "Thank you! Absolutely loved and enjoyed our stay! Place was very clean and very cozy. Look forward to booking with you again"
+  },
+  {
+    "name": "Amy",
+    "date": "April 2022",
+    "location": "",
+    "text": "Bear View Cove exceeded all of our expectations, including high quality amenities, luxurious bedding, and a clean, well maintained space. Craig was a gracious host who responded promptly to all of our questions. We will absolutely be staying here again in the future."
+  },
+  {
+    "name": "Duane",
+    "date": "April 2022",
+    "location": "Ontario, California",
+    "text": "We had a great time, very clean, and about a 10 minute drive to the heart of Big Bear."
+  },
+  {
+    "name": "Kristelle",
+    "date": "April 2022",
+    "location": "Zapopan, Mexico",
+    "text": "Small cabin with all-inclusive, very clean, very nice, you really don't need or take shampoo, you will feel in a hotel. I definitely recommend it. and best of all, Craig was always on the lookout. thank you so much for everything!"
+  },
+  {
+    "name": "Nicolae",
+    "date": "April 2022",
+    "location": "",
+    "text": "Good location, quiet and peaceful. Back patio is great. The property is clean and equipped with everything the travelers need. Easy communication with host. Overall very positive experience!"
+  },
+  {
+    "name": "Megan",
+    "date": "March 2022",
+    "location": "",
+    "text": "What a lovely bright open cabin!  It was in the perfect location, close to everything we wanted to do!  Loved all the amenities and board games too.  Our kids LOVED the loft!"
+  },
+  {
+    "name": "David",
+    "date": "March 2022",
+    "location": "Covina, California",
+    "text": "Craig was a great host! Responded very quickly, and was very accommodating to our needs/requests. Check-in instructions were super detailed and helpful. The cabin  was very clean and well stocked. We could not have asked for a better location. Overall a wonderful place; we would stay here again easily!"
+  },
+  {
+    "name": "Shell",
+    "date": "March 2022",
+    "location": "Los Angeles, California",
+    "text": "This was a great cabin to stay out for our short few days. It was close to the city and skiiing. I would stay here again."
+  },
+  {
+    "name": "Brandi",
+    "date": "March 2022",
+    "location": "Hemet, California",
+    "text": "This place was great. The home was nice and cozy and bright. It was a last minute weekend getaway for me and I had no issues booking or checking in. Loved it and would return!"
+  },
+  {
+    "name": "Rodney",
+    "date": "March 2022",
+    "location": "Glendale, California",
+    "text": "The cabin was so nice and clean,kitchen was well stock with cooking essentials. Very roomy for the whole family. Great location and close to the ski resort ,host was extremely communicative. Definitely be back soon."
+  },
+  {
+    "name": "Rachel",
+    "date": "March 2022",
+    "location": "",
+    "text": "Loved it!  Great location. Close to everything, but far enough to enjoy the quiet nights and relaxing mornings. You really don’t need to pack much, they are very considerate on supplying you with daily necessities. Beds are also very comfortable and the cabin heats up really fast, especially with fireplace on. Craig is very friendly and a great communicator. Highly recommend staying here. Thank you for a great getaway. Will come back again."
+  },
+  {
+    "name": "Raymond",
+    "date": "March 2022",
+    "location": "",
+    "text": "Great host! Very clean home and easy communication. The host was very concern with making us feel at home and we’re there to answer any questions we may have. Definitely would recommend to family and friends!"
+  },
+  {
+    "name": "Nikki",
+    "date": "March 2022",
+    "location": "",
+    "text": "Beautiful cozy place with amazing view of trees and mountain. Everything was so clean and welcoming, check in and out process was seamless, and the hosts were phenomenal and very responsive. Looking forward to coming back"
+  },
+  {
+    "name": "Lai Ah Che",
+    "date": "February 2022",
+    "location": "Windward Islands, French Polynesia",
+    "text": "My family loved the place, the house, the view! The host makes sure everything’s alright and responds quickly for everything. We would love to stay there again."
+  },
+  {
+    "name": "Ayodeji",
+    "date": "February 2022",
+    "location": "Katy, Texas",
+    "text": "We love this and wi definitely use it again! Thank you Craig for having us!"
+  },
+  {
+    "name": "Priscilla",
+    "date": "February 2022",
+    "location": "California, United States",
+    "text": "The house was cute and cozy. We planned a long weekend trip for my daughter’s 5th birthday. She had been asking for the snow. The home was close to everything - tubing/skiing, grocery store, the village and places to eat. Craig communicated well and made sure we had everything we needed prior and during our trip."
+  },
+  {
+    "name": "Juan",
+    "date": "August 2025",
+    "location": "",
+    "text": "Good place, very close to everything you would want to do. No on site trash can is pretty inconvient, having to drive down into town to dispose of your trash sucks."
+  },
+  {
+    "name": "Patricia",
+    "date": "August 2025",
+    "location": "Rialto, California",
+    "text": "the cabin was comfortable and perfect for a family of 4."
+  },
+  {
+    "name": "Esteban",
+    "date": "August 2025",
+    "location": "",
+    "text": "Overall space was clean but smaller than expected"
+  },
+  {
+    "name": "Shirley",
+    "date": "June 2025",
+    "location": "Anaheim, California",
+    "text": "The cabin was wonderful, however with the excessive heat while we were there, it was uncomfortably hot for a large part of the day."
+  },
+  {
+    "name": "Elijah",
+    "date": "June 2025",
+    "location": "Phoenix, Arizona",
+    "text": "My wife and I wanted to get away for a couple of days from the Arizona heat and decided Big Bear Lake was a great place to go so we looked and booked this little cabin in the mountains. I want to start by saying we would absolutely book this cabin again as it was the perfect size for our family of 4 (2 under 2) and the hosts were very friendly, responsive, and helpful. The only downsides we had with our stay was the heat was a little more than we expected. Now this is of no fault to the hosts and we knew upon booking that because of the cathedral window the sun would be let in however, as soon as the sun rose the cabin would instantly heat up. The average temperature inside during the day was between 85-90 degrees even with all the windows open and fans running. The only other issue we had was the amount of dust that was caked onto the fans and would blow into the cabin when on, which was often. This is definitely place to come during cold months and we would love to experience that."
+  },
+  {
+    "name": "Nathalie",
+    "date": "June 2025",
+    "location": "Cypress, California",
+    "text": "We stayed at this beautiful rural cabin for three nights and loved our time there. The drive in was scenic and peaceful, and the area is incredibly quiet—perfect for a relaxing escape. It got a little warm during the day, but the fans kept the space comfortable. At night, the cool, fresh air made it a great place to unwind. One small downside: the pillows were either too flat or too soft, which made sleep a bit tricky—bring your own if you’re particular. Also, since it was our first time at higher altitude, we experienced mild headaches, so packing Advil or similar might help. Overall, a peaceful, nature-filled retreat we’d absolutely recommend. 🌲✨"
+  },
+  {
+    "name": "Ethan",
+    "date": "February 2025",
+    "location": "Beverly Hills, California",
+    "text": "Great place, drive is a little twisty but its big bear. I wish the curtains in the loft were in better shape."
+  },
+  {
+    "name": "Trinidad",
+    "date": "January 2025",
+    "location": "",
+    "text": "Hosts were great! There were a few bumps in the road but nothing they could control, like the road being blocked off due to cars not being able to get up the hill and the driveway being full of snow so it made it a little hard to locate. When we reached out they were super responsive! Other than this the location is close to everything, the house is nice and cozy with a great kitchen and living room."
+  },
+  {
+    "name": "Alicia",
+    "date": "November 2024",
+    "location": "Los Angeles, California",
+    "text": "Thank you for providing us with an amazing cabin to create fond memories with our loved ones! Thank you for also being so quick to respond to all of our last minute inquiries."
+  },
+  {
+    "name": "Kelli",
+    "date": "August 2024",
+    "location": "Whitney, Nevada",
+    "text": "My husband and I booked a 4 day Big Bear trip to celebrate our birthdays.  The home and location were beautiful. Craig was an excellent host and very responsive. We will be back for a winter trip!"
+  },
+  {
+    "name": "Alberto",
+    "date": "July 2024",
+    "location": "",
+    "text": "So easy and convenient to book.Such a lovely stay!"
+  },
+  {
+    "name": "Cirila",
+    "date": "July 2024",
+    "location": "",
+    "text": "Nice and peaceful"
+  },
+  {
+    "name": "Adriana",
+    "date": "June 2024",
+    "location": "San Diego, California",
+    "text": "Beautiful cabin with lovely host who respond fast. Would recommend!"
+  },
+  {
+    "name": "Dzhamilia",
+    "date": "May 2024",
+    "location": "West Hollywood, California",
+    "text": "The hosts are very responsive and nice . There was trash left before our check-in and the host was able to pick it up within 30-40 mins. They seemed caring and asked if anything else was needed. The place overall is ok, but tiny. May be a good one for 2 and in winter time when you can ignite the fireplace. It’s cosy but at the same time the bathroom is super tiny and only one. There are washer and drier in the bedroom , which is odd and you need to utilize it before you go to bed . Also the heater started working loudly at night making very weird burnt smell may be because it’s old . The living room is tiny as well. We didn’t stay for another night and left earlier . There is a spring board and mattress at the loft area when I sat on it (looked like a bed ) it was very unstable and you can easily fell off."
+  },
+  {
+    "name": "Eleazar",
+    "date": "April 2024",
+    "location": "Hacienda Heights, California",
+    "text": "The place was great, a little tricky to navigate all the roads but its gets easier after the first time. The cabin itself was cozy and spacious, my family and I felt right at home. The only thing that was a little frustrating was throwing out our trash after check-out. We were given a specific address but once we got there we were told we had to go somewhere else 8 miles away that was closed on Sundays! (day of check-out) Plus, on the original description there was NO mention of a $25 fee for not throwing our trash until the day of. I don’t think the guest should have to throw out their own trash especially if the facility is so far away. Overall we had a peaceful time during our stay, just wish we didn’t have to deal with the last part."
+  },
+  {
+    "name": "Denny",
+    "date": "March 2024",
+    "location": "",
+    "text": "Lovely home, with the exception of the fridge having a bad smell and the grill not working. Other than that we had a great time there. Thanks for your hospitality."
+  },
+  {
+    "name": "Tyler",
+    "date": "December 2023",
+    "location": "Santa Clarita, California",
+    "text": "Good"
+  },
+  {
+    "name": "Aileen",
+    "date": "September 2023",
+    "location": "",
+    "text": "The cabin is nice with a very nice deck. Quiet area. Craig was very responsive. We enjoyed our stay."
+  },
+  {
+    "name": "Sarah",
+    "date": "August 2023",
+    "location": "",
+    "text": "Cute cabin! Quiet location with privacy. The host was very responsive. The only downside was a few dirty pans and a bit of trash in the cabin. The hosts communication was great!"
+  },
+  {
+    "name": "Jorge",
+    "date": "May 2023",
+    "location": "",
+    "text": "Great cabin! Went out there on a guys trip It was 3 of us and we all enjoyed it. Pros: -good tv and wifi -beds are comfortable and clean -they have a grill for some barbecue -fire place was a plus -super friendly host and very responsive -everything was about a 10min drive away Cons: -the couch was kind of small for 3 people if you want to lay down to watch a movie - if you need anything from the store you do have to keep driving up and down the neighborhood"
+  },
+  {
+    "name": "Genesis",
+    "date": "December 2022",
+    "location": "Los Angeles, California",
+    "text": "Had a wonderful Christmas 🎄 here"
+  },
+  {
+    "name": "Mukhalad",
+    "date": "June 2022",
+    "location": "",
+    "text": "Nice place, quiet neighborhood,  Craig is very responsive, on the other hand the sun will wake you up very early 😀 ."
+  },
+  {
+    "name": "Rana",
+    "date": "February 2022",
+    "location": "",
+    "text": "Such a cute and cozy home. Perfect for a family trip. Very clean and close to the slopes!"
+  },
+  {
+    "name": "Henry",
+    "date": "August 2024",
+    "location": "",
+    "text": "Nice place but ants (living room ) mostly & spiders would randomly pop out of nowhere. Beautiful view looking out but the minute I look up there was spider webs & dust like if it wasn’t touched. 5/10 stay"
+  },
+  {
+    "name": "Karim",
+    "date": "April 2023",
+    "location": "",
+    "text": "Nice neighborhood, unfortunately the stay was a little disappointing. Fireplace wasn’t cleaned and all the lighters empty, TV was difficult to work as we had to use the actual tv to change settings every time we turned it on. It just didn’t seem like anyone had been in there for a while to make sure things were up to standard. Has beautiful view and potential to be a great spot."
   }
 ]
