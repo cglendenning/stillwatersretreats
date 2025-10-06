@@ -208,22 +208,44 @@
 
         /* Selected Dates Display */
         #selected-dates {
-            background: white;
-            padding: 1.5rem;
-            border-radius: 15px;
+            background: linear-gradient(135deg, #4C6633 0%, #654321 100%);
+            color: white;
+            padding: 2.5rem;
+            border-radius: 20px;
             margin: 2rem auto;
-            max-width: 600px;
+            max-width: 800px;
             text-align: center;
+            box-shadow: 0 15px 40px rgba(76, 102, 51, 0.3);
+            border: none;
+        }
+        
+        .stay-details {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            font-family: 'Ubuntu', sans-serif;
+        }
+        
+        .stay-inspiration {
+            font-size: 1.1rem;
+            font-weight: 300;
+            line-height: 1.6;
+            opacity: 0.9;
+            font-style: italic;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .stay-dates {
             font-size: 1.2rem;
             font-weight: 500;
-            color: #2c3e50;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-            border: 2px solid #e9ecef;
+            margin-bottom: 1rem;
+            color: rgba(255, 255, 255, 0.95);
         }
 
         /* Submit Button Styling */
         .next-btn {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: #4C6633;
             color: white;
             border: none;
             padding: 1rem 3rem;
@@ -232,7 +254,7 @@
             border-radius: 50px;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+            box-shadow: 0 8px 25px rgba(76, 102, 51, 0.3);
             margin-top: 2rem;
             /* ensure text perfectly centered */
             display: inline-flex;
@@ -244,8 +266,9 @@
         }
 
         .next-btn:hover {
+            background: #654321;
             transform: translateY(-3px);
-            box-shadow: 0 12px 35px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 12px 35px rgba(101, 67, 33, 0.4);
         }
 
         .next-btn:disabled {
@@ -363,7 +386,10 @@
         </form>
     </center>
     <script>
-        document.getElementById('selected-dates').textContent = `Please select the dates for your retreat!`;
+        document.getElementById('selected-dates').innerHTML = `
+            <div class="stay-details">🗓️ Choose Your Dates</div>
+            <div class="stay-inspiration">Select your check-in and check-out dates to begin planning your transformative mountain retreat experience.</div>
+        `;
         document.addEventListener('DOMContentLoaded', function() {
             var calendarEl = document.getElementById('calendar');
             var submitButton = document.getElementById('submit-button');
@@ -392,7 +418,11 @@
                         const startDateObj = new Date(start);
                         const endDateObj = new Date(end);
                         const nights = Math.max(1, Math.round((endDateObj - startDateObj) / (1000 * 60 * 60 * 24)));
-                        document.getElementById('selected-dates').textContent = `Selected stay: Check-in ${startFmt} · Check-out ${endFmt} (${nights} night${nights!==1?'s':''})`;
+                        document.getElementById('selected-dates').innerHTML = `
+                            <div class="stay-details">✨ Your Retreat Awaits ✨</div>
+                            <div class="stay-dates">Check-in ${startFmt} · Check-out ${endFmt} (${nights} night${nights!==1?'s':''})</div>
+                            <div class="stay-inspiration">Prepare for a transformative experience in the mountains. This is your time to think deeply, create boldly, and emerge with clarity and renewed purpose. The quiet beauty of Big Bear will be your sanctuary for breakthrough work.</div>
+                        `;
                         document.getElementById('start-date').value = start;
                         document.getElementById('end-date').value = end;
                         document.getElementById('prop').value = queryParams.get('prop');
@@ -469,7 +499,10 @@
                     calendar.unselect();
                     submitButton.disabled = true;
                     // Clear displayed selection and hidden fields
-                    document.getElementById('selected-dates').textContent = 'Please select the dates for your retreat!';
+                    document.getElementById('selected-dates').innerHTML = `
+                        <div class="stay-details">🗓️ Choose Your Dates</div>
+                        <div class="stay-inspiration">Select your check-in and check-out dates to begin planning your transformative mountain retreat experience.</div>
+                    `;
                     document.getElementById('start-date').value = '';
                     document.getElementById('end-date').value = '';
                     // hide any secondary actions (none currently)

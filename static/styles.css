@@ -563,7 +563,7 @@ img {
 
 .btn {
     text-decoration: none; /* Optional: removes underline from links */
-    background-color: #654321; /* Natural brown */
+    background-color: #4C6633; /* Natural green */
     justify-content: center; /* Adjust this as needed for alignment */
     border: none;
     color: white;
@@ -577,7 +577,7 @@ img {
 }
 
 .btn:hover {
-    background-color: #4C6633; /* Natural green hover */
+    background-color: #654321; /* Natural brown hover */
     transform: translateY(-2px); /* Slight lift effect */
 }
 

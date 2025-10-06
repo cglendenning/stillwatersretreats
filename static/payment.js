@@ -3,7 +3,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function getQueryParam(param) {
         const urlParams = new URLSearchParams(window.location.search);
-        return urlParams.get(param);
+        const value = urlParams.get(param);
+        // URLSearchParams should automatically decode, but let's be explicit
+        return value ? decodeURIComponent(value) : value;
     }
 
     async function createCheckoutSession() {
@@ -129,8 +131,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Coaching add-on from pricing page (when coming from pricing)
     const coaching = getQueryParam('coaching');
+    console.log('Coaching parameter:', coaching);
     let enhancementPrice = 0;
     if (coaching) {
+        console.log('Adding coaching to addOns');
         addOns.push({ name: 'Coaching', value: coaching });
         const m = coaching.match(/\$([\d,]+)/);
         if (m && m[1]) {
@@ -138,7 +142,10 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+    console.log('Add-ons array:', addOns);
+    console.log('Add-ons container:', addOnsContainer);
     if (addOns.length > 0 && addOnsContainer) {
+        console.log('Rendering add-ons');
         addOns.forEach(addon => {
             const addonDiv = document.createElement('div');
             addonDiv.className = 'add-on-item selected';
@@ -152,13 +159,13 @@ document.addEventListener('DOMContentLoaded', function() {
             addOnsContainer.appendChild(addonDiv);
         });
     } else if (addOnsContainer) {
+        console.log('No add-ons, showing default message');
         addOnsContainer.innerHTML = '<p style="text-align: center; color: #666; font-style: italic;">No enhancements selected</p>';
     }
 
     // Enhanced price breakdown with clear financial breakdown
     const breakdown = [];
     let cabinPrice = totalInt;
-    let enhancementPrice = 0;
     
     // Calculate enhancement price from coaching parameter
     if (coaching) {
