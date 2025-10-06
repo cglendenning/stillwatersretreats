@@ -1,0 +1,728 @@
+[
+  {
+    "name": "VP Andrey",
+    "date": "Sep 2025",
+    "location": "Arlington, TX",
+    "text": "Had a great stay. Cabin is absolutely wonderful and cozy. Would be happy to return. Hosts are helpful and instructions are clear - 10/10aa aaaaaa aaaa aaaaa aaaa aaaaa aaaa aaaaa aaaaaaaaa aaaaaaaaaaaaaa aaaaaaaaaaaaaaaa aaaaa aaaaaaaaaaaaaaaaaaaaaaaaa"
+  },
+  {
+    "name": "Guest 1",
+    "date": "Jan 2024",
+    "location": "San Jose, CA",
+    "text": "Quiet cottage, very clean, and close to the trolley."
+  },
+  {
+    "name": "Guest 2",
+    "date": "Feb 2024",
+    "location": "Charlotte, NC",
+    "text": "Cozy and spotless—perfect weekend base for skiing."
+  },
+  {
+    "name": "Guest 3",
+    "date": "Mar 2024",
+    "location": "Los Angeles, CA",
+    "text": "Loved evenings by the fire pit under the stars."
+  },
+  {
+    "name": "Guest 4",
+    "date": "Apr 2024",
+    "location": "Houston, TX",
+    "text": "Bright, modern touches and a peaceful vibe."
+  },
+  {
+    "name": "Guest 5",
+    "date": "May 2024",
+    "location": "Phoenix, AZ",
+    "text": "The deck mornings were our favorite ritual."
+  },
+  {
+    "name": "Guest 6",
+    "date": "Jun 2024",
+    "location": "San Francisco, CA",
+    "text": "Well-stocked kitchen and very comfortable beds."
+  },
+  {
+    "name": "Guest 7",
+    "date": "Jul 2024",
+    "location": "Las Vegas, NV",
+    "text": "Great location—easy to reach trails and the village."
+  },
+  {
+    "name": "Guest 8",
+    "date": "Aug 2024",
+    "location": "Tulsa, OK",
+    "text": "Truly calming space; exactly as described."
+  },
+  {
+    "name": "Guest 9",
+    "date": "Sep 2024",
+    "location": "Tulsa, OK",
+    "text": "Simple check-in, lovely neighborhood, quiet nights."
+  },
+  {
+    "name": "Guest 10",
+    "date": "Oct 2024",
+    "location": "San Francisco, CA",
+    "text": "Thoughtful design throughout—felt like home."
+  },
+  {
+    "name": "Guest 11",
+    "date": "Nov 2024",
+    "location": "Austin, TX",
+    "text": "Cozy fire pit evenings—magical."
+  },
+  {
+    "name": "Guest 12",
+    "date": "Dec 2024",
+    "location": "San Diego, CA",
+    "text": "Perfect winter escape—warm and welcoming."
+  },
+  {
+    "name": "Guest 13",
+    "date": "Jan 2025",
+    "location": "Boston, MA",
+    "text": "Calming decor, spotless, and bright."
+  },
+  {
+    "name": "Guest 14",
+    "date": "Feb 2025",
+    "location": "Milwaukee, WI",
+    "text": "Fast Wi‑Fi and super comfy linens."
+  },
+  {
+    "name": "Guest 15",
+    "date": "Mar 2025",
+    "location": "Tampa, FL",
+    "text": "Lovely place to unwind and read."
+  },
+  {
+    "name": "Guest 16",
+    "date": "Apr 2025",
+    "location": "Seattle, WA",
+    "text": "Everything worked perfectly—great stay."
+  },
+  {
+    "name": "Guest 17",
+    "date": "May 2025",
+    "location": "Colorado Springs, CO",
+    "text": "Quiet mornings on the deck—heavenly."
+  },
+  {
+    "name": "Guest 18",
+    "date": "Jun 2025",
+    "location": "Charlotte, NC",
+    "text": "Immaculate, cozy, and well located."
+  },
+  {
+    "name": "Guest 19",
+    "date": "Jul 2025",
+    "location": "Atlanta, GA",
+    "text": "Tranquil, bright, and comfortable."
+  },
+  {
+    "name": "Guest 20",
+    "date": "Aug 2025",
+    "location": "Columbus, OH",
+    "text": "A perfect reset—highly recommend."
+  },
+  {
+    "name": "Guest 21",
+    "date": "Sep 2025",
+    "location": "Houston, TX",
+    "text": "Great communication and easy access."
+  },
+  {
+    "name": "Guest 22",
+    "date": "Oct 2025",
+    "location": "El Paso, TX",
+    "text": "Close to zoo and slopes—super convenient."
+  },
+  {
+    "name": "Guest 23",
+    "date": "Nov 2025",
+    "location": "Columbus, OH",
+    "text": "Peaceful neighborhood and lovely trees."
+  },
+  {
+    "name": "Guest 24",
+    "date": "Dec 2025",
+    "location": "Sacramento, CA",
+    "text": "Warm, inviting, and very clean."
+  },
+  {
+    "name": "Guest 25",
+    "date": "Jan 2026",
+    "location": "Fort Worth, TX",
+    "text": "Cozy space with everything we needed."
+  },
+  {
+    "name": "Guest 26",
+    "date": "Feb 2026",
+    "location": "Los Angeles, CA",
+    "text": "Deck mornings were a delight."
+  },
+  {
+    "name": "Guest 27",
+    "date": "Mar 2026",
+    "location": "Houston, TX",
+    "text": "Thoughtfully furnished and spotless."
+  },
+  {
+    "name": "Guest 28",
+    "date": "Apr 2026",
+    "location": "Jacksonville, FL",
+    "text": "We felt refreshed after our stay."
+  },
+  {
+    "name": "Guest 29",
+    "date": "May 2026",
+    "location": "Tucson, AZ",
+    "text": "Beds were comfortable, slept great."
+  },
+  {
+    "name": "Guest 30",
+    "date": "Jun 2026",
+    "location": "New York, NY",
+    "text": "Ideal location for exploring Big Bear."
+  },
+  {
+    "name": "Guest 31",
+    "date": "Jul 2026",
+    "location": "Indianapolis, IN",
+    "text": "As pictured—beautiful and calm."
+  },
+  {
+    "name": "Guest 32",
+    "date": "Aug 2026",
+    "location": "Tucson, AZ",
+    "text": "Quiet retreat with modern comforts."
+  },
+  {
+    "name": "Guest 33",
+    "date": "Sep 2026",
+    "location": "Columbus, OH",
+    "text": "Kitchen had all the essentials."
+  },
+  {
+    "name": "Guest 34",
+    "date": "Oct 2026",
+    "location": "San Jose, CA",
+    "text": "Lovely lighting and warm touches."
+  },
+  {
+    "name": "Guest 35",
+    "date": "Nov 2026",
+    "location": "Minneapolis, MN",
+    "text": "Seamless stay and thoughtful host."
+  },
+  {
+    "name": "Guest 36",
+    "date": "Dec 2026",
+    "location": "Seattle, WA",
+    "text": "Bright, airy, and inviting."
+  },
+  {
+    "name": "Guest 37",
+    "date": "Jan 2027",
+    "location": "Tucson, AZ",
+    "text": "Peaceful mornings on the deck."
+  },
+  {
+    "name": "Guest 38",
+    "date": "Feb 2027",
+    "location": "Long Beach, CA",
+    "text": "Clean, modern, very comfortable."
+  },
+  {
+    "name": "Guest 39",
+    "date": "Mar 2027",
+    "location": "Chicago, IL",
+    "text": "Exactly the calm we needed."
+  },
+  {
+    "name": "Guest 40",
+    "date": "Apr 2027",
+    "location": "Houston, TX",
+    "text": "Perfect reset space—would return."
+  },
+  {
+    "name": "Guest 41",
+    "date": "May 2027",
+    "location": "New York, NY",
+    "text": "Clear instructions and easy check‑in."
+  },
+  {
+    "name": "Guest 42",
+    "date": "Jun 2027",
+    "location": "Sacramento, CA",
+    "text": "Lovely natural light all day."
+  },
+  {
+    "name": "Guest 43",
+    "date": "Jul 2027",
+    "location": "Boston, MA",
+    "text": "Quiet street and friendly area."
+  },
+  {
+    "name": "Guest 44",
+    "date": "Aug 2027",
+    "location": "San Diego, CA",
+    "text": "Felt safe, clean, and serene."
+  },
+  {
+    "name": "Guest 45",
+    "date": "Sep 2027",
+    "location": "Atlanta, GA",
+    "text": "Great for a creative retreat."
+  },
+  {
+    "name": "Guest 46",
+    "date": "Oct 2027",
+    "location": "Phoenix, AZ",
+    "text": "Minimal, warm, and comfortable."
+  },
+  {
+    "name": "Guest 47",
+    "date": "Nov 2027",
+    "location": "Austin, TX",
+    "text": "Everything promised and more."
+  },
+  {
+    "name": "Guest 48",
+    "date": "Dec 2027",
+    "location": "Fort Worth, TX",
+    "text": "We’ll be back—wonderful stay."
+  },
+  {
+    "name": "Guest 49",
+    "date": "Jan 2028",
+    "location": "Philadelphia, PA",
+    "text": "Calm place among the pines."
+  },
+  {
+    "name": "Guest 50",
+    "date": "Feb 2028",
+    "location": "Milwaukee, WI",
+    "text": "Sparkling clean and well equipped."
+  },
+  {
+    "name": "Guest 51",
+    "date": "Mar 2028",
+    "location": "Louisville, KY",
+    "text": "Exactly the quiet we wanted."
+  },
+  {
+    "name": "Guest 52",
+    "date": "Apr 2028",
+    "location": "Oklahoma City, OK",
+    "text": "Great space to unwind and think."
+  },
+  {
+    "name": "Guest 53",
+    "date": "May 2028",
+    "location": "Boston, MA",
+    "text": "Linens and beds were excellent."
+  },
+  {
+    "name": "Guest 54",
+    "date": "Jun 2028",
+    "location": "Atlanta, GA",
+    "text": "Easy to reach trails and lake."
+  },
+  {
+    "name": "Guest 55",
+    "date": "Jul 2028",
+    "location": "Long Beach, CA",
+    "text": "Felt private and tucked away."
+  },
+  {
+    "name": "Guest 56",
+    "date": "Aug 2028",
+    "location": "Nashville, TN",
+    "text": "Starry nights by the fire pit—wow."
+  },
+  {
+    "name": "Guest 57",
+    "date": "Sep 2028",
+    "location": "San Antonio, TX",
+    "text": "Simple, smooth, and relaxing."
+  },
+  {
+    "name": "Guest 58",
+    "date": "Oct 2028",
+    "location": "Columbus, OH",
+    "text": "Clean, quiet, and comfortable."
+  },
+  {
+    "name": "Guest 59",
+    "date": "Nov 2028",
+    "location": "Tampa, FL",
+    "text": "Felt fully relaxed all weekend."
+  },
+  {
+    "name": "Guest 60",
+    "date": "Dec 2028",
+    "location": "Sacramento, CA",
+    "text": "Wonderful winter cottage—cozy!"
+  },
+  {
+    "name": "Guest 61",
+    "date": "Jan 2029",
+    "location": "Detroit, MI",
+    "text": "Great energy and calming style."
+  },
+  {
+    "name": "Guest 62",
+    "date": "Feb 2029",
+    "location": "Denver, CO",
+    "text": "Clear, friendly communication."
+  },
+  {
+    "name": "Guest 63",
+    "date": "Mar 2029",
+    "location": "San Antonio, TX",
+    "text": "Minimal aesthetic we loved."
+  },
+  {
+    "name": "Guest 64",
+    "date": "Apr 2029",
+    "location": "Detroit, MI",
+    "text": "Retreat-like feel from the start."
+  },
+  {
+    "name": "Guest 65",
+    "date": "May 2029",
+    "location": "Long Beach, CA",
+    "text": "Bright mornings, cozy evenings."
+  },
+  {
+    "name": "Guest 66",
+    "date": "Jun 2029",
+    "location": "Colorado Springs, CO",
+    "text": "Impeccably maintained property."
+  },
+  {
+    "name": "Guest 67",
+    "date": "Jul 2029",
+    "location": "Memphis, TN",
+    "text": "Great space for writing/reading."
+  },
+  {
+    "name": "Guest 68",
+    "date": "Aug 2029",
+    "location": "Nashville, TN",
+    "text": "Near trails yet very peaceful."
+  },
+  {
+    "name": "Guest 69",
+    "date": "Sep 2029",
+    "location": "Albuquerque, NM",
+    "text": "We left feeling totally refreshed."
+  },
+  {
+    "name": "Guest 70",
+    "date": "Oct 2029",
+    "location": "Sacramento, CA",
+    "text": "Loved every detail here."
+  },
+  {
+    "name": "Guest 71",
+    "date": "Nov 2029",
+    "location": "Portland, OR",
+    "text": "Calm, inspiring environment."
+  },
+  {
+    "name": "Guest 72",
+    "date": "Dec 2029",
+    "location": "Las Vegas, NV",
+    "text": "Would recommend to friends."
+  },
+  {
+    "name": "Guest 73",
+    "date": "Jan 2030",
+    "location": "New York, NY",
+    "text": "Spotless and inviting throughout."
+  },
+  {
+    "name": "Guest 74",
+    "date": "Feb 2030",
+    "location": "Omaha, NE",
+    "text": "Deck coffee with pines—perfect."
+  },
+  {
+    "name": "Guest 75",
+    "date": "Mar 2030",
+    "location": "Dallas, TX",
+    "text": "Quiet, bright, thoughtfully done."
+  },
+  {
+    "name": "Guest 76",
+    "date": "Apr 2030",
+    "location": "New Orleans, LA",
+    "text": "Had everything we needed."
+  },
+  {
+    "name": "Guest 77",
+    "date": "May 2030",
+    "location": "Atlanta, GA",
+    "text": "We felt instantly at ease."
+  },
+  {
+    "name": "Guest 78",
+    "date": "Jun 2030",
+    "location": "Albuquerque, NM",
+    "text": "Great cottage—would return."
+  },
+  {
+    "name": "Guest 79",
+    "date": "Jul 2030",
+    "location": "Milwaukee, WI",
+    "text": "Quiet street, friendly area."
+  },
+  {
+    "name": "Guest 80",
+    "date": "Aug 2030",
+    "location": "Detroit, MI",
+    "text": "A beautiful, restorative stay."
+  },
+  {
+    "name": "Guest 81",
+    "date": "Sep 2030",
+    "location": "Tulsa, OK",
+    "text": "Quick, easy check‑in process."
+  },
+  {
+    "name": "Guest 82",
+    "date": "Oct 2030",
+    "location": "Albuquerque, NM",
+    "text": "Felt like a sanctuary."
+  },
+  {
+    "name": "Guest 83",
+    "date": "Nov 2030",
+    "location": "Las Vegas, NV",
+    "text": "Comfortable and simple."
+  },
+  {
+    "name": "Guest 84",
+    "date": "Dec 2030",
+    "location": "Kansas City, MO",
+    "text": "Warm and inviting all weekend."
+  },
+  {
+    "name": "Guest 85",
+    "date": "Jan 2031",
+    "location": "Nashville, TN",
+    "text": "Perfect quiet weekend away."
+  },
+  {
+    "name": "Guest 86",
+    "date": "Feb 2031",
+    "location": "San Diego, CA",
+    "text": "Great natural light inside."
+  },
+  {
+    "name": "Guest 87",
+    "date": "Mar 2031",
+    "location": "Long Beach, CA",
+    "text": "Relxaing, clean, well located."
+  },
+  {
+    "name": "Guest 88",
+    "date": "Apr 2031",
+    "location": "Nashville, TN",
+    "text": "We were very comfortable."
+  },
+  {
+    "name": "Guest 89",
+    "date": "May 2031",
+    "location": "Minneapolis, MN",
+    "text": "Deck time was a highlight."
+  },
+  {
+    "name": "Guest 90",
+    "date": "Jun 2031",
+    "location": "San Francisco, CA",
+    "text": "Peaceful and bright cottage."
+  },
+  {
+    "name": "Guest 91",
+    "date": "Jul 2031",
+    "location": "San Jose, CA",
+    "text": "Simple, elegant, restorative."
+  },
+  {
+    "name": "Guest 92",
+    "date": "Aug 2031",
+    "location": "San Antonio, TX",
+    "text": "Unmatched quiet—we loved it."
+  },
+  {
+    "name": "Guest 93",
+    "date": "Sep 2031",
+    "location": "Houston, TX",
+    "text": "Everything arranged thoughtfully."
+  },
+  {
+    "name": "Guest 94",
+    "date": "Oct 2031",
+    "location": "Miami, FL",
+    "text": "Felt cared for start to finish."
+  },
+  {
+    "name": "Guest 95",
+    "date": "Nov 2031",
+    "location": "Jacksonville, FL",
+    "text": "Lovely details; very clean."
+  },
+  {
+    "name": "Guest 96",
+    "date": "Dec 2031",
+    "location": "Sacramento, CA",
+    "text": "Warm, cozy winter nights."
+  },
+  {
+    "name": "Guest 97",
+    "date": "Jan 2032",
+    "location": "Mesa, AZ",
+    "text": "We’ll absolutely be back."
+  },
+  {
+    "name": "Guest 98",
+    "date": "Feb 2032",
+    "location": "Omaha, NE",
+    "text": "Kind host and clear info."
+  },
+  {
+    "name": "Guest 99",
+    "date": "Mar 2032",
+    "location": "Phoenix, AZ",
+    "text": "Exactly the reset we needed."
+  },
+  {
+    "name": "Guest 100",
+    "date": "Apr 2032",
+    "location": "Seattle, WA",
+    "text": "Calm, bright, and uplifting."
+  },
+  {
+    "name": "Guest 101",
+    "date": "May 2032",
+    "location": "Phoenix, AZ",
+    "text": "Private and peaceful all day."
+  },
+  {
+    "name": "Guest 102",
+    "date": "Jun 2032",
+    "location": "El Paso, TX",
+    "text": "Clean, quiet, comfortable."
+  },
+  {
+    "name": "Guest 103",
+    "date": "Jul 2032",
+    "location": "Los Angeles, CA",
+    "text": "Great for deep rest/work."
+  },
+  {
+    "name": "Guest 104",
+    "date": "Aug 2032",
+    "location": "Washington, DC",
+    "text": "Minimal, warm design—nice."
+  },
+  {
+    "name": "Guest 105",
+    "date": "Sep 2032",
+    "location": "Charlotte, NC",
+    "text": "At ease the entire trip."
+  },
+  {
+    "name": "Guest 106",
+    "date": "Oct 2032",
+    "location": "Fresno, CA",
+    "text": "Bright mornings, cozy nights."
+  },
+  {
+    "name": "Guest 107",
+    "date": "Nov 2032",
+    "location": "Tampa, FL",
+    "text": "As promised and more."
+  },
+  {
+    "name": "Guest 108",
+    "date": "Dec 2032",
+    "location": "Houston, TX",
+    "text": "Deck is truly special."
+  },
+  {
+    "name": "Guest 109",
+    "date": "Jan 2033",
+    "location": "Arlington, TX",
+    "text": "Quiet place to think."
+  },
+  {
+    "name": "Guest 110",
+    "date": "Feb 2033",
+    "location": "Arlington, TX",
+    "text": "Appreciated the details."
+  },
+  {
+    "name": "Guest 111",
+    "date": "Mar 2033",
+    "location": "Tampa, FL",
+    "text": "We left renewed."
+  },
+  {
+    "name": "Guest 112",
+    "date": "Apr 2033",
+    "location": "Fresno, CA",
+    "text": "Highly recommend this home."
+  },
+  {
+    "name": "Guest 113",
+    "date": "May 2033",
+    "location": "Long Beach, CA",
+    "text": "Lovely trees and quiet area."
+  },
+  {
+    "name": "Guest 114",
+    "date": "Jun 2033",
+    "location": "New Orleans, LA",
+    "text": "Everything needed for a reset."
+  },
+  {
+    "name": "Guest 115",
+    "date": "Jul 2033",
+    "location": "Las Vegas, NV",
+    "text": "Clean, beautiful, relaxing."
+  },
+  {
+    "name": "Guest 116",
+    "date": "Aug 2033",
+    "location": "Tampa, FL",
+    "text": "A gem—thank you!"
+  },
+  {
+    "name": "Guest 117",
+    "date": "Sep 2033",
+    "location": "Los Angeles, CA",
+    "text": "Peaceful mornings on deck."
+  },
+  {
+    "name": "Guest 118",
+    "date": "Oct 2033",
+    "location": "San Jose, CA",
+    "text": "Very comfortable beds."
+  },
+  {
+    "name": "Guest 119",
+    "date": "Nov 2033",
+    "location": "Portland, OR",
+    "text": "Modern yet cozy vibe."
+  },
+  {
+    "name": "Guest 120",
+    "date": "Dec 2033",
+    "location": "Tampa, FL",
+    "text": "Exactly the retreat we wanted."
+  }
+]

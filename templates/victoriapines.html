@@ -350,6 +350,64 @@
         .gallery-container img:hover {
             transform: scale(1.05);
         }
+        /* Reviews section (matching BVC style) */
+        .reviews-section {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+        .reviews-header {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+        .reviews-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1rem;
+        }
+        .review-card {
+            background: #fff;
+            border-radius: 12px;
+            border: 1px solid #e9ecef;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+            padding: 1rem;
+            height: 182px; /* fixed height for uniform rows (30% shorter) */
+            display: flex;
+            flex-direction: column;
+        }
+        .review-card .reviewer {
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        .review-card .date {
+            color: #888;
+            font-size: 0.9rem;
+            margin-left: 0.25rem;
+        }
+        .review-card .stars {
+            color: #f1b90b;
+            margin: 0.25rem 0 0.5rem 0;
+        }
+        .review-card .text { color:#555; line-height:1.5; }
+        .review-card .text-wrap { flex:1; overflow:hidden; position:relative; }
+        .review-card .text-short { display:block; }
+        .review-card .text-full { display:none; }
+        .review-card.expanded .text-wrap { overflow:auto; }
+        .review-card.expanded .text-short { display:none; }
+        .review-card.expanded .text-full { display:block; }
+        /* Expanded overlay behavior */
+        .reviews-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 1999; display: none; }
+        .reviews-backdrop.show { display: block; }
+        .review-card.expanded { position: fixed; z-index: 2000; left: 50%; transform: translateX(-50%); top: 10vh; width: min(820px, 92vw); height: auto; max-height: 80vh; padding: 1.25rem; box-shadow: 0 16px 40px rgba(0,0,0,0.35); }
+        .review-card.expanded .text-wrap { max-height: calc(80vh - 110px); }
+        .review-card .text-wrap::after { content:""; position:absolute; left:0; right:0; bottom:0; height:24px; background:linear-gradient(180deg, rgba(255,255,255,0), #fff); pointer-events:none; }
+        .review-card.expanded .text-wrap::after { display:none; }
+        .review-toggle { background:transparent; color:#4C6633; border:none; padding:0; cursor:pointer; font-weight:600; margin-top:.25rem; }
+        .reviews-wrapper { position: relative; }
+        .review-arrow { position:absolute; top:50%; transform:translateY(-50%); background:#4C6633; color:#fff; border:none; width:40px; height:40px; border-radius:50%; cursor:pointer; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 10px rgba(0,0,0,0.15); }
+        .review-arrow.left { left:-10px; }
+        .review-arrow.right { right:-10px; }
+        @media (max-width: 768px){ .review-arrow.left { left:0; } .review-arrow.right { right:0; } }
         
         @media (max-width: 768px) {
             .cabin-hero h1 {
@@ -503,6 +561,9 @@
                 </div>
             </section>
 
+        <!-- Reviews Section Mount -->
+        <section id="vp-reviews-mount"></section>
+
             <!-- Special Features Section -->
             <section class="special-features">
                 <div class="special-features-content">
@@ -562,6 +623,9 @@
                     </div>
                 </div>
             </section>
+
+        <!-- Reviews Section -->
+        <section id="vp-reviews-mount"></section>
 
             <!-- Call to Action Section -->
             <section class="cabin-cta">
@@ -646,6 +710,92 @@
                     });
                 });
             }
+        });
+    </script>
+    <script>
+        // Inject reviews from static JSON with pagination
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch('/assets/data/vp-reviews.json')
+                .then(r => r.ok ? r.json() : [])
+                .then(reviews => {
+                    if (!Array.isArray(reviews) || reviews.length === 0) return;
+                    const host = document.getElementById('vp-reviews-mount');
+                    if (!host) return;
+                    host.className = 'reviews-section';
+                    host.innerHTML = `
+                        <div class="reviews-header">
+                            <h2>Guest Reviews</h2>
+                            <p style="color:#666">Handpicked highlights from recent stays</p>
+                        </div>
+                        <div class="reviews-wrapper">
+                            <button class="review-arrow left" id="vpRevPrev" aria-label="Previous">&#8249;</button>
+                            <div class="reviews-grid" id="vpReviewsGrid"></div>
+                            <button class="review-arrow right" id="vpRevNext" aria-label="Next">&#8250;</button>
+                        </div>
+                    `;
+                    const grid = document.getElementById('vpReviewsGrid');
+                    const prevBtn = document.getElementById('vpRevPrev');
+                    const nextBtn = document.getElementById('vpRevNext');
+                    const pageSize = 12; // 3 rows x 4 cols
+                    let page = 1;
+                    const totalPages = Math.max(1, Math.ceil(reviews.length / pageSize));
+
+                    function renderPage() {
+                        grid.innerHTML = '';
+                        const start = (page - 1) * pageSize;
+                        const items = reviews.slice(start, start + pageSize);
+                        items.forEach(rv => {
+                            const card = document.createElement('div');
+                            card.className = 'review-card';
+                            const stars = '★★★★★';
+                            const fullText = (rv.text || '').trim();
+                            const maxLen = 220;
+                            const needsToggle = fullText.length > maxLen;
+                            const shortText = needsToggle ? fullText.slice(0, maxLen) + '…' : fullText;
+                            const location = (rv.location || '').trim();
+                            card.innerHTML = `
+                                <div><span class="reviewer">${rv.name || 'Guest'}</span><span class="date"> · ${rv.date || ''}</span></div>
+                                ${location ? `<div class=\"location\">${location}</div>` : ''}
+                                <div class="stars" aria-label="5 star rating">${stars}</div>
+                                <div class="text-wrap">
+                                    <div class="text text-short">${shortText}</div>
+                                    <div class="text text-full">${fullText}</div>
+                                </div>
+                                ${needsToggle ? '<button class="review-toggle">Show more</button>' : ''}
+                            `;
+                            if (needsToggle) {
+                                const btn = card.querySelector('.review-toggle');
+                                btn.addEventListener('click', () => {
+                                    const expanded = card.classList.contains('expanded');
+                                    let backdrop = document.getElementById('reviews-backdrop');
+                                    if (!backdrop) {
+                                        backdrop = document.createElement('div');
+                                        backdrop.id = 'reviews-backdrop';
+                                        backdrop.className = 'reviews-backdrop';
+                                        document.body.appendChild(backdrop);
+                                    }
+                                    if (expanded) {
+                                        card.classList.remove('expanded');
+                                        btn.textContent = 'Show more';
+                                        backdrop.classList.remove('show');
+                                    } else {
+                                        card.classList.add('expanded');
+                                        btn.textContent = 'Show less';
+                                        backdrop.classList.add('show');
+                                        const close = () => { card.classList.remove('expanded'); btn.textContent = 'Show more'; backdrop.classList.remove('show'); backdrop.removeEventListener('click', close); };
+                                        backdrop.addEventListener('click', close);
+                                    }
+                                });
+                            }
+                            grid.appendChild(card);
+                        });
+                    }
+
+                    prevBtn.addEventListener('click', () => { page = page > 1 ? page - 1 : totalPages; renderPage(); });
+                    nextBtn.addEventListener('click', () => { page = page < totalPages ? page + 1 : 1; renderPage(); });
+                    renderPage();
+                })
+                .catch(() => {});
         });
     </script>
     {{ template "footer.html" . }}

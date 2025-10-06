@@ -819,3 +819,7 @@ func serveBlogPost(c echo.Context) error {
 
 	return c.HTML(http.StatusOK, htmlContent)
 }
+
+// getReviews fetches 20 latest 5-star reviews for a property via Hospitable API
+// Requires env: HOSPITABLE_API_KEY and property IDs (same as calendar) mapped by prop code
+// getReviews removed - static JSON is used for rendering reviews
