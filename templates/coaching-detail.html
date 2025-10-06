@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" href="/assets/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png" type="image/png">
+    <link rel="icon" sizes="192x192" href="/assets/android-chrome-192x192.png" type="image/png">
+    <link rel="icon" sizes="512x512" href="/assets/android-chrome-512x512.png" type="image/png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coaching with Craig - Virtual & In-Person Options</title>
+    <link href="/static/styles.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        .coaching-hero {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .coaching-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('/assets/photo/journaling.jpg') center/cover;
+            opacity: 0.1;
+            z-index: 0;
+        }
+        
+        .coaching-hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .coaching-hero h1 {
+            font-size: 3.5rem;
+            font-weight: 300;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .coaching-hero .subtitle {
+            font-size: 1.5rem;
+            font-weight: 300;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            line-height: 1.4;
+        }
+        
+        .coaching-options {
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .options-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 300;
+            color: #2c3e50;
+            margin-bottom: 3rem;
+        }
+        
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 4rem;
+        }
+        
+        .option-card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            padding: 2.5rem;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .option-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.15);
+        }
+        
+        .option-icon {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .option-title {
+            font-size: 2rem;
+            font-weight: 500;
+            color: #2c3e50;
+            margin-bottom: 1rem;
+        }
+        
+        .option-price {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #4C6633;
+            margin-bottom: 1.5rem;
+        }
+        
+        .option-description {
+            font-size: 1.1rem;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+        }
+        
+        .option-features {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 2rem;
+        }
+        
+        .option-features li {
+            padding: 0.5rem 0;
+            color: #555;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+        
+        .option-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #4C6633;
+            font-weight: bold;
+        }
+        
+        .video-section {
+            background: #f8f9fa;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+        
+        .video-section h2 {
+            font-size: 2.5rem;
+            font-weight: 300;
+            color: #2c3e50;
+            margin-bottom: 2rem;
+        }
+        
+        .video-section p {
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 3rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .channel-link-container {
+            text-align: center;
+            margin-top: 2rem;
+        }
+        
+        .youtube-channel-link {
+            display: inline-block;
+            background: #4C6633;
+            color: white;
+            padding: 1rem 2rem;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.2rem;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(76, 102, 51, 0.3);
+        }
+        
+        .youtube-channel-link:hover {
+            background: #2c3e50;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(76, 102, 51, 0.4);
+        }
+        
+        .cta-section {
+            background: linear-gradient(135deg, #4C6633 0%, #654321 100%);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+        
+        .cta-content {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .cta-title {
+            font-size: 2.5rem;
+            font-weight: 300;
+            margin-bottom: 2rem;
+        }
+        
+        .cta-description {
+            font-size: 1.2rem;
+            margin-bottom: 3rem;
+            opacity: 0.9;
+        }
+        
+        .cta-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: white;
+            color: #4C6633;
+            padding: 1.5rem 2rem;
+            text-decoration: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .cta-button:hover {
+            background: #f8f9fa;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+        
+        .cta-button.secondary {
+            background: white;
+            color: #4C6633;
+            border: 2px solid white;
+        }
+        
+        .cta-button.secondary:hover {
+            background: #f8f9fa;
+            color: #4C6633;
+        }
+        
+        @media (max-width: 768px) {
+            .coaching-hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .coaching-hero .subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .options-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .youtube-channel-link {
+                font-size: 1rem;
+                padding: 0.8rem 1.5rem;
+            }
+            
+            .cta-buttons {
+                grid-template-columns: 1fr;
+            }
+            
+            .option-title,
+            .options-title,
+            .cta-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+    <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-analytics-compat.js"></script>
+    <script>
+        var firebaseConfig = {
+            apiKey: "{{ FIREBASE_API_KEY }}",
+            authDomain: "stillwatersretre-1713628649908.firebaseapp.com",
+            projectId: "stillwatersretre-1713628649908",
+            storageBucket: "stillwatersretre-1713628649908.appspot.com",
+            messagingSenderId: "340290043055",
+            appId: "1:340290043055:web:db8af11f4310619847285a",
+            measurementId: "G-VY28D4VWH1"
+        };
+        firebase.initializeApp(firebaseConfig);
+        firebase.analytics();
+    </script>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-1036707259"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'AW-1036707259');
+    </script>
+</head>
+<body>
+    <div id="app">
+        {{ template "nav.html" . }}
+        
+        <main>
+            <!-- Hero Section -->
+            <section class="coaching-hero">
+                <div class="coaching-hero-content">
+                    <h1>Choose Your Coaching Journey</h1>
+                    <p class="subtitle">Virtual or In-Person: Break Free from the Builder's Paradox</p>
+                </div>
+            </section>
+
+            <!-- Coaching Options -->
+            <section class="coaching-options">
+                <h2 class="options-title">Two Powerful Options</h2>
+                
+                <div class="options-grid">
+                    <div class="option-card">
+                        <div class="option-icon">💻</div>
+                        <h3 class="option-title">Virtual Live Coaching</h3>
+                        <div class="option-price">$499</div>
+                        <p class="option-description">
+                            Deep-dive virtual sessions that fit your schedule. Perfect for busy entrepreneurs who need flexibility while maintaining the intensity of breakthrough work.
+                        </p>
+                        <ul class="option-features">
+                            <li>Flexible scheduling around your commitments</li>
+                            <li>Same breakthrough methodology, virtual delivery</li>
+                            <li>Recorded sessions for your review</li>
+                            <li>Email support between sessions</li>
+                            <li>Perfect for remote work integration</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="option-card">
+                        <div class="option-icon">🏔️</div>
+                        <h3 class="option-title">In-Person 1:1 Coaching</h3>
+                        <div class="option-price">$997</div>
+                        <p class="option-description">
+                            Intensive 4-hour coaching session during your retreat. Maximum impact through focused, in-person guidance in the mountain environment.
+                        </p>
+                        <ul class="option-features">
+                            <li>4-hour intensive coaching session</li>
+                            <li>In-person guidance during your retreat</li>
+                            <li>Mountain environment enhances breakthrough</li>
+                            <li>Immediate application to your work</li>
+                            <li>Deep focus without distractions</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Video Section -->
+            <section class="video-section">
+                <h2>See Craig in Action</h2>
+                <p>Get a feel for Craig's coaching style and approach through his YouTube channel content.</p>
+                
+                <div class="channel-link-container">
+                    <a href="https://www.youtube.com/@GreenPyramid-mk5xp" target="_blank" class="youtube-channel-link">
+                        Visit Craig's YouTube Channel →
+                    </a>
+                </div>
+            </section>
+
+            <!-- Call to Action Section -->
+            <section class="cta-section">
+                <div class="cta-content">
+                    <h2 class="cta-title">Ready to Break Free?</h2>
+                    <p class="cta-description">
+                        Choose your path forward. Book a retreat and add coaching, or schedule a call to see if we're a fit.
+                    </p>
+                    
+                    <div class="cta-buttons">
+                        <a href="/cabins" class="cta-button">
+                            Choose Your Cabin
+                            <br><small>Add coaching during booking</small>
+                        </a>
+                        
+                        <a href="https://calendly.com/c_glendenning/15min" target="_blank" class="cta-button secondary">
+                            Schedule "Are We A Fit" Call
+                            <br><small>15-minute discovery call</small>
+                        </a>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    {{ template "footer.html" . }}
+</body>
+</html>

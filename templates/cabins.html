@@ -7,9 +7,207 @@
     <link rel="icon" sizes="512x512" href="/assets/android-chrome-512x512.png" type="image/png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cabins</title>
+    <title>Choose Your Cabin - Still Waters Retreat</title>
     <link href="/static/styles.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;700&family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        .cabins-hero {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 6rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cabins-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('/assets/photo/bvc/bvc.jpg') center/cover;
+            opacity: 0.2;
+            z-index: 0;
+        }
+        
+        .cabins-hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .cabins-hero h1 {
+            font-size: 3.5rem;
+            font-weight: 300;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .cabins-hero .subtitle {
+            font-size: 1.5rem;
+            font-weight: 300;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            line-height: 1.4;
+        }
+        
+        .cabins-hero .tagline {
+            font-size: 1.1rem;
+            font-style: italic;
+            opacity: 0.8;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .cabins-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+        
+        .cabin-selection {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            margin-bottom: 4rem;
+        }
+        
+        .cabin-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .cabin-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+        }
+        
+        .cabin-card.selected {
+            border: 3px solid #4C6633;
+            transform: translateY(-5px);
+        }
+        
+        .cabin-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        
+        .cabin-card:hover .cabin-image {
+            transform: scale(1.05);
+        }
+        
+        .cabin-info {
+            padding: 2.5rem;
+        }
+        
+        .cabin-info h2 {
+            font-size: 2.5rem;
+            font-weight: 300;
+            color: #2c3e50;
+            margin-bottom: 1rem;
+        }
+        
+        .cabin-info .subtitle {
+            font-size: 1.2rem;
+            color: #4C6633;
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+        }
+        
+        .cabin-info p {
+            font-size: 1.1rem;
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            font-family: 'Open Sans', sans-serif;
+        }
+        
+        .cabin-features {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 2rem;
+        }
+        
+        .cabin-features li {
+            padding: 0.5rem 0;
+            color: #555;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+        
+        .cabin-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #4C6633;
+            font-weight: bold;
+        }
+        
+        .cabin-cta {
+            text-align: center;
+            margin-top: 3rem;
+        }
+        
+        .next-button {
+            background: linear-gradient(135deg, #4C6633 0%, #654321 100%);
+            color: white;
+            border: none;
+            padding: 1.5rem 3rem;
+            font-size: 1.2rem;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(76, 102, 51, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .next-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 35px rgba(76, 102, 51, 0.4);
+        }
+        
+        .next-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        
+        @media (max-width: 768px) {
+            .cabins-hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .cabins-hero .subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .cabin-selection {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .cabin-info h2 {
+                font-size: 2rem;
+            }
+            
+            .cabins-content {
+                padding: 2rem 1rem;
+            }
+        }
+    </style>
     <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-analytics-compat.js"></script>
    <script>
@@ -22,140 +220,102 @@
     appId: "1:340290043055:web:db8af11f4310619847285a",
     measurementId: "G-VY28D4VWH1"
   };
-
-  // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
   firebase.analytics();
   </script>
   <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=AW-1036707259">
-</script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-1036707259"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-
   gtag('config', 'AW-1036707259');
 </script>
 </head>
 <body>
     <div id="app">
         {{ template "nav.html" . }}
+        
     <main>
-	<section class="intro">
-	    <h2>{{ .Title }}</h2>
-	    <p>Choose Your Cabin. You will pick your dates in the next step.</p>
+            <!-- Hero Section -->
+            <section class="cabins-hero">
+                <div class="cabins-hero-content">
+                    <h1>Choose Your Cabin</h1>
+                    <p class="subtitle">Two Beautiful Retreat Spaces for Deep Work</p>
+                    <p class="tagline">Each cabin offers a unique mountain experience designed for focus, creativity, and breakthrough thinking.</p>
+                </div>
+            </section>
+
+            <!-- Cabin Selection -->
+            <section class="cabins-content">
+                <div class="cabin-selection">
+                    <!-- Bear View Cove -->
+                    <div class="cabin-card" data-cabin="bvc">
+                        <img src="/assets/photo/bvc/bvc.jpg" alt="Bear View Cove" class="cabin-image">
+                        <div class="cabin-info">
+                            <h2>Bear View Cove</h2>
+                            <p class="subtitle">Upper Moonridge • Mountain Views</p>
+                            <p id="bvc-description">Perched in the coveted upper moonridge area, Bear View Cove offers mountain peace and quiet in a cozy, clean cabin with stunning treetop views. Perfect for deep work and creative breakthroughs.</p>
+                            <ul class="cabin-features">
+                                <li>Stunning mountain views</li>
+                                <li>Quiet upper moonridge location</li>
+                                <li>Perfect for deep work</li>
+                                <li>Modern amenities</li>
+                                <li>Private deck space</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Victoria Pines -->
+                    <div class="cabin-card" data-cabin="vp">
+                        <img src="/assets/photo/vp/vp.jpg" alt="Victoria Pines" class="cabin-image">
+                        <div class="cabin-info">
+                            <h2>Victoria Pines</h2>
+                            <p class="subtitle">Lower Moonridge • Trolley Access</p>
+                            <p id="vp-description">Nestled in the lower moonridge neighborhood, Victoria Pines combines mountain tranquility with convenient access to Big Bear's attractions. Just a 5-minute walk to the free trolley for easy exploration.</p>
+                            <ul class="cabin-features">
+                                <li>5-minute walk to Big Bear Trolley</li>
+                                <li>Lower moonridge convenience</li>
+                                <li>Cozy cottage atmosphere</li>
+                                <li>Easy access to town</li>
+                                <li>Perfect for exploration</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
 	</section>
     </main>
 
-    <form class="cabin-container" action="/calendar">
-	<section class="intro">
-	    <h2>Bear View Cove Cabin</h2>
-	</section>
-        <div class="cabin-box" image="bvc">
-            <img src="/assets/photo/bvc/bvc.jpg" alt="Bear View Cove" style="border-radius: 20px;">
         </div>
-	<div id="photo-modal" class="modal">
-            <div class="modal-content">
-                <span class="close">&times;</span>
-                    <div id="gallery-container">
-                        <!-- Images will be appended here -->
-                    </div>
-            </div>
-        </div>
-          <div class="cabin-description" id="bvc-description"></div>
-	<section class="intro">
-	    <h2>Victoria Pines Cabin</h2>
-	</section>
-        <div class="cabin-box" image="vp">
-            <img src="/assets/photo/vp/vp.jpg" alt="Victoria Pines" style="border-radius: 20px;">
-        </div>
-	<div class="cabin-description" id="vp-description"></div>
 
-        <input type="hidden" name="selectedImage" id="selectedImage">
-        <button type="submit" class="btn next-btn" id="submit-button">Next</button>
-    </form>
-</div>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-		var submitButton = document.getElementById('submit-button');
-		submitButton.disabled = true;
-		const modal = document.getElementById("photo-modal");
-		const closeModal = document.querySelector(".close");
-		const galleryContainer = document.getElementById("gallery-container");
-                const images = document.querySelectorAll('.cabin-box img');
-                images.forEach(img => {
-                        img.addEventListener('click', function() {
-                                // Remove 'selected' from all images 
-                                images.forEach(innerImg => innerImg.classList.remove('selected'));
-                                // Add 'selected' to the selected img 
-                                this.classList.add('selected');
-                                // Update hidden input value
-                                const selectedImageElement = document.getElementById('selectedImage');
-                                if (selectedImageElement) {
-                                        selectedImageElement.value = this.parentNode.getAttribute('image');
-					submitButton.disabled = false;
-                                } else {
-                                        console.error('The element #selectedImage was not found.');
-                                }
+            const cabinCards = document.querySelectorAll('.cabin-card');
 
-				modal.style.display = "block";
-				galleryContainer.innerHTML = "";
-				const cabin = this.parentNode.getAttribute('image');
-				fetchImagesForCabin(cabin);
-                        });
+            // Cabin selection logic - route to individual pages
+            cabinCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    const cabinType = this.getAttribute('data-cabin');
+                    
+                    // Track selection
+                    firebase.analytics().logEvent('cabin_selected', { 
+                        cabin: cabinType 
+                    });
+                    
+                    // Route to individual cabin page
+                    if (cabinType === 'bvc') {
+                        window.location.href = '/bearviewcove';
+                    } else if (cabinType === 'vp') {
+                        window.location.href = '/victoriapines';
+                    }
                 });
+            });
 
-		closeModal.onclick = function() {
-			modal.style.display = "none";
-    		}
 
-		window.onclick = function(event) {
-		        if (event.target == modal) {
-            			modal.style.display = "none";
-        		}
-    		}
-
-		function fetchImagesForCabin(cabin) {
-            		fetch(`/api/images/${cabin}`)
-                	.then(response => response.json())
-                	.then(imageUrls => {
-                    	if (Array.isArray(imageUrls)) {
-                        	imageUrls.forEach(url => {
-                            		const img = document.createElement("img");
-                            		img.src = url;
-                            		img.loading = "lazy";
-                            		img.style = "width: 100%; margin-bottom: 10px;";
-                            		galleryContainer.appendChild(img);
-                        	});
-                    	} else {
-                        	console.error('Expected an array of image URLs');
-                    	}
-                	})
-                	.catch(error => console.error('Error fetching images:', error));
-        	}
 
         });
     </script>
-    <script>
-	     fetch('/property-data')
-                        .then(response => response.json())
-                        .then((response) => {
-                                document.getElementById('bvc-description').textContent = response.data[0].description;
-                                document.getElementById('vp-description').textContent = response.data[1].description;
-                        });
-
-	window.onload = function() {
-		var nextButton = document.querySelector('.next-btn');
-
-		if (nextButton) {
-			nextButton.addEventListener('click', function() {
-				firebase.analytics().logEvent('cabin_next_clicked');
-			});
-		}
-
-	};
-    </script>
+    {{ template "footer.html" . }}
 </body>
 </html>
-
