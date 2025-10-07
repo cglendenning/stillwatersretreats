@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -11,17 +12,20 @@ import (
 	"net/url"
 	"os"
 	"path/filepath"
-	"strconv"
 	"strings"
 	"time"
 
+	"github.com/aws/aws-sdk-go-v2/aws"
+	"github.com/aws/aws-sdk-go-v2/config"
+	"github.com/aws/aws-sdk-go-v2/credentials"
+	"github.com/aws/aws-sdk-go-v2/service/sesv2"
+	"github.com/aws/aws-sdk-go-v2/service/sesv2/types"
 	"github.com/joho/godotenv"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 	"github.com/stripe/stripe-go/v78"
 	"github.com/stripe/stripe-go/v78/checkout/session"
 	"github.com/stripe/stripe-go/v78/paymentintent"
-	"gopkg.in/gomail.v2"
 )
 
 type Template struct {
@@ -31,26 +35,85 @@ type Template struct {
 // isDebug controls verbose logging via env var DEBUG_LOG=1
 func isDebug() bool { return os.Getenv("DEBUG_LOG") == "1" }
 
-// newSMTPDialer creates a gomail dialer using env configuration.
-// Supports STARTTLS on port 587 (default) and SSL on port 465 when SMTP_PORT=465.
-func newSMTPDialer() *gomail.Dialer {
-	host := os.Getenv("SMTP_HOST")
-	user := os.Getenv("SMTP_USERNAME")
-	pass := os.Getenv("SMTP_PASSWORD")
-	portStr := os.Getenv("SMTP_PORT")
-	if portStr == "" {
-		portStr = "587"
+// newSESClient creates an AWS SES v2 client
+// When running on AWS (EC2, ECS, Lambda, etc.), it automatically uses the attached IAM role
+// For local development, you can provide AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY in .env
+func newSESClient(ctx context.Context) (*sesv2.Client, error) {
+	awsRegion := os.Getenv("AWS_REGION")
+	if awsRegion == "" {
+		awsRegion = "us-east-1" // Default region
 	}
-	port, err := strconv.Atoi(portStr)
+
+	// Check if we have explicit credentials (for local dev)
+	awsAccessKey := os.Getenv("AWS_ACCESS_KEY_ID")
+	awsSecretKey := os.Getenv("AWS_SECRET_ACCESS_KEY")
+
+	var cfg aws.Config
+	var err error
+
+	if awsAccessKey != "" && awsSecretKey != "" {
+		// Use explicit credentials (local development)
+		cfg, err = config.LoadDefaultConfig(ctx,
+			config.WithRegion(awsRegion),
+			config.WithCredentialsProvider(credentials.NewStaticCredentialsProvider(
+				awsAccessKey,
+				awsSecretKey,
+				"",
+			)),
+		)
+	} else {
+		// Use IAM role (production on AWS)
+		// This automatically picks up credentials from EC2 instance metadata, ECS task role, etc.
+		cfg, err = config.LoadDefaultConfig(ctx,
+			config.WithRegion(awsRegion),
+		)
+	}
+
 	if err != nil {
-		port = 587
+		return nil, fmt.Errorf("unable to load AWS config: %w", err)
 	}
-	d := gomail.NewDialer(host, port, user, pass)
-	// If using implicit SSL (465), enable SSL mode
-	if port == 465 {
-		d.SSL = true
+
+	return sesv2.NewFromConfig(cfg), nil
+}
+
+// sendEmailViaSES sends an email using AWS SES v2 API
+// replyToEmail is optional - if provided, replies will go to this address
+func sendEmailViaSES(ctx context.Context, fromEmail, toEmail, subject, htmlBody, replyToEmail string) error {
+	client, err := newSESClient(ctx)
+	if err != nil {
+		return fmt.Errorf("failed to create SES client: %w", err)
 	}
-	return d
+
+	input := &sesv2.SendEmailInput{
+		FromEmailAddress: aws.String(fromEmail),
+		Destination: &types.Destination{
+			ToAddresses: []string{toEmail},
+		},
+		Content: &types.EmailContent{
+			Simple: &types.Message{
+				Subject: &types.Content{
+					Data: aws.String(subject),
+				},
+				Body: &types.Body{
+					Html: &types.Content{
+						Data: aws.String(htmlBody),
+					},
+				},
+			},
+		},
+	}
+
+	// Add Reply-To header if provided
+	if replyToEmail != "" {
+		input.ReplyToAddresses = []string{replyToEmail}
+	}
+
+	_, err = client.SendEmail(ctx, input)
+	if err != nil {
+		return fmt.Errorf("failed to send email via SES: %w", err)
+	}
+
+	return nil
 }
 
 func (t *Template) Render(w io.Writer, name string, data interface{}, c echo.Context) error {
@@ -427,15 +490,13 @@ func sendEmailHandler(c echo.Context) error {
 		email := c.FormValue("email")
 		message := c.FormValue("message")
 
-		m := gomail.NewMessage()
-		m.SetHeader("From", os.Getenv("SMTP_FROM_EMAIL"))
-		m.SetHeader("To", os.Getenv("SMTP_TO_EMAIL"))
-		m.SetHeader("Subject", "Still Waters Contact Form")
-		m.SetBody("text/html", "Email: "+email+"<br>Message: "+message)
+		fromEmail := os.Getenv("SES_FROM_EMAIL")
+		toEmail := os.Getenv("SES_TO_EMAIL")
+		subject := "Still Waters Contact Form"
+		htmlBody := "Email: " + email + "<br>Message: " + message
 
-		d := newSMTPDialer()
-
-		if err := d.DialAndSend(m); err != nil {
+		// Use customer's email as Reply-To so you can easily reply to them
+		if err := sendEmailViaSES(c.Request().Context(), fromEmail, toEmail, subject, htmlBody, email); err != nil {
 			return c.String(http.StatusInternalServerError, "Failed to send email: "+err.Error())
 		}
 
@@ -482,17 +543,13 @@ func sendEmailHandler(c echo.Context) error {
 			email := c.FormValue("email")
 			message := c.FormValue("message")
 
-			// Setup SMTP
-			m := gomail.NewMessage()
-			m.SetHeader("From", os.Getenv("SMTP_FROM_EMAIL")) // My verified SES email
-			m.SetHeader("To", os.Getenv("SMTP_TO_EMAIL"))
-			m.SetHeader("Subject", "Still Waters Contact Form")
-			m.SetBody("text/html", "Email: "+email+"<br>Message: "+message)
+			fromEmail := os.Getenv("SES_FROM_EMAIL")
+			toEmail := os.Getenv("SES_TO_EMAIL")
+			subject := "Still Waters Contact Form"
+			htmlBody := "Email: " + email + "<br>Message: " + message
 
-			d := newSMTPDialer()
-
-			// Send the email
-			if err := d.DialAndSend(m); err != nil {
+			// Send the email via SES with customer's email as Reply-To
+			if err := sendEmailViaSES(c.Request().Context(), fromEmail, toEmail, subject, htmlBody, email); err != nil {
 				return c.String(http.StatusInternalServerError, "Failed to send email: "+err.Error())
 			}
 
@@ -770,17 +827,13 @@ func sendBookingHandler(c echo.Context) error {
 			pkg := c.FormValue("pkg-send")
 			price := c.FormValue("price-send")
 
-			// Setup SMTP
-			m := gomail.NewMessage()
-			m.SetHeader("From", os.Getenv("SMTP_FROM_EMAIL"))
-			m.SetHeader("To", os.Getenv("SMTP_TO_EMAIL"))
-			m.SetHeader("Subject", "Still Waters Booking Request!")
-			m.SetBody("text/html", "Cabin: "+cabin+"<br>Email: "+email+"<br>Message: "+message+"<br>Checkin: "+checkin+"<br>Checkout: "+checkout+"<br>Package: "+pkg+"<br>Price: "+price)
+			fromEmail := os.Getenv("SES_FROM_EMAIL")
+			toEmail := os.Getenv("SES_TO_EMAIL")
+			subject := "Still Waters Booking Request!"
+			htmlBody := "Cabin: " + cabin + "<br>Email: " + email + "<br>Message: " + message + "<br>Checkin: " + checkin + "<br>Checkout: " + checkout + "<br>Package: " + pkg + "<br>Price: " + price
 
-			d := newSMTPDialer()
-
-			// Send the email
-			if err := d.DialAndSend(m); err != nil {
+			// Send the email via SES with customer's email as Reply-To
+			if err := sendEmailViaSES(c.Request().Context(), fromEmail, toEmail, subject, htmlBody, email); err != nil {
 				return c.String(http.StatusInternalServerError, "Failed to send email: "+err.Error())
 			}
 
