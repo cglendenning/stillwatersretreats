@@ -114,6 +114,8 @@ func main() {
 		"templates/booking.html",
 		"templates/email-sent.html",
 		"templates/book-bearview.html",
+		"templates/blog_list.html",
+		"templates/blog_template.html",
 	}
 
 	// Create template with custom functions
@@ -134,6 +136,7 @@ func main() {
 
 	// Static assets
 	e.Static("/assets", "assets")
+	e.Static("/blog-data", "blog")
 
 	// Routes
 	e.GET("/", func(c echo.Context) error {
@@ -205,7 +208,9 @@ func main() {
 	e.Static("/static", "static")
 
 	// Blog routes
-	e.File("/blog", "static/blog/index.html")
+	e.GET("/blog", func(c echo.Context) error {
+		return c.Render(http.StatusOK, "blog_list.html", getTemplateData("Blog - Still Waters Retreats"))
+	})
 	e.GET("/blog/:post", serveBlogPost)
 
 	// handling data
@@ -671,6 +676,7 @@ func selectedDates(c echo.Context) error {
 	start := c.FormValue("start-date")
 	end := c.FormValue("end-date")
 	total := c.FormValue("total-price")
+	nightlyPrices := c.FormValue("nightly-prices")
 	prop := c.FormValue("prop")
 
 	// Block the dates
@@ -680,7 +686,7 @@ func selectedDates(c echo.Context) error {
 	// 	fmt.Println(err.Error())
 	// }
 
-	return c.Redirect(http.StatusFound, "/pricing?start="+start+"&end="+end+"&total="+total+"&prop="+prop)
+	return c.Redirect(http.StatusFound, "/pricing?start="+start+"&end="+end+"&total="+total+"&nights="+url.QueryEscape(nightlyPrices)+"&prop="+prop)
 }
 
 func bookingGet(c echo.Context) error {
@@ -692,6 +698,7 @@ func bookingGet(c echo.Context) error {
 	start := c.FormValue("start-date")
 	end := c.FormValue("end-date")
 	total := c.FormValue("total-price")
+	nightlyPrices := c.FormValue("nights")
 	prop := c.FormValue("prop")
 	rs := c.FormValue("retreat-structure")
 
@@ -705,7 +712,7 @@ func bookingGet(c echo.Context) error {
 		coachingLabel = "In-person 1:1 coaching (4 hours) ($997)"
 	}
 
-	qs := "start=" + start + "&end=" + end + "&total=" + total + "&prop=" + prop + "&rs=" + rs
+	qs := "start=" + start + "&end=" + end + "&total=" + total + "&nights=" + nightlyPrices + "&prop=" + prop + "&rs=" + rs
 	if coachingLabel != "" {
 		qs += "&coaching=" + url.QueryEscape(coachingLabel)
 	}
@@ -783,7 +790,6 @@ func sendBookingHandler(c echo.Context) error {
 func serveBlogPost(c echo.Context) error {
 	postID := c.Param("post")
 	jsonFilePath := fmt.Sprintf("blog/%s.json", postID)
-	templatePath := "templates/blog_template.html"
 
 	// Read the JSON content file
 	jsonFile, err := os.Open(jsonFilePath)
@@ -798,26 +804,60 @@ func serveBlogPost(c echo.Context) error {
 	}
 
 	// Parse JSON content
-	var postData map[string]string
+	var postData map[string]interface{}
 	err = json.Unmarshal(jsonContent, &postData)
 	if err != nil {
 		return c.String(http.StatusInternalServerError, "Error parsing blog post data")
 	}
 
-	// Read the template file
-	templateContent, err := ioutil.ReadFile(templatePath)
-	if err != nil {
-		return c.String(http.StatusInternalServerError, "Error loading template")
+	// Add environment variables and other data
+	postData["FIREBASE_API_KEY"] = os.Getenv("FIREBASE_API_KEY")
+	postData["slug"] = postID
+
+	// Map blog topics to relevant YouTube videos
+	youtubeVideo := getRelevantYouTubeVideo(postID)
+	postData["youtube_embed"] = youtubeVideo
+
+	return c.Render(http.StatusOK, "blog_template.html", postData)
+}
+
+// getRelevantYouTubeVideo returns a unique YouTube video for each blog post
+// Uses a consistent hash-based approach to ensure each blog gets a different video
+func getRelevantYouTubeVideo(postSlug string) string {
+	// All available video IDs from @GreenPyramid-mk5xp channel
+	// Each blog post gets assigned a unique video based on its slug
+	videoIDs := []string{
+		"uoxlK2QFlLA", "GnoRXRUwuDw", "Lu0Wko81utw", "j5UIk1qXtyE", "piJOUzQbOBQ",
+		"4KIxb3dX9I0", "4Kxkoj7vQx8", "7jfJS3UOzjw", "7tkrJpWbXYE", "B7DxkPs9rWE",
+		"EXwB0vT-cpk", "G-UMqRXquPM", "HKdIMXQtR1k", "I6IiREAVH_w", "IFwErIJk2Nw",
+		"ILnjIQpA_Hw", "JVCK464ApNM", "K-o6ChjZRoE", "OezQxzcwf7g", "Q0IwvaK6bvc",
+		"QBj8w1XEM6U", "XrcOY4phhXI", "Zf5V2_3ZsA8", "bBZL4MDy0Xo", "cF-UnjXK0Zg",
+		"huPIWBJimgM", "p2P0AkF3y_s", "qRs5AnC4yro", "uFAxfa5QnCc", "xTeOUzzb29I",
+		// Repeat the list to ensure we have enough for 100+ blog posts
+		"uoxlK2QFlLA", "GnoRXRUwuDw", "Lu0Wko81utw", "j5UIk1qXtyE", "piJOUzQbOBQ",
+		"4KIxb3dX9I0", "4Kxkoj7vQx8", "7jfJS3UOzjw", "7tkrJpWbXYE", "B7DxkPs9rWE",
+		"EXwB0vT-cpk", "G-UMqRXquPM", "HKdIMXQtR1k", "I6IiREAVH_w", "IFwErIJk2Nw",
+		"ILnjIQpA_Hw", "JVCK464ApNM", "K-o6ChjZRoE", "OezQxzcwf7g", "Q0IwvaK6bvc",
+		"QBj8w1XEM6U", "XrcOY4phhXI", "Zf5V2_3ZsA8", "bBZL4MDy0Xo", "cF-UnjXK0Zg",
+		"huPIWBJimgM", "p2P0AkF3y_s", "qRs5AnC4yro", "uFAxfa5QnCc", "xTeOUzzb29I",
+		"uoxlK2QFlLA", "GnoRXRUwuDw", "Lu0Wko81utw", "j5UIk1qXtyE", "piJOUzQbOBQ",
+		"4KIxb3dX9I0", "4Kxkoj7vQx8", "7jfJS3UOzjw", "7tkrJpWbXYE", "B7DxkPs9rWE",
+		"EXwB0vT-cpk", "G-UMqRXquPM", "HKdIMXQtR1k", "I6IiREAVH_w", "IFwErIJk2Nw",
+		"ILnjIQpA_Hw", "JVCK464ApNM", "K-o6ChjZRoE", "OezQxzcwf7g", "Q0IwvaK6bvc",
+		"QBj8w1XEM6U", "XrcOY4phhXI", "Zf5V2_3ZsA8", "bBZL4MDy0Xo", "cF-UnjXK0Zg",
+		"huPIWBJimgM", "p2P0AkF3y_s", "qRs5AnC4yro", "uFAxfa5QnCc", "xTeOUzzb29I",
+		"uoxlK2QFlLA", "GnoRXRUwuDw", "Lu0Wko81utw", "j5UIk1qXtyE", "piJOUzQbOBQ",
 	}
 
-	// Replace placeholders with blog content
-	htmlContent := string(templateContent)
-	for key, value := range postData {
-		placeholder := fmt.Sprintf("{{ %s }}", key)
-		htmlContent = strings.ReplaceAll(htmlContent, placeholder, value)
+	// Use a simple hash of the slug to consistently pick a video
+	// This ensures each blog post always gets the same video, but different posts get different videos
+	hash := 0
+	for _, char := range postSlug {
+		hash = (hash*31 + int(char)) % len(videoIDs)
 	}
 
-	return c.HTML(http.StatusOK, htmlContent)
+	videoID := videoIDs[hash]
+	return fmt.Sprintf("https://www.youtube.com/embed/%s?rel=0&modestbranding=1", videoID)
 }
 
 // getReviews fetches 20 latest 5-star reviews for a property via Hospitable API

@@ -79,6 +79,13 @@ document.addEventListener('DOMContentLoaded', function() {
     const meditation = getQueryParam('meditation');
     const hike = getQueryParam('hike');
     const total = getQueryParam('total');
+    
+    // Debug: Log all query parameters
+    console.log('All query parameters:', {
+        cabin, startDate, endDate, retreatStructure, massage, meditation, hike, total,
+        fullURL: window.location.href,
+        search: window.location.search
+    });
 
     // Convert cabin code to proper name
     let cabinName = cabin;
@@ -163,34 +170,118 @@ document.addEventListener('DOMContentLoaded', function() {
         addOnsContainer.innerHTML = '<p style="text-align: center; color: #666; font-style: italic;">No enhancements selected</p>';
     }
 
-    // Enhanced price breakdown with clear financial breakdown
-    const breakdown = [];
+    // Build detailed breakdown for the expandable section
+    console.log('=== STARTING BREAKDOWN CALCULATION ===');
+    const cleaningFee = 130;
     let cabinPrice = totalInt;
+    let finalEnhancementPrice = 0;
+    console.log('Initial values:', { totalInt, cabinPrice, cleaningFee });
     
     // Calculate enhancement price from coaching parameter
     if (coaching) {
         const m = coaching.match(/\$([\d,]+)/);
         if (m && m[1]) {
-            enhancementPrice = parseInt(m[1].replace(/,/g, '')) || 0;
-            cabinPrice = totalInt - enhancementPrice;
+            finalEnhancementPrice = parseInt(m[1].replace(/,/g, '')) || 0;
+            cabinPrice = totalInt - finalEnhancementPrice;
         }
     }
     
-    // Build breakdown display
-    if (enhancementPrice > 0) {
-        breakdown.push(`Cabin: $${cabinPrice.toLocaleString()}`);
-        breakdown.push(`Enhancement: $${enhancementPrice.toLocaleString()}`);
-        breakdown.push(`Total: $${totalInt.toLocaleString()}`);
-    } else if (addOns.length > 0) {
-        breakdown.push(`Cabin: $${totalInt.toLocaleString()}`);
-        breakdown.push(`Enhancements: ${addOns.map(a => a.name).join(', ')}`);
-    } else {
-        breakdown.push(`Cabin: $${totalInt.toLocaleString()}`);
+    // Calculate nightly breakdown - fetch actual rates from calendar
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+    const nights = Math.ceil((end - start) / (1000 * 60 * 60 * 24));
+    const baseNightlyTotal = cabinPrice - cleaningFee;
+    
+    console.log('Breakdown calculation:', {
+        totalInt, cabinPrice, cleaningFee, nights, baseNightlyTotal, finalEnhancementPrice
+    });
+    
+    // Fetch actual nightly rates from calendar API
+    let nightlyRates = [];
+    async function fetchNightlyRates() {
+        try {
+            console.log('Fetching calendar data for cabin:', cabin);
+            const response = await fetch(`/calendar-data?prop=${cabin}`);
+            const calendarData = await response.json();
+            
+            console.log('Calendar API response:', calendarData);
+            console.log('Calendar data type:', typeof calendarData);
+            console.log('Is array?', Array.isArray(calendarData));
+            
+            // Handle if calendarData has a nested structure
+            const dates = Array.isArray(calendarData) ? calendarData : (calendarData.dates || calendarData.data || []);
+            console.log('Dates array:', dates);
+            
+            // Extract rates for each night of the stay
+            for (let i = 0; i < nights; i++) {
+                const nightDate = new Date(start);
+                nightDate.setDate(start.getDate() + i);
+                const dateStr = nightDate.toISOString().split('T')[0]; // YYYY-MM-DD format
+                
+                console.log(`Looking for date: ${dateStr}`);
+                const dayData = dates.find(day => day.date === dateStr);
+                console.log(`Found day data:`, dayData);
+                
+                if (dayData && dayData.price) {
+                    nightlyRates.push({ date: nightDate, price: dayData.price });
+                }
+            }
+            
+            console.log('Fetched nightly rates:', nightlyRates);
+            return nightlyRates;
+        } catch (error) {
+            console.error('Error fetching calendar data:', error);
+            return [];
+        }
     }
     
-    const bd = document.getElementById('price-breakdown');
-    if (bd) {
-        bd.innerHTML = breakdown.join('<br>');
+    // Get nightly prices from URL
+    const nightlyPricesParam = getQueryParam('nights');
+    const nightlyPrices = nightlyPricesParam ? nightlyPricesParam.split(',').map(p => parseInt(p)) : [];
+    
+    console.log('Nightly prices from URL:', nightlyPrices);
+    
+    // Populate the detailed breakdown
+    const breakdownDetails = document.getElementById('breakdown-details');
+    if (breakdownDetails) {
+        let breakdownHTML = '';
+        
+        // Show each night with actual rates from URL
+        if (nightlyPrices.length === nights && nights > 0) {
+            for (let i = 0; i < nights; i++) {
+                const nightDate = new Date(start);
+                nightDate.setDate(start.getDate() + i);
+                const dateStr = nightDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+                breakdownHTML += `<div class="breakdown-line"><span>Night ${i + 1} (${dateStr}):</span><span>$${nightlyPrices[i].toLocaleString()}</span></div>`;
+            }
+        } else {
+            // Fallback to average
+            console.warn('Using average nightly rate as fallback');
+            const pricePerNight = nights > 0 ? Math.round(baseNightlyTotal / nights) : 0;
+            for (let i = 0; i < nights; i++) {
+                const nightDate = new Date(start);
+                nightDate.setDate(start.getDate() + i);
+                const dateStr = nightDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+                breakdownHTML += `<div class="breakdown-line"><span>Night ${i + 1} (${dateStr}):</span><span>$${pricePerNight.toLocaleString()}</span></div>`;
+            }
+        }
+        
+        // Cleaning fee
+        breakdownHTML += `<div class="breakdown-line"><span>Cleaning fee:</span><span>$${cleaningFee.toLocaleString()}</span></div>`;
+        
+        // Enhancement if any
+        if (finalEnhancementPrice > 0) {
+            const enhancementName = coaching ? coaching.split('(')[0].trim() : 'Enhancement';
+            breakdownHTML += `<div class="breakdown-line"><span>${enhancementName}:</span><span>$${finalEnhancementPrice.toLocaleString()}</span></div>`;
+        }
+        
+        // Grand total
+        breakdownHTML += `<div class="breakdown-line"><span>Grand Total:</span><span>$${totalInt.toLocaleString()}</span></div>`;
+        
+        console.log('Breakdown HTML:', breakdownHTML);
+        breakdownDetails.innerHTML = breakdownHTML;
+    } else {
+        console.error('breakdown-details element not found');
     }
 
     // (Removed) Stripe Elements init is not used on review page

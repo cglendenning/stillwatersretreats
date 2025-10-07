@@ -78,6 +78,17 @@
     <form class="pricing-container" action="/booking-get"  method="GET">
         <div class="price-box" package="cabin">
             <div class="price-header" id="cabin-title" style="background-color: #F5A623;"></div>
+	    <div style="margin-bottom: 0.5rem; padding: 0.75rem; background: #f8f9fa; border-radius: 8px;">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 0.25rem; color: #666;">
+                    <span>Nightly rates:</span>
+                    <span id="base-rate"></span>
+                </div>
+                <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem; color: #666;">
+                    <span>Cleaning fee:</span>
+                    <span id="cleaning-fee"></span>
+                </div>
+                <div style="border-top: 2px solid #ddd; padding-top: 0.5rem;"></div>
+            </div>
 	    <b><div class="price-tag" id="cabin-total"></div></b>
 
             <img id="cabin-image" src="" alt="Cabin Image" style="width:100%; height:auto; margin: 10px 0;">
@@ -97,6 +108,7 @@
         <input type="hidden" id="start-date" name="start-date">
         <input type="hidden" id="end-date" name="end-date">
         <input type="hidden" id="total-price" name="total-price">
+        <input type="hidden" id="nights" name="nights">
         <input type="hidden" id="prop" name="prop">
         <button type="submit" class="btn next-btn" id="submit-button">Next</button>
     </form>
@@ -124,7 +136,9 @@
         const cabinImage = document.getElementById('cabin-image');
         const cabinDescription = document.getElementById('cabin-description');
 
-        // Update the cabin details on the page
+        // Update the cabin details on the page with breakdown
+        baseRate.textContent = `$${base.toLocaleString()}`;
+        cleaningFee.textContent = `$${cleaning.toLocaleString()}`;
         cabinTotal.textContent = `Cabin: $${total.toLocaleString()}`;
         const prop = getQueryParam('prop');
         if (prop === 'bvc') {
@@ -140,6 +154,7 @@
         // Pass through the query params
         document.getElementById('start-date').value = getQueryParam('start');
         document.getElementById('end-date').value = getQueryParam('end');
+        document.getElementById('nights').value = getQueryParam('nights');
         document.getElementById('prop').value = getQueryParam('prop');
 
         const coachingOptions = document.querySelectorAll('input[name="coaching-option"]');

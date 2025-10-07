@@ -381,6 +381,7 @@
             <input type="hidden" id="start-date" name="start-date">
             <input type="hidden" id="end-date" name="end-date">
             <input type="hidden" id="total-price" name="total-price">
+            <input type="hidden" id="nightly-prices" name="nightly-prices">
             <input type="hidden" id="prop" name="prop">
             <button type="submit" class="btn next-btn" id="submit-button">Next</button>
         </form>
@@ -516,6 +517,7 @@
             endDate.setDate(endDate.getDate() - 1);
 
             var totalPrice = 0;
+            var nightlyPrices = [];
             var dateIterator = new Date(startDate);
             while (dateIterator <= endDate) {
                 var dayData = eventData.find(event =>
@@ -526,9 +528,11 @@
                 }
 
                 totalPrice += Number(dayData.price);
+                nightlyPrices.push(Number(dayData.price));
                 dateIterator.setDate(dateIterator.getDate() + 1);
             }
             document.getElementById('total-price').value = totalPrice;
+            document.getElementById('nightly-prices').value = nightlyPrices.join(',');
             return true;
         }
 

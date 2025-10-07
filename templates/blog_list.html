@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="canonical" href="https://www.stillwatersretreats.com/blog" />
+    <link rel="icon" href="/assets/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png" type="image/png">
+    <link rel="icon" sizes="192x192" href="/assets/android-chrome-192x192.png" type="image/png">
+    <link rel="icon" sizes="512x512" href="/assets/android-chrome-512x512.png" type="image/png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog - Still Waters Retreats</title>
+    <meta name="description" content="Insights and reflections for builders, creators, and thinkers seeking clarity, focus, and deep work in mountain retreats.">
+    <link href="/static/styles.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background: #f8f9fa;
+            margin: 0;
+            padding: 0;
+        }
+
+        .blog-hero {
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            color: white;
+            padding: 4rem 2rem 3rem 2rem;
+            text-align: center;
+        }
+
+        .blog-hero h1 {
+            font-family: 'Ubuntu', sans-serif;
+            font-size: 3rem;
+            font-weight: 300;
+            margin: 0 0 1rem 0;
+        }
+
+        .blog-hero p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .blog-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .blog-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .blog-card:hover {
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+            transform: translateY(-4px);
+        }
+
+        .blog-card-content {
+            padding: 1.75rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .blog-card h2 {
+            font-family: 'Ubuntu', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 500;
+            color: #2c3e50;
+            margin: 0 0 0.75rem 0;
+            line-height: 1.3;
+        }
+
+        .blog-subtitle {
+            font-style: italic;
+            color: #3498db;
+            font-size: 1.05rem;
+            margin-bottom: 1rem;
+            line-height: 1.4;
+        }
+
+        .blog-excerpt {
+            color: #555;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            flex: 1;
+        }
+
+        .blog-read-more {
+            display: inline-block;
+            color: #3498db;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: color 0.2s ease;
+            align-self: flex-start;
+        }
+
+        .blog-read-more:hover {
+            color: #2c3e50;
+        }
+
+        .blog-read-more::after {
+            content: ' →';
+            transition: transform 0.2s ease;
+            display: inline-block;
+        }
+
+        .blog-card:hover .blog-read-more::after {
+            transform: translateX(4px);
+        }
+
+        .loading {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: #666;
+            font-size: 1.2rem;
+        }
+
+        .blog-image-break {
+            grid-column: 1 / -1;
+            width: 100%;
+            margin: 1rem 0;
+            display: flex;
+        }
+
+        .blog-image-break img {
+            width: 80%;
+            max-width: 900px;
+            height: 350px;
+            object-fit: cover;
+            border-radius: 12px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+        }
+
+        .blog-image-break.align-left {
+            justify-content: flex-start;
+        }
+
+        .blog-image-break.align-center {
+            justify-content: center;
+        }
+
+        .blog-image-break.align-right {
+            justify-content: flex-end;
+        }
+
+        @media (max-width: 768px) {
+            .blog-image-break img {
+                width: 100%;
+                height: 250px;
+            }
+            
+            .blog-image-break {
+                justify-content: center !important;
+            }
+            .blog-hero h1 {
+                font-size: 2rem;
+            }
+
+            .blog-hero p {
+                font-size: 1rem;
+            }
+
+            .blog-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .blog-container {
+                padding: 2rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    {{ template "nav.html" . }}
+
+    <div class="blog-hero">
+        <h1>Thoughts on Focus, Creativity & Deep Work</h1>
+        <p>Insights and reflections for builders, creators, and thinkers seeking clarity in the mountains.</p>
+    </div>
+
+    <div class="blog-container">
+        <div class="loading" id="loading">Loading articles...</div>
+        <div class="blog-grid" id="blog-grid"></div>
+    </div>
+
+    {{ template "footer.html" . }}
+
+    <script>
+        // Blog posts data with question-based titles
+        const blogPosts = [
+            { slug: 'could-the-world-just-leave-me-alone-so-i-can-work', title: 'Could the World Just Leave Me Alone So I Can Work?' },
+            { slug: 'how-am-i-supposed-to-build-when-i-cant-focus-for-five-minutes', title: 'How Am I Supposed to Build When I Can\'t Focus for Five Minutes?' },
+            { slug: 'how-am-i-supposed-to-figure-this-out-here', title: 'How Am I Supposed to Figure This Out Here?' },
+            { slug: 'how-am-i-supposed-to-get-anything-done', title: 'How Am I Supposed to Get Anything Done?' },
+            { slug: 'how-am-i-supposed-to-scale-this-business-when-i-cant-even-focus', title: 'How Am I Supposed to Scale This Business When I Can\'t Even Focus?' },
+            { slug: 'how-can-i-build-my-business-when-my-space-is-a-disaster', title: 'How Can I Build My Business When My Space Is a Disaster?' },
+            { slug: 'how-can-i-create-something-amazing-when-im-drowning-in-chaos', title: 'How Can I Create Something Amazing When I\'m Drowning in Chaos?' },
+            { slug: 'how-can-i-escape-so-i-can-work', title: 'How Can I Escape So I Can Work?' },
+            { slug: 'how-can-i-figure-this-out-when-everything-feels-so-chaotic', title: 'How Can I Figure This Out When Everything Feels So Chaotic?' },
+            { slug: 'how-can-i-finish-this-product-when-im-constantly-distracted', title: 'How Can I Finish This Product When I\'m Constantly Distracted?' },
+            { slug: 'how-can-i-finish-this-project-with-all-this-chaos', title: 'How Can I Finish This Project With All This Chaos?' },
+            { slug: 'how-can-i-focus-with-all-this-chaos', title: 'How Can I Focus With All This Chaos?' },
+            { slug: 'how-can-i-get-anything-done-with-all-these-interruptions', title: 'How Can I Get Anything Done With All These Interruptions?' },
+            { slug: 'how-can-i-get-anything-done-working-from-home', title: 'How Can I Get Anything Done Working From Home?' },
+            { slug: 'how-can-i-get-into-the-zone', title: 'How Can I Get Into the Zone?' },
+            { slug: 'how-can-i-launch-this-thing-when-i-cant-even-focus-for-five-minutes', title: 'How Can I Launch This Thing When I Can\'t Even Focus for Five Minutes?' },
+            { slug: 'how-can-i-solve-this-problem-when-i-cant-think-straight', title: 'How Can I Solve This Problem When I Can\'t Think Straight?' },
+            { slug: 'how-can-i-write-when-i-cant-hear-myself-think', title: 'How Can I Write When I Can\'t Hear Myself Think?' },
+            { slug: 'how-come-i-have-not-finished-this-project-yet', title: 'How Come I Have Not Finished This Project Yet?' },
+            { slug: 'how-did-i-let-my-creative-flow-get-blocked', title: 'How Did I Let My Creative Flow Get Blocked?' },
+            { slug: 'how-did-i-let-my-to-do-list-spiral-out-of-control', title: 'How Did I Let My To-Do List Spiral Out of Control?' },
+            { slug: 'how-did-i-lose-excitement-for-this-project', title: 'How Did I Lose Excitement for This Project?' },
+            { slug: 'how-did-my-mind-get-so-cluttered', title: 'How Did My Mind Get So Cluttered?' },
+            { slug: 'how-do-i-find-focus-and-simplicity', title: 'How Do I Find Focus and Simplicity?' },
+            { slug: 'how-do-i-get-unstuck', title: 'How Do I Get Unstuck?' },
+            { slug: 'how-do-i-unclutter-my-mind', title: 'How Do I Unclutter My Mind?' },
+            { slug: 'this-place-is-so-noisy-i-need-absolute-silence-to-do-my-best-work', title: 'This Place Is So Noisy—I Need Absolute Silence to Do My Best Work' },
+            { slug: 'what-can-i-do-to-get-my-environment-under-control', title: 'What Can I Do to Get My Environment Under Control?' },
+            { slug: 'what-causes-me-to-be-so-distracted', title: 'What Causes Me to Be So Distracted?' },
+            { slug: 'what-do-i-need-so-i-can-be-more-productive', title: 'What Do I Need So I Can Be More Productive?' },
+            { slug: 'what-do-i-need-to-do-to-get-some-peace-and-quiet', title: 'What Do I Need to Do to Get Some Peace and Quiet?' },
+            { slug: 'what-happened-to-all-my-free-time', title: 'What Happened to All My Free Time?' },
+            { slug: 'what-would-it-take-to-finally-go-on-my-thinking-retreat', title: 'What Would It Take to Finally Go on My Thinking Retreat?' },
+            { slug: 'when-did-i-stop-loving-my-work', title: 'When Did I Stop Loving My Work?' },
+            { slug: 'where-did-the-creative-spark-go', title: 'Where Did the Creative Spark Go?' },
+            { slug: 'why-am-i-spinning-my-wheels-instead-of-building-momentum', title: 'Why Am I Spinning My Wheels Instead of Building Momentum?' },
+            { slug: 'why-are-my-best-hours-of-the-day-being-wasted', title: 'Why Are My Best Hours of the Day Being Wasted?' },
+            { slug: 'why-cant-i-find-my-focus-anymore', title: 'Why Can\'t I Find My Focus Anymore?' },
+            { slug: 'why-cant-i-find-the-clarity-i-need', title: 'Why Can\'t I Find the Clarity I Need?' },
+            { slug: 'why-cant-i-finish-this', title: 'Why Can\'t I Finish This?' },
+            { slug: 'why-cant-i-finish-what-i-start', title: 'Why Can\'t I Finish What I Start?' },
+            { slug: 'why-cant-i-focus-long-enough-to-make-progress', title: 'Why Can\'t I Focus Long Enough to Make Progress?' },
+            { slug: 'why-cant-i-focus-on-what-matters', title: 'Why Can\'t I Focus on What Matters?' },
+            { slug: 'why-cant-i-get-any-traction', title: 'Why Can\'t I Get Any Traction?' },
+            { slug: 'why-cant-i-get-anything-done', title: 'Why Can\'t I Get Anything Done?' },
+            { slug: 'why-cant-i-get-out-of-my-own-way', title: 'Why Can\'t I Get Out of My Own Way?' },
+            { slug: 'why-cant-i-hear-my-own-thoughts', title: 'Why Can\'t I Hear My Own Thoughts?' },
+            { slug: 'why-cant-i-just-have-a-few-hours-to-think', title: 'Why Can\'t I Just Have a Few Hours to Think?' },
+            { slug: 'why-cant-i-make-progress-on-anything', title: 'Why Can\'t I Make Progress on Anything?' },
+            { slug: 'why-cant-i-make-progress-on-the-things-that-matter', title: 'Why Can\'t I Make Progress on the Things That Matter?' },
+            { slug: 'why-cant-i-think-or-work', title: 'Why Can\'t I Think or Work?' },
+            { slug: 'why-do-i-always-feel-like-im-running-out-of-time', title: 'Why Do I Always Feel Like I\'m Running Out of Time?' },
+            { slug: 'why-do-i-always-put-myself-last', title: 'Why Do I Always Put Myself Last?' },
+            { slug: 'why-do-i-feel-like-im-losing-myself', title: 'Why Do I Feel Like I\'m Losing Myself?' },
+            { slug: 'why-do-i-feel-like-im-running-in-circles', title: 'Why Do I Feel Like I\'m Running in Circles?' },
+            { slug: 'why-do-i-feel-like-my-best-work-is-out-of-reach', title: 'Why Do I Feel Like My Best Work Is Out of Reach?' },
+            { slug: 'why-do-i-feel-so-disconnected-from-my-work', title: 'Why Do I Feel So Disconnected From My Work?' },
+            { slug: 'why-do-i-feel-so-disconnected-from-whats-important', title: 'Why Do I Feel So Disconnected From What\'s Important?' },
+            { slug: 'why-do-i-feel-so-drained-and-stuck', title: 'Why Do I Feel So Drained and Stuck?' },
+            { slug: 'why-do-i-feel-so-drained-and-uninspired', title: 'Why Do I Feel So Drained and Uninspired?' },
+            { slug: 'why-do-i-feel-so-out-of-sync-with-my-goals', title: 'Why Do I Feel So Out of Sync With My Goals?' },
+            { slug: 'why-do-i-feel-so-scattered', title: 'Why Do I Feel So Scattered?' },
+            { slug: 'why-do-i-feel-so-stuck-all-the-time', title: 'Why Do I Feel So Stuck All the Time?' },
+            { slug: 'why-do-i-hold-myself-back', title: 'Why Do I Hold Myself Back?' },
+            { slug: 'why-do-i-keep-getting-interrupted', title: 'Why Do I Keep Getting Interrupted?' },
+            { slug: 'why-do-i-keep-jumping-from-idea-to-idea', title: 'Why Do I Keep Jumping From Idea to Idea?' },
+            { slug: 'why-do-i-keep-losing-sight-of-what-matters', title: 'Why Do I Keep Losing Sight of What Matters?' },
+            { slug: 'why-do-i-keep-procrastinating', title: 'Why Do I Keep Procrastinating?' },
+            { slug: 'why-do-i-keep-putting-this-project-off', title: 'Why Do I Keep Putting This Project Off?' },
+            { slug: 'why-do-i-keep-spinning-my-wheels', title: 'Why Do I Keep Spinning My Wheels?' },
+            { slug: 'why-does-every-little-thing-distract-me', title: 'Why Does Every Little Thing Distract Me?' },
+            { slug: 'why-does-every-little-thing-feel-like-a-roadblock', title: 'Why Does Every Little Thing Feel Like a Roadblock?' },
+            { slug: 'why-does-every-task-feel-impossible-to-focus-on', title: 'Why Does Every Task Feel Impossible to Focus On?' },
+            { slug: 'why-does-everything-feel-like-a-distraction', title: 'Why Does Everything Feel Like a Distraction?' },
+            { slug: 'why-does-everything-feel-out-of-control', title: 'Why Does Everything Feel Out of Control?' },
+            { slug: 'why-does-everything-feel-so-complicated', title: 'Why Does Everything Feel So Complicated?' },
+            { slug: 'why-does-everything-feel-so-loud-and-overwhelming', title: 'Why Does Everything Feel So Loud and Overwhelming?' },
+            { slug: 'why-does-everything-feel-so-overwhelming', title: 'Why Does Everything Feel So Overwhelming?' },
+            { slug: 'why-does-it-feel-like-i-cant-hear-myself-think', title: 'Why Does It Feel Like I Can\'t Hear Myself Think?' },
+            { slug: 'why-does-my-environment-feel-like-a-roadblock', title: 'Why Does My Environment Feel Like a Roadblock?' },
+            { slug: 'why-does-my-environment-feel-like-my-biggest-enemy', title: 'Why Does My Environment Feel Like My Biggest Enemy?' },
+            { slug: 'why-does-my-environment-feel-so-suffocating', title: 'Why Does My Environment Feel So Suffocating?' },
+            { slug: 'why-does-my-mind-feel-so-cluttered', title: 'Why Does My Mind Feel So Cluttered?' },
+            { slug: 'why-does-my-to-do-list-keep-growing', title: 'Why Does My To-Do List Keep Growing?' },
+            { slug: 'why-does-progress-feel-so-out-of-reach', title: 'Why Does Progress Feel So Out of Reach?' },
+            { slug: 'why-does-this-problem-keep-coming-back', title: 'Why Does This Problem Keep Coming Back?' },
+            { slug: 'why-is-every-little-noise-breaking-my-concentration', title: 'Why Is Every Little Noise Breaking My Concentration?' },
+            { slug: 'why-is-it-so-hard-to-find-my-flow', title: 'Why Is It So Hard to Find My Flow?' },
+            { slug: 'why-is-it-so-hard-to-focus-on-the-big-picture', title: 'Why Is It So Hard to Focus on the Big Picture?' },
+            { slug: 'why-is-it-so-hard-to-get-into-the-zone', title: 'Why Is It So Hard to Get Into the Zone?' },
+            { slug: 'why-is-it-so-hard-to-make-progress', title: 'Why Is It So Hard to Make Progress?' },
+            { slug: 'why-is-my-creativity-nowhere-to-be-found', title: 'Why Is My Creativity Nowhere to Be Found?' },
+            { slug: 'why-is-my-environment-so-chaotic', title: 'Why Is My Environment So Chaotic?' },
+            { slug: 'why-is-my-life-a-shit-show-right-now', title: 'Why Is My Life a Shit Show Right Now?' },
+            { slug: 'why-is-my-workspace-such-a-mess', title: 'Why Is My Workspace Such a Mess?' },
+            { slug: 'why-is-progress-so-hard-to-make', title: 'Why Is Progress So Hard to Make?' },
+            { slug: 'why-is-this-out-of-control', title: 'Why Is This Out of Control?' },
+            { slug: 'why-is-this-place-a-disaster', title: 'Why Is This Place a Disaster?' },
+            { slug: 'why-isnt-my-environment-supporting-me', title: 'Why Isn\'t My Environment Supporting Me?' },
+            { slug: 'why-wont-life-get-out-of-my-way', title: 'Why Won\'t Life Get Out of My Way?' }
+        ];
+
+        // Load blog posts with their data
+        async function loadBlogPosts() {
+            const blogGrid = document.getElementById('blog-grid');
+            const loading = document.getElementById('loading');
+
+            try {
+                // Fetch all blog post JSON files
+                const posts = await Promise.all(
+                    blogPosts.map(async (post) => {
+                        try {
+                            const response = await fetch(`/blog-data/${post.slug}.json`);
+                            if (!response.ok) return null;
+                            const data = await response.json();
+                            return { ...data, slug: post.slug };
+                        } catch (error) {
+                            console.error(`Error loading ${post.slug}:`, error);
+                            return null;
+                        }
+                    })
+                );
+
+                // Filter out failed loads and create cards
+                const validPosts = posts.filter(post => post !== null);
+                
+                loading.style.display = 'none';
+
+                // Scenic images to intersperse throughout the blog listing
+                // You can change these to any images you prefer from assets/photo
+                // Each image has an alignment: 'left', 'center', or 'right'
+                const scenicImages = [
+                    { src: '/assets/photo/bvc/Deck5.jpg', align: 'left' },
+                    { src: '/assets/photo/vp/Back11.jpg', align: 'center' },
+                    { src: '/assets/photo/bvc/Back4.jpg', align: 'right' },
+                    { src: '/assets/photo/vp/Front4.jpg', align: 'center' },
+                    { src: '/assets/photo/bvc/Deck7.jpg', align: 'left' },
+                    { src: '/assets/photo/vp/Back6.jpg', align: 'right' },
+                    { src: '/assets/photo/bvc/Overview2.jpg', align: 'center' },
+                    { src: '/assets/photo/vp/Nook1.jpg', align: 'left' },
+                    { src: '/assets/photo/bvc/Deck13.jpg', align: 'right' },
+                    { src: '/assets/photo/vp/Back3.jpg', align: 'center' },
+                    { src: '/assets/photo/bvc/Front1.jpg', align: 'left' },
+                    { src: '/assets/photo/vp/Living_Room3.jpg', align: 'right' },
+                    { src: '/assets/photo/bvc/Deck3.jpg', align: 'center' },
+                    { src: '/assets/photo/vp/Overview1.jpg', align: 'left' },
+                    { src: '/assets/photo/bvc/Back1.jpg', align: 'right' },
+                ];
+
+                let imageIndex = 0;
+                validPosts.forEach((post, index) => {
+                    const card = document.createElement('div');
+                    card.className = 'blog-card';
+
+                    // Find the question title from blogPosts array
+                    const blogPostData = blogPosts.find(bp => bp.slug === post.slug);
+                    const questionTitle = blogPostData ? blogPostData.title : post.title;
+
+                    // Create excerpt from section1_content (first 180 characters)
+                    const excerpt = post.section1_content 
+                        ? post.section1_content.substring(0, 200).trim() + '...'
+                        : '';
+
+                    card.innerHTML = `
+                        <div class="blog-card-content">
+                            <h2>${questionTitle}</h2>
+                            <div class="blog-subtitle">${post.subtitle || ''}</div>
+                            <div class="blog-excerpt">${excerpt}</div>
+                            <a href="/blog/${post.slug}" class="blog-read-more">Read More</a>
+                        </div>
+                    `;
+
+                    blogGrid.appendChild(card);
+
+                    // Add scenic image after every 9th post (3 rows of 3 panels)
+                    if ((index + 1) % 9 === 0 && imageIndex < scenicImages.length) {
+                        const imageBreak = document.createElement('div');
+                        const imageData = scenicImages[imageIndex];
+                        imageBreak.className = `blog-image-break align-${imageData.align}`;
+                        imageBreak.innerHTML = `<img src="${imageData.src}" alt="Mountain retreat scenery">`;
+                        blogGrid.appendChild(imageBreak);
+                        imageIndex++;
+                    }
+                });
+            } catch (error) {
+                loading.textContent = 'Error loading blog posts. Please try again later.';
+                console.error('Error:', error);
+            }
+        }
+
+        // Load blog posts when page loads
+        document.addEventListener('DOMContentLoaded', loadBlogPosts);
+    </script>
+</body>
+</html>
+

@@ -165,7 +165,49 @@
         .total-amount {
             font-size: 2.5rem;
             font-weight: 700;
-            margin: 0;
+            margin: 0 0 1rem 0;
+        }
+        
+        .breakdown-link {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: underline;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: color 0.2s ease;
+        }
+        
+        .breakdown-link:hover {
+            color: white;
+        }
+        
+        .breakdown-details {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-top: 1rem;
+            text-align: left;
+            font-size: 0.95rem;
+        }
+        
+        .breakdown-details.hidden {
+            display: none;
+        }
+        
+        .breakdown-line {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.75rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .breakdown-line:last-child {
+            border-bottom: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-top: 0.5rem;
+            padding-top: 0.75rem;
+            border-top: 2px solid rgba(255, 255, 255, 0.3);
         }
         
         .payment-section {
@@ -287,9 +329,12 @@
                 </div>
                 
                 <div class="total-section">
-                    <h3>Summary</h3>
-                    <div id="price-breakdown" style="font-size:1rem; opacity:.9; margin-bottom:.5rem;"></div>
+                    <h3>Total</h3>
                     <p class="total-amount" id="total-amount">$964</p>
+                    <a class="breakdown-link" id="breakdown-toggle" onclick="toggleBreakdown()">Breakdown</a>
+                    <div class="breakdown-details hidden" id="breakdown-details">
+                        <!-- Breakdown will be populated by JavaScript -->
+                    </div>
                 </div>
             </div>
             
@@ -309,6 +354,14 @@
         </div>
     </main>
     
+    <script>
+        function toggleBreakdown() {
+            const breakdown = document.getElementById('breakdown-details');
+            const toggle = document.getElementById('breakdown-toggle');
+            breakdown.classList.toggle('hidden');
+            toggle.textContent = breakdown.classList.contains('hidden') ? 'Breakdown' : 'Hide Breakdown';
+        }
+    </script>
     <script src="/static/payment.js"></script>
 </body>
 </html>
