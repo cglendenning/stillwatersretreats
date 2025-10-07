@@ -134,6 +134,38 @@
             position: relative;
         }
         
+        .gallery-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #4C6633;
+            color: #fff;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            z-index: 10;
+            font-size: 24px;
+        }
+        
+        .gallery-arrow.left {
+            left: 10px;
+        }
+        
+        .gallery-arrow.right {
+            right: 10px;
+        }
+        
+        @media (max-width: 768px) {
+            .gallery-arrow.left { left: 5px; }
+            .gallery-arrow.right { right: 5px; }
+        }
+        
         .gallery-track {
             display: flex;
             gap: 6px;
@@ -214,15 +246,6 @@
     
     <!-- Content Section - Below video -->
     <div class="home-content">
-        <div class="intro-text">
-            <h1>COME TO THE MOUNTAINS TO THINK.</h1>
-            <p>Build your next breakthrough just minutes from Big Bear Lake in the mountains of California.<br>
-            Experience the sanctuary of the mountains and engage in the tranquility of your craft.<br>
-            <b>Environment is <i>everything</i></b>.<br><br>
-            Choose from Bear View Cove or Victoria Pines to begin your next breakthrough.<br>
-            Each cabin is perfectly located, quiet, modern and ready for deep work.</p>
-        </div>
-        
         <!-- Cabin Images with Overlay Titles -->
         <div class="cabin-chooser">
             <div class="cabin-options">
@@ -236,10 +259,21 @@
                 </a>
             </div>
         </div>
+        
+        <div class="intro-text">
+            <h1>COME TO THE MOUNTAINS TO THINK.</h1>
+            <p>Build your next breakthrough just minutes from Big Bear Lake in the mountains of California.<br>
+            Experience the sanctuary of the mountains and engage in the tranquility of your craft.<br>
+            <b>Environment is <i>everything</i></b>.<br><br>
+            Choose from Bear View Cove or Victoria Pines to begin your next breakthrough.<br>
+            Each cabin is perfectly located, quiet, modern and ready for deep work.</p>
+        </div>
 
         <!-- Auto-scrolling randomized gallery -->
         <div class="gallery-container">
+            <button class="gallery-arrow left" id="galleryPrev" aria-label="Previous">&#8249;</button>
             <div class="gallery-track" id="gallery-track"></div>
+            <button class="gallery-arrow right" id="galleryNext" aria-label="Next">&#8250;</button>
         </div>
         <script>
             window.onload = function() {
@@ -299,9 +333,13 @@
                     gallery.appendChild(wrap);
                 });
 
-                // Auto-scroll right-to-left one image every 2 seconds
-                let index = 0;
-                const step = () => {
+                // Gallery navigation
+                const prevBtn = document.getElementById('galleryPrev');
+                const nextBtn = document.getElementById('galleryNext');
+                let autoScrollInterval = null;
+                let isAutoScrolling = true;
+                
+                const stepForward = () => {
                     const firstItem = gallery.querySelector('.gallery-item');
                     const width = firstItem ? (firstItem.getBoundingClientRect().width + 6) : 0; // width + gap
                     gallery.style.transition = 'transform 600ms ease';
@@ -314,7 +352,42 @@
                         }
                     }, 650);
                 };
-                setInterval(step, 4000);
+                
+                const stepBackward = () => {
+                    const lastItem = gallery.querySelector('.gallery-item:last-child');
+                    if (lastItem) {
+                        gallery.style.transition = 'none';
+                        gallery.insertBefore(lastItem, gallery.firstChild);
+                        const width = lastItem.getBoundingClientRect().width + 6;
+                        gallery.style.transform = `translateX(-${width}px)`;
+                        setTimeout(() => {
+                            gallery.style.transition = 'transform 600ms ease';
+                            gallery.style.transform = 'translateX(0)';
+                        }, 20);
+                    }
+                };
+                
+                const stopAutoScroll = () => {
+                    if (autoScrollInterval) {
+                        clearInterval(autoScrollInterval);
+                        autoScrollInterval = null;
+                        isAutoScrolling = false;
+                    }
+                };
+                
+                // Auto-scroll right-to-left one image every 4 seconds
+                autoScrollInterval = setInterval(stepForward, 4000);
+                
+                // Manual navigation
+                nextBtn.addEventListener('click', () => {
+                    stopAutoScroll();
+                    stepForward();
+                });
+                
+                prevBtn.addEventListener('click', () => {
+                    stopAutoScroll();
+                    stepBackward();
+                });
             };
         </script>
     </div>
