@@ -101,6 +101,7 @@ func main() {
 		"templates/activities.html",
 		"templates/coaching.html",
 		"templates/coaching-detail.html",
+		"templates/coachcraig.html",
 		"templates/coffee.html",
 		"templates/crossfit.html",
 		"templates/howitworks.html",
@@ -162,6 +163,9 @@ func main() {
 	})
 	e.GET("/coaching-detail", func(c echo.Context) error {
 		return c.Render(http.StatusOK, "coaching-detail.html", getTemplateData("Coaching Options"))
+	})
+	e.GET("/coachcraig", func(c echo.Context) error {
+		return c.Render(http.StatusOK, "coachcraig.html", getTemplateData("Coach Craig"))
 	})
 	e.GET("/coffee", func(c echo.Context) error {
 		return c.Render(http.StatusOK, "coffee.html", getTemplateData("Coffee Service"))

@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" href="/assets/android-chrome-192x192.png" type="image/png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png" type="image/png">
+    <link rel="icon" sizes="192x192" href="/assets/android-chrome-192x192.png" type="image/png">
+    <link rel="icon" sizes="512x512" href="/assets/android-chrome-512x512.png" type="image/png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coach Craig - Breaking Free from the Builder's Paradox</title>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id={{ GOOGLE_TAG_ID }}"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', '{{ GOOGLE_TAG_ID }}');
+    </script>
+    <link href="/static/styles.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;700&family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        .coach-hero {
+            max-width: 1100px;
+            margin: 2rem auto 1rem auto;
+            padding: 0 1rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            align-items: center;
+        }
+        .coach-hero img {
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+            border-radius: 14px;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+            background: #000;
+        }
+        .coach-copy h1 { 
+            font-family: 'Ubuntu', sans-serif; 
+            font-weight: 500; 
+            margin: 0 0 .5rem 0; 
+            font-size: 2.5rem;
+            color: #2c3e50;
+        }
+        .coach-copy h2 {
+            font-family: 'Ubuntu', sans-serif;
+            font-weight: 400;
+            margin: 1.5rem 0 .75rem 0;
+            font-size: 1.5rem;
+            color: #34495e;
+        }
+        .coach-copy p { 
+            color: #445; 
+            line-height: 1.7; 
+            margin: .5rem 0; 
+            font-size: 1.05rem;
+        }
+        .coach-copy strong {
+            color: #2c3e50;
+        }
+
+        .content-section {
+            max-width: 1100px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .builders-paradox {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 14px;
+            padding: 2.5rem;
+            margin: 2rem 0;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+        }
+        .builders-paradox h2 {
+            font-family: 'Ubuntu', sans-serif;
+            font-weight: 500;
+            color: #2c3e50;
+            margin: 0 0 1rem 0;
+            font-size: 2rem;
+        }
+        .builders-paradox p {
+            color: #495057;
+            line-height: 1.7;
+            margin: 1rem 0;
+            font-size: 1.1rem;
+        }
+        .builders-paradox em {
+            font-style: italic;
+            color: #6c757d;
+        }
+
+        .links-section {
+            max-width: 1100px;
+            margin: 3rem auto;
+            padding: 0 1rem;
+        }
+        .links-section h2 {
+            font-family: 'Ubuntu', sans-serif;
+            font-weight: 500;
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 2rem;
+            font-size: 2rem;
+        }
+        .links-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        .link-card {
+            background: #fff;
+            border: 1px solid #e9ecef;
+            border-radius: 14px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.07);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-decoration: none;
+            display: block;
+        }
+        .link-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+        }
+        .link-card .icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        .link-card h3 {
+            font-family: 'Ubuntu', sans-serif;
+            font-weight: 500;
+            color: #2c3e50;
+            margin: 0 0 0.5rem 0;
+            font-size: 1.3rem;
+        }
+        .link-card p {
+            color: #6c757d;
+            font-size: 0.95rem;
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        .approach-section {
+            max-width: 1100px;
+            margin: 3rem auto;
+            padding: 2.5rem 1rem;
+            background: #fff;
+            border-radius: 14px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.07);
+        }
+        .approach-section h2 {
+            font-family: 'Ubuntu', sans-serif;
+            font-weight: 500;
+            color: #2c3e50;
+            margin: 0 0 1.5rem 0;
+            font-size: 2rem;
+        }
+        .approach-section p {
+            color: #495057;
+            line-height: 1.7;
+            margin: 1rem 0;
+            font-size: 1.05rem;
+        }
+        .approach-section ul {
+            list-style: none;
+            padding: 0;
+            margin: 1.5rem 0;
+        }
+        .approach-section li {
+            padding: 0.75rem 0 0.75rem 2rem;
+            position: relative;
+            color: #495057;
+            line-height: 1.6;
+        }
+        .approach-section li::before {
+            content: '✨';
+            position: absolute;
+            left: 0;
+            font-size: 1.2rem;
+        }
+
+        .cta-section {
+            max-width: 1100px;
+            margin: 3rem auto;
+            padding: 3rem 1rem;
+            text-align: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 14px;
+            box-shadow: 0 12px 30px rgba(102,126,234,0.35);
+        }
+        .cta-section h2 {
+            font-family: 'Ubuntu', sans-serif;
+            font-weight: 500;
+            color: #fff;
+            margin: 0 0 1rem 0;
+            font-size: 2rem;
+        }
+        .cta-section p {
+            color: rgba(255,255,255,0.95);
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+        .cta-button {
+            display: inline-block;
+            background: #fff;
+            color: #667eea;
+            padding: 1rem 2.5rem;
+            border-radius: 999px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            text-decoration: none;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.3);
+        }
+
+        @media (max-width: 768px) { 
+            .coach-hero { 
+                grid-template-columns: 1fr; 
+            } 
+            .coach-hero img { 
+                height: 300px; 
+            }
+            .coach-copy h1 {
+                font-size: 2rem;
+            }
+            .links-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        {{ template "nav.html" . }}
+        <main>
+            <section class="coach-hero">
+                <img src="/assets/photo/host.jpg" alt="Coach Craig">
+                <div class="coach-copy">
+                    <h1>Coach Craig</h1>
+                    <h2>Your Guide Through the Builder's Paradox</h2>
+                    <p>I'm Craig—a builder, coach, and your host at Still Waters Retreats. I help successful entrepreneurs and solopreneurs who feel trapped by the very systems they created to set themselves free.</p>
+                    <p>If you're waking up thinking, <em>"I don't want to do this anymore,"</em> even though you're successful on paper—you're not broken. You've hit the builder's paradox, and I can help you find your way through.</p>
+                </div>
+            </section>
+
+            <section class="content-section">
+                <div class="builders-paradox">
+                    <h2>The Builder's Paradox</h2>
+                    <p>You built something remarkable. You carved your own path, created systems to bring your work directly to your people, and achieved what most only dream of. But somewhere along the way, the machinery you built to escape the 9-to-5 grind became its own kind of trap.</p>
+                    <p>You're not looking to burn it all down. You're looking for a <strong>third option</strong>—one where the system you built supports your enthusiasm to build, rather than boxing you in.</p>
+                    <p><em>That's where I come in.</em></p>
+                </div>
+            </section>
+
+            <section class="approach-section">
+                <h2>How I Can Help</h2>
+                <p>I draw from the deepest waters of effective psychology and artistic process to help creative entrepreneurs navigate the builder's paradox. My approach combines business strategy with creative soul-work:</p>
+                <ul>
+                    <li><strong>Campfires & Vampires:</strong> Create an energy map to identify what drains you and what lights you up, so you can reclaim the soul of your work</li>
+                    <li><strong>Soulful Systems:</strong> Build approaches that preserve your creative essence while embracing the efficiencies that drive growth</li>
+                    <li><strong>Drifting & Driving:</strong> Find the balance between letting work flow naturally and taking intentional action</li>
+                    <li><strong>Flow & Frustration:</strong> Navigate the natural cycles of creative work and turn frustration into breakthrough</li>
+                    <li><strong>The Fire Starter:</strong> Expand your options so you can break free from feeling trapped between only grinding it out or burning it down</li>
+                </ul>
+                <p>I've walked this path myself. I understand what it's like to build something successful only to feel constrained by it. More importantly, I've found a way through—and I can help you find yours.</p>
+            </section>
+
+            <section class="content-section">
+                <div class="builders-paradox">
+                    <h2>Coaching & Hospitality</h2>
+                    <p>At Still Waters Retreats, I've created spaces specifically designed for the kind of deep work and reflection that breaks the builder's paradox. Fast Wi-Fi when you need it. Mountain stillness when you want it. And a host who understands the rhythm of focused work and creative restoration.</p>
+                    <p>Whether you book a cabin for solo deep work, join a guided retreat, or work with me one-on-one, you'll find an environment that supports both your business success and your creative soul.</p>
+                </div>
+            </section>
+
+            <section class="links-section">
+                <h2>Connect With Me</h2>
+                <div class="links-grid">
+                    <a href="https://www.youtube.com/@GreenPyramid-mk5xp" target="_blank" rel="noopener" class="link-card">
+                        <div class="icon">📺</div>
+                        <h3>YouTube</h3>
+                        <p>Watch my videos on the builder's paradox, creative process, and intentional systems</p>
+                    </a>
+                    <a href="https://www.linkedin.com/in/craig-glendenning-b609673/" target="_blank" rel="noopener" class="link-card">
+                        <div class="icon">💼</div>
+                        <h3>LinkedIn</h3>
+                        <p>Connect with me professionally and follow my insights on entrepreneurship</p>
+                    </a>
+                    <a href="https://github.com/cglendenning" target="_blank" rel="noopener" class="link-card">
+                        <div class="icon">💻</div>
+                        <h3>GitHub</h3>
+                        <p>Explore my code and technical projects</p>
+                    </a>
+                    <a href="https://apps.apple.com/us/app/green-pyramid-your-best-life/id6450578276" target="_blank" rel="noopener" class="link-card">
+                        <div class="icon">🍎</div>
+                        <h3>Green Pyramid (iOS)</h3>
+                        <p>Download my habit tracker app for iPhone and iPad</p>
+                    </a>
+                    <a href="https://play.google.com/store/apps/details?id=com.cglendenning.life_ops&hl=en_US" target="_blank" rel="noopener" class="link-card">
+                        <div class="icon">🤖</div>
+                        <h3>Green Pyramid (Android)</h3>
+                        <p>Download my habit tracker app for Android devices</p>
+                    </a>
+                </div>
+            </section>
+
+            <section class="cta-section">
+                <h2>Ready to Break Free from the Builder's Paradox?</h2>
+                <p>If you're a successful entrepreneur feeling trapped by your own systems, let's work together to create a path forward that honors both your business success and your creative soul.</p>
+                <a href="/coaching-detail" class="cta-button">Explore Coaching Options</a>
+            </section>
+        </main>
+    </div>
+    {{ template "footer.html" . }}
+</body>
+</html>
+
