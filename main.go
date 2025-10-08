@@ -373,6 +373,7 @@ func main() {
 		"templates/coffee.html",
 		"templates/crossfit.html",
 		"templates/howitworks.html",
+		"templates/survey.html",
 		"templates/pricing.html",
 		"templates/packages.html",
 		"templates/calendar.html",
@@ -457,6 +458,9 @@ func main() {
 	})
 	e.GET("/howitworks", func(c echo.Context) error {
 		return c.Render(http.StatusOK, "howitworks.html", getTemplateData("How It Works"))
+	})
+	e.GET("/survey", func(c echo.Context) error {
+		return c.Render(http.StatusOK, "survey.html", getTemplateData("Boxed-In Builder Survey"))
 	})
 	e.GET("/pricing", func(c echo.Context) error {
 		return c.Render(http.StatusOK, "pricing.html", getTemplateData("Pricing"))

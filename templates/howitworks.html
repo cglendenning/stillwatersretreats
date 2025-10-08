@@ -7,9 +7,295 @@
     <link rel="icon" sizes="512x512" href="/assets/android-chrome-512x512.png" type="image/png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>How It Works - Still Waters Retreat</title>
+    <title>The Builder's Paradox - Still Waters Retreats</title>
     <link href="/static/styles.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;700&family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Open Sans', sans-serif;
+            color: #2c3e50;
+            line-height: 1.6;
+        }
+        
+        .builder-hero {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 6rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .builder-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('/assets/photo/journaling.jpg') center/cover;
+            opacity: 0.12;
+            z-index: 0;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .builder-hero h1 {
+            font-family: 'Ubuntu', sans-serif;
+            font-size: 4rem;
+            font-weight: 300;
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+        }
+        
+        .builder-hero .lead {
+            font-size: 1.6rem;
+            font-weight: 300;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+        }
+        
+        .builder-hero .tagline {
+            font-size: 1.2rem;
+            font-style: italic;
+            opacity: 0.85;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section-alt {
+            background: #f8f9fa;
+        }
+        
+        .section-title {
+            font-family: 'Ubuntu', sans-serif;
+            font-size: 3rem;
+            font-weight: 300;
+            text-align: center;
+            margin-bottom: 1rem;
+            color: #2c3e50;
+        }
+        
+        .section-subtitle {
+            font-size: 1.3rem;
+            text-align: center;
+            color: #7f8c8d;
+            margin-bottom: 3rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .paradox-box {
+            background: white;
+            padding: 3rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+            max-width: 800px;
+            margin: 0 auto 3rem;
+        }
+        
+        .paradox-box h3 {
+            font-family: 'Ubuntu', sans-serif;
+            font-size: 2rem;
+            font-weight: 400;
+            margin-bottom: 1.5rem;
+            color: #e74c3c;
+            text-align: center;
+        }
+        
+        .paradox-box p {
+            font-size: 1.15rem;
+            line-height: 1.8;
+            color: #555;
+            margin-bottom: 1rem;
+        }
+        
+        .builder-quote {
+            background: linear-gradient(135deg, #4C6633 0%, #654321 100%);
+            color: white;
+            padding: 3rem;
+            border-radius: 15px;
+            font-size: 1.4rem;
+            font-style: italic;
+            text-align: center;
+            max-width: 900px;
+            margin: 3rem auto;
+            box-shadow: 0 10px 30px rgba(76, 102, 51, 0.3);
+        }
+        
+        .identity-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin: 3rem 0;
+        }
+        
+        .identity-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .identity-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 35px rgba(0,0,0,0.15);
+        }
+        
+        .identity-card h3 {
+            font-family: 'Ubuntu', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+        
+        .identity-card.you-are h3 {
+            color: #27ae60;
+        }
+        
+        .identity-card.you-crave h3 {
+            color: #3498db;
+        }
+        
+        .identity-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .identity-list li {
+            padding: 0.8rem 0 0.8rem 2rem;
+            font-size: 1.05rem;
+            position: relative;
+            border-left: 3px solid #ecf0f1;
+            margin-bottom: 0.5rem;
+        }
+        
+        .identity-card.you-are .identity-list li {
+            border-left-color: #27ae60;
+        }
+        
+        .identity-card.you-crave .identity-list li {
+            border-left-color: #3498db;
+        }
+        
+        .identity-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0.5rem;
+            font-weight: bold;
+        }
+        
+        .identity-card.you-are .identity-list li::before {
+            color: #27ae60;
+        }
+        
+        .identity-card.you-crave .identity-list li::before {
+            color: #3498db;
+        }
+        
+        .cta-section {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 5rem 2rem;
+            text-align: center;
+        }
+        
+        .cta-content {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .cta-title {
+            font-family: 'Ubuntu', sans-serif;
+            font-size: 3rem;
+            font-weight: 300;
+            margin-bottom: 1.5rem;
+        }
+        
+        .cta-description {
+            font-size: 1.3rem;
+            margin-bottom: 2.5rem;
+            opacity: 0.95;
+            line-height: 1.7;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: #4C6633;
+            color: white;
+            padding: 1.2rem 2.5rem;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .cta-button:hover {
+            background: #654321;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(101, 67, 33, 0.4);
+        }
+        
+        .cta-button.secondary {
+            background: transparent;
+            border: 2px solid white;
+        }
+        
+        .cta-button.secondary:hover {
+            background: white;
+            color: #2c3e50;
+        }
+        
+        @media (max-width: 768px) {
+            .builder-hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .builder-hero .lead {
+                font-size: 1.3rem;
+            }
+            
+            .section-title {
+                font-size: 2.2rem;
+            }
+            
+            .identity-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .cta-title {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
     <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-analytics-compat.js"></script>
    <script>
@@ -22,29 +308,17 @@
     appId: "1:340290043055:web:db8af11f4310619847285a",
     measurementId: "G-VY28D4VWH1"
   };
-
-  // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
   firebase.analytics();
   </script>
   <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=AW-1036707259">
-</script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-1036707259"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-
   gtag('config', 'AW-1036707259');
 </script>
-  <style>
-    @media (min-width: 600px) {
-      main {
-          width: 80%;
-          margin: 0 auto; /* This centers the container on the page */
-      }
-  }
-  </style>
 <script>
 function trackEvent(eventType, page, cabin, amount) {
     fetch('/api/track', {
@@ -56,85 +330,139 @@ function trackEvent(eventType, page, cabin, amount) {
 window.addEventListener('load', function() { trackEvent('page_view', window.location.pathname); });
 </script>
 </head>
-<body class="howitworks-background">
-    <div class="background-fixed"></div>
+<body>
     <div id="app">
         {{ template "nav.html" . }}
-        <main class="howitworks-text">
-		 <section class="howitworks-text">
-                <h2>Are you a deep thinker?</h2>
-                <p>
-A deep thinker is a person who is not only introspective but also highly analytical and reflective. A deep thinker is someone who dives beneath the surface of everyday experiences, seeking to understand the underlying principles, patterns, and truths that govern the world. This person isn't satisfied with superficial explanations or conventional wisdom. Instead, they are driven by a relentless curiosity and a desire to connect the dots in a way that reveals a more profound understanding of life.
-
-                <p>
-A deep thinker often appears contemplative, perhaps even serene, as they engage in the mental process of questioning and exploring. They might be seen with a thoughtful expression, sitting quietly with a book in hand, or lost in thought while gazing out a window. Their mind is a busy workshop, constantly processing information, weighing possibilities, and synthesizing new ideas. This process is not just an intellectual exercise but also an emotional and existential one, as they grapple with big questions and get into flow executing their craft as a solitary creative pursuit.
-
-                <p>
-In conversations, a deep thinker stands out. They ask questions that prompt others to think more deeply and consider perspectives they might not have encountered before. Their insights are often illuminating, shedding light on complexities and nuances that others might overlook. They have a knack for making connections between seemingly disparate ideas, weaving them into a coherent and compelling narrative. This ability to see the bigger picture and to appreciate the subtleties of different viewpoints makes their contributions to discussions particularly valuable.
-
-                <p>
-Moreover, deep thinkers are often lifelong learners. They are voracious readers, always seeking out new knowledge and diverse perspectives. They are not content to rely on their existing understanding but are continually expanding their horizons. This intellectual humility is a hallmark of deep thinking – the recognition that there is always more to learn and understand, and the willingness to embrace uncertainty and ambiguity as part of the journey.
-
-                <p>
-Deep thinkers also tend to be introspective. They spend a significant amount of time reflecting on their own thoughts, feelings, and experiences. This self-reflection allows them to develop a nuanced understanding of themselves, which in turn informs their interactions with the world. They are often very aware of their own biases and limitations, and they strive to overcome these through continuous self-improvement and growth.
-
-                <p>
-Deep thinkers have both strengths and challenges. On one hand, their depth of thought can lead to profound insights and a rich inner life. On the other, it can sometimes make them feel isolated or misunderstood, as not everyone shares their penchant for deep reflection. They might struggle with feelings of existential angst or dissatisfaction with the superficiality of everyday life. However, these challenges also drive them to seek out kindred spirits and communities where their depth of thought is valued and nurtured.
-
-                <p>
-In essence, a deep thinker is someone who lives in a state of perpetual curiosity and reflection. They are driven by a desire to understand the world and their place in it, and they approach this quest with both intellectual rigor and emotional depth. Whether they are philosophers, scientists, artists, or simply individuals who ponder the mysteries of life, deep thinkers enrich our world with their insights and their quest for truth.
-<p>
-Finally, deep thinkers are often highly conscientious. This makes boundary setting particularly challenging for them. Their sensitivity to the needs of others often leads to guilt when they need to say no, so the path of least resistance often is to overcommit. This is a short term win but a long term loss for deep thinkers. Their overwhelm often prevents them from engaging in their craft as a joyful process. If these characteristics and challenges of a deep thinker sound like you, I invite you to read on... 
-
+        
+        <main>
+            <!-- Hero Section -->
+            <section class="builder-hero">
+                <div class="hero-content">
+                    <h1>The Builder's Paradox</h1>
+                    <p class="lead">You are a builder. You build because your soul will never let it go.</p>
+                    <p class="tagline">But now it feels like you're living within the machine—the same machinery you spent your life breaking free from.</p>
+                </div>
             </section>
-            <section class="howitworks-text">
-                <h2>Still Waters Retreats at Big Bear Lake, CA</h2>
-                <p>It all starts with the mountain air, the lake, and quietude. The plight of the deep thinker is summed up well in the lyric of Subdivisions by the band Rush: "Nowhere is the dreamer or the mystic so alone". We must extract ourselves from the madness of a world that perpetually demands our time and energy. What we produce has value because we value quality. The challenge of the deep thinker is to remain spacious and creative while also having strong boundaries. 
-		<p> Our retreats are designed for deep thinkers who crave long stretches of uninterrupted time to ponder and engage in solitary creative pursuits. Nestled in beautiful, natural surroundings, our cabins provide a serene environment free from the pressures of micromanagement, high-pressure sales, and corporate team-building exercises. Our guests, often highly sensitive individuals with INFJ personality types, find solace in our quiet and modern cabins where they can fully immerse themselves in their inner worlds and achieve a flow state. We understand the anxiety meetings and overcommitments can cause, and our retreats offer a sanctuary from these stresses, allowing our guests to recharge and focus on transformational change.
+
+            <!-- The Paradox -->
+            <section class="section">
+                <h2 class="section-title">You Built Something That Worked.<br>Now You Want Out.</h2>
+                <p class="section-subtitle">You don't want to burn it down. But something has to change.</p>
+                
+                <div class="paradox-box">
+                    <h3>The Unsettling Sensation</h3>
+                    <p>
+                        You carved your own path to get your work to your people, but now it feels like you are living within the machine. 
+                        You're trapped between only two options: keep getting ground down by the system you created, or burn it all down.
+                    </p>
+                    <p>
+                        You thought that building systems to bring your own creative work products directly to the marketplace would give you 
+                        lifelong joy and freedom, but you do not feel those things.
+                    </p>
+                    <p>
+                        You feel unsettled, but it is not clear why. You feel grateful with abundance, but not vibrant.
+                    </p>
+                </div>
+
+                <div class="builder-quote">
+                    "What you crave is to re-imagine a system with soul. A way to feel good about bringing more of what you build to more of who you build for."
+                </div>
             </section>
-            <section class="howitworks-text">
-                <h2>The Three Ingredients</h2>
-		<img src="/assets/photo/venn.jpg" loading="lazy" alt="Still Waters Retreat">
-		<ul>
-                    <li><strong>Environment:</strong> A private, peaceful, and modern cabin in the mountains perfectly designed for deep work.</li>
-                    <li><strong>Guidance:</strong> Sometimes space in the right environment is all you need. If you would like more structure, you have options. From on-demand videos to live coaching sessions with me, you can tailor your retreat to exactly what you know will have maximum sustained impact.</li>
-                    <li><strong>Unscheduling:</strong> Your deep thinker retreat is incomplete without retreating from time pressure. If a completely empty schedule is what you need, you can just book your cabin, or add on the on-demand video coaching sessions. If you need more guidance, you can add live coaching sessions with me, either virtual or in-person.</li>
-                </ul>
+
+            <!-- Who You Are Section -->
+            <section class="section section-alt">
+                <h2 class="section-title">You Are A Builder</h2>
+                
+                <div class="identity-grid">
+                    <div class="identity-card you-are">
+                        <h3>You Build Because...</h3>
+                        <ul class="identity-list">
+                            <li>You have always craved basking in the tranquility of craftsmanship</li>
+                            <li>Your soul will never let it go</li>
+                            <li>You love quality and intention</li>
+                            <li>You value deep thinking and solitary creative pursuits</li>
+                            <li>You're fiercely independent</li>
+                            <li>You're driven by a growth mindset</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="identity-card you-crave">
+                        <h3>What You Crave...</h3>
+                        <ul class="identity-list">
+                            <li>The tranquility of craftsmanship</li>
+                            <li>Artistic joy and flow state</li>
+                            <li>Long stretches of uninterrupted deep work</li>
+                            <li>Freedom to explore new possibilities</li>
+                            <li>Systems that support, not constrain</li>
+                            <li>To feel both accomplished AND creatively fulfilled</li>
+                        </ul>
+                    </div>
+                </div>
             </section>
-	    <div class="yellow-container">
-              <a href="/cabins" class="yellow-btn">Yes. I do need a retreat</a>
+
+            <!-- The Tension Section -->
+            <section class="section">
+                <h2 class="section-title">The Tension You Feel</h2>
+                <p class="section-subtitle">Between entrepreneurial efficiency and the tranquility of craftsmanship</p>
+                
+                <div class="paradox-box">
+                    <h3>This is The Builder's Paradox</h3>
+                    <p>
+                        The metrics that define success as entrepreneurs—efficiency, scalability, and consistent income—can sometimes 
+                        overshadow the very creative spark that drove you in the first place.
+                    </p>
+                    <p>
+                        The result is a feeling of disconnection from the artistry that once felt so fulfilling. You want to maintain 
+                        creative freedom and joy without sacrificing the stability you've worked so hard to achieve.
+                    </p>
+                    <p>
+                        You need <strong>Soulful Systems</strong>—approaches that preserve your creative essence while still embracing 
+                        the efficiencies that drive growth.
+                    </p>
+                </div>
+            </section>
+
+            <!-- How Still Waters Helps -->
+            <section class="section section-alt">
+                <h2 class="section-title">How Still Waters Retreats Help</h2>
+                <p class="section-subtitle">The three ingredients for breaking free from the builder's paradox</p>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin: 3rem 0;">
+                    <div class="identity-card">
+                        <h3 style="color: #4C6633;">🏔️ Environment</h3>
+                        <p>A private, peaceful, modern cabin in the mountains at Big Bear Lake, CA. Perfectly designed for deep work, free from the demands that perpetually drain your time and energy.</p>
+                    </div>
+                    
+                    <div class="identity-card">
+                        <h3 style="color: #654321;">🧭 Guidance</h3>
+                        <p>From on-demand video sessions to live coaching with Craig. Tailored to what you know will have maximum sustained impact. Create your own structure without being trapped by someone else's schedule.</p>
+                    </div>
+                    
+                    <div class="identity-card">
+                        <h3 style="color: #2c3e50;">⏰ Unscheduling</h3>
+                        <p>Your creative mind operates on its own schedule. When you allow your thoughts to unfurl naturally without time pressure, you uncage your mind and open up to profound states of insight.</p>
+                    </div>
+                </div>
+                
+                <div class="builder-quote">
+                    "Nowhere is the dreamer or the mystic so alone." — Rush, Subdivisions
+                </div>
+            </section>
+
+            <!-- Call to Action -->
+            <section class="cta-section">
+                <div class="cta-content">
+                    <h2 class="cta-title">Are You A Boxed-In Builder?</h2>
+                    <p class="cta-description">
+                        Take our quick survey to discover your "Boxed-In Builderness" score and see if Still Waters Retreats is right for you.
+                    </p>
+                    <div class="cta-buttons">
+                        <a href="/survey" class="cta-button">Take The Survey</a>
+                        <a href="/cabins" class="cta-button secondary">Explore Our Cabins</a>
+                    </div>
             </div>
-            <section class="howitworks-text">
-                <h2>Environment</h2>
-		<p>A retreat into a serene, quiet, tranquil environment empowers your creative mind to do transformative work. In this setting, all blockages from entering the flow state are removed, and you integrate our powerful sessions into lasting transformational change.</p>
-		<h2>Guidance</h2>
-		<p>The environment sets the stage, but in order to maximize the value of truly unplugging from your time-bound life, you need some structure. The Still Waters retreat is unique. You get the powerful blend of environment, no schedules, and guidance. In group retreats, it is not possible to unchain yourself from your schedule because it is a necessary part of getting multiple people in the same place at the same time. What we do is allow your creative mind to choose when it is ready to re-engage in the next session. When you allow your creative mind to operate in a free and open landscape without schedules, it allows you to experience profound states of insight. Structured retreats packed with a full schedule of activities leave a significant problem unsolved - that your creative mind operates on its own schedule. When you open up your schedule to allow your thoughts to unfurl naturally, you uncage your mind. This freedom allows your creative mind to open up, rather than a calendar shutting it down.
-                <h2>Unscheduling</h2>
-                <p>Un-scheduling allows your creative mind to drift, process, contemplate, and integrate naturally and organically. Our retreat promotes a flexible approach to personal development, allowing you to choose when and how you engage with our guided sessions. The on-demand nature of the Still Waters Retreat gives you the right balance between freedom from time and structure. What would a retreat be without a retreat from your calendar?</p>
             </section>
-	    <div class="yellow-container">
-              <a href="/cabins" class="amazing-btn">This Sounds Amazing</a>
-            </div>
-	    <script>
-		    window.onload = function() {
-			var needRetreatButton = document.querySelector('.yellow-btn');
-        		var amazingButton = document.querySelector('.amazing-btn');
-
-        		if (needRetreatButton) {
-            			needRetreatButton.addEventListener('click', function() {
-                		firebase.analytics().logEvent('need_retreat_clicked');
-            			});
-        		}
-
-        		if (amazingButton) {
-            			amazingButton.addEventListener('click', function() {
-                		firebase.analytics().logEvent('amazing_clicked');
-            			});
-        		}
-    		};
-	  </script>
         </main>
     </div>
 </body>
 </html>
-

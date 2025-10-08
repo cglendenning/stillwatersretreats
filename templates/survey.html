@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" href="/assets/android-chrome-192x192.png" type="image/png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png" type="image/png">
+    <link rel="icon" sizes="192x192" href="/assets/android-chrome-192x192.png" type="image/png">
+    <link rel="icon" sizes="512x512" href="/assets/android-chrome-512x512.png" type="image/png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Am I A Boxed-In Builder? - Still Waters Retreats</title>
+    <link href="/static/styles.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background: #f8f9fa;
+            color: #2c3e50;
+            line-height: 1.6;
+            padding-bottom: 4rem;
+        }
+        
+        .survey-header {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 4rem 2rem 3rem;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .survey-header h1 {
+            font-family: 'Ubuntu', sans-serif;
+            font-size: 3rem;
+            font-weight: 300;
+            margin-bottom: 1rem;
+        }
+        
+        .survey-header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .survey-container {
+            max-width: 900px;
+            margin: -2rem auto 0;
+            padding: 0 1.5rem;
+        }
+        
+        .question-card {
+            background: white;
+            padding: 2.5rem;
+            margin-bottom: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            display: none;
+        }
+        
+        .question-card.active {
+            display: block;
+            animation: fadeIn 0.4s ease;
+        }
+        
+        .question-card:hover {
+            box-shadow: 0 6px 25px rgba(0,0,0,0.12);
+        }
+        
+        .question-navigation {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+            margin: 2rem 0 1rem 0;
+            position: relative;
+        }
+        
+        .question-arrow {
+            background: #4C6633;
+            color: #fff;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            font-size: 28px;
+            transition: all 0.3s ease;
+        }
+        
+        .question-arrow:hover {
+            background: #654321;
+            transform: scale(1.1);
+        }
+        
+        .question-arrow:disabled {
+            background: #95a5a6;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .progress-indicator {
+            font-size: 1rem;
+            color: #4C6633;
+            font-weight: 600;
+            min-width: 120px;
+            text-align: center;
+        }
+        
+        .question-number {
+            font-family: 'Ubuntu', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #4C6633;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.8rem;
+        }
+        
+        .question-text {
+            font-size: 1.3rem;
+            font-weight: 500;
+            color: #2c3e50;
+            margin-bottom: 1.5rem;
+            line-height: 1.5;
+        }
+        
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .option-label {
+            display: flex;
+            align-items: flex-start;
+            padding: 1.2rem 1.5rem;
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+        
+        .option-label:hover {
+            background: #ecf0f1;
+            border-color: #4C6633;
+        }
+        
+        .option-label input[type="radio"] {
+            margin-right: 1rem;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            flex-shrink: 0;
+            margin-top: 0.2rem;
+        }
+        
+        .option-label input[type="radio"]:checked + .option-text {
+            font-weight: 600;
+            color: #4C6633;
+        }
+        
+        .option-label.selected {
+            background: #e8f5e9;
+            border-color: #4C6633;
+        }
+        
+        .option-text {
+            font-size: 1.05rem;
+            color: #555;
+            line-height: 1.6;
+        }
+        
+        .results-section {
+            background: white;
+            padding: 3rem 2.5rem;
+            margin: 2rem 0;
+            border-radius: 12px;
+            box-shadow: 0 6px 25px rgba(0,0,0,0.12);
+            display: none;
+        }
+        
+        .results-section.show {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .gauge-container {
+            margin: 3rem 0;
+            padding: 2rem;
+            background: #f8f9fa;
+            border-radius: 12px;
+        }
+        
+        .gauge-title {
+            text-align: center;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #7f8c8d;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .gauge {
+            position: relative;
+            height: 60px;
+            background: linear-gradient(to right, 
+                #c0392b 0%, 
+                #e74c3c 15%,
+                #e67e22 30%,
+                #f39c12 45%,
+                #f1c40f 60%,
+                #2ecc71 85%,
+                #27ae60 100%
+            );
+            border-radius: 30px;
+            box-shadow: inset 0 2px 8px rgba(0,0,0,0.2);
+        }
+        
+        .gauge-marker {
+            position: absolute;
+            top: -10px;
+            transform: translateX(-50%);
+            transition: left 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+        
+        .gauge-marker::before {
+            content: '';
+            display: block;
+            width: 0;
+            height: 0;
+            border-left: 15px solid transparent;
+            border-right: 15px solid transparent;
+            border-top: 20px solid #2c3e50;
+        }
+        
+        .gauge-marker-circle {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 40px;
+            background: white;
+            border: 4px solid #2c3e50;
+            border-radius: 50%;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+        
+        .gauge-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1.5rem;
+            padding: 0 1rem;
+        }
+        
+        .gauge-label {
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-align: center;
+        }
+        
+        .gauge-label.left {
+            color: #c0392b;
+        }
+        
+        .gauge-label.right {
+            color: #27ae60;
+        }
+        
+        .interpretation {
+            padding: 2rem;
+            background: #ecf0f1;
+            border-radius: 10px;
+            border-left: 5px solid #4C6633;
+        }
+        
+        .interpretation h3 {
+            font-family: 'Ubuntu', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 500;
+            margin-bottom: 1rem;
+            color: #2c3e50;
+        }
+        
+        .interpretation p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #555;
+            margin-bottom: 1rem;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            margin-top: 2.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: #4C6633;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1.05rem;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .cta-button:hover {
+            background: #654321;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(76, 102, 51, 0.3);
+        }
+        
+        .cta-button.secondary {
+            background: transparent;
+            border: 2px solid #4C6633;
+            color: #4C6633;
+        }
+        
+        .cta-button.secondary:hover {
+            background: #4C6633;
+            color: white;
+        }
+        
+        .submit-button {
+            display: block;
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto 3rem auto;
+            padding: 1.3rem 2rem;
+            background: linear-gradient(135deg, #4C6633 0%, #654321 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.3rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 20px rgba(76, 102, 51, 0.3);
+        }
+        
+        .submit-button:hover:not(:disabled) {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(76, 102, 51, 0.4);
+        }
+        
+        .submit-button:disabled {
+            background: #95a5a6;
+            cursor: not-allowed;
+            transform: none;
+            opacity: 0.6;
+        }
+        
+        @media (max-width: 768px) {
+            .survey-header h1 {
+                font-size: 2rem;
+            }
+            
+            .question-text {
+                font-size: 1.15rem;
+            }
+            
+            .option-text {
+                font-size: 1rem;
+            }
+            
+            .score-display {
+                font-size: 3rem;
+            }
+        }
+    </style>
+    <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-analytics-compat.js"></script>
+    <script>
+        var firebaseConfig = {
+            apiKey: "{{ FIREBASE_API_KEY }}",
+            authDomain: "stillwatersretre-1713628649908.firebaseapp.com",
+            projectId: "stillwatersretre-1713628649908",
+            storageBucket: "stillwatersretre-1713628649908.appspot.com",
+            messagingSenderId: "340290043055",
+            appId: "1:340290043055:web:db8af11f4310619847285a",
+            measurementId: "G-VY28D4VWH1"
+        };
+        firebase.initializeApp(firebaseConfig);
+        firebase.analytics();
+    </script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-1036707259"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'AW-1036707259');
+    </script>
+    <script>
+        function trackEvent(eventType, page, cabin, amount) {
+            fetch('/api/track', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ event_type: eventType, page: page || window.location.pathname, cabin: cabin || '', amount: amount || '' })
+            }).catch(err => console.log('Tracking error:', err));
+        }
+        window.addEventListener('load', function() { trackEvent('page_view', window.location.pathname); });
+    </script>
+</head>
+<body>
+    <div id="app">
+        {{ template "nav.html" . }}
+        
+        <div class="survey-header">
+            <h1>Am I A "Boxed-In Builder?"</h1>
+            <p>Answer these 18 questions honestly to discover your Boxed-In Builderness score</p>
+        </div>
+        
+        <div class="survey-container">
+            <form id="surveyForm">
+                <!-- Navigation Controls -->
+                <div class="question-navigation">
+                    <button type="button" class="question-arrow" id="prevQuestion" aria-label="Previous question">&#8249;</button>
+                    <div class="progress-indicator" id="progressIndicator">Question 1 of 18</div>
+                    <button type="button" class="question-arrow" id="nextQuestion" aria-label="Next question">&#8250;</button>
+                </div>
+
+                <!-- Question 1 -->
+                <div class="question-card active" data-question="1">
+                    <div class="question-number">Question 1 of 18</div>
+                    <div class="question-text">Lately, my calendar feels...</div>
+                    <div class="options">
+                        <label class="option-label">
+                            <input type="radio" name="q1" value="0" required>
+                            <span class="option-text">like a conveyor belt</span>
+                        </label>
+                        <label class="option-label">
+                            <input type="radio" name="q1" value="1">
+                            <span class="option-text">like a tool that liberates me</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Question 2 -->
+                <div class="question-card" data-question="2">
+                    <div class="question-number">Question 2 of 18</div>
+                    <div class="question-text">When I think about my business...</div>
+                    <div class="options">
+                        <label class="option-label">
+                            <input type="radio" name="q2" value="0" required>
+                            <span class="option-text">all I see is problems</span>
+                        </label>
+                        <label class="option-label">
+                            <input type="radio" name="q2" value="1">
+                            <span class="option-text">I have crafted a structure that works for me</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Question 3 -->
+                <div class="question-card" data-question="3">
+                    <div class="question-number">Question 3 of 18</div>
+                    <div class="question-text">My high-revenue offers...</div>
+                    <div class="options">
+                        <label class="option-label">
+                            <input type="radio" name="q3" value="1" required>
+                            <span class="option-text">challenge me in all the right ways</span>
+                        </label>
+                        <label class="option-label">
+                            <input type="radio" name="q3" value="0">
+                            <span class="option-text">are messy but I can't stomach the effort to fix them</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Question 4 -->
+                <div class="question-card" data-question="4">
+                    <div class="question-number">Question 4 of 18</div>
+                    <div class="question-text">The systems and processes I created...</div>
+                    <div class="options">
+                        <label class="option-label">
+                            <input type="radio" name="q4" value="0" required>
+                            <span class="option-text">added layers that now block my flow</span>
+                        </label>
+                        <label class="option-label">
+                            <input type="radio" name="q4" value="1">
+                            <span class="option-text">removed friction and protect my "builder" time</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Question 5 -->
+                <div class="question-card" data-question="5">
+                    <div class="question-number">Question 5 of 18</div>
+                    <div class="question-text">When new opportunities arrive...</div>
+                    <div class="options">
+                        <label class="option-label">
+                            <input type="radio" name="q5" value="0" required>
+                            <span class="option-text">I often default to "yes" due to FOMO</span>
+                        </label>
+                        <label class="option-label">
+                            <input type="radio" name="q5" value="1">
+                            <span class="option-text">if it's not a HELL YES!!, then it is a no</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Question 6 -->
+                <div class="question-card" data-question="6">
+                    <div class="question-number">Question 6 of 18</div>
+                    <div class="question-text">The role I actually play most days is...</div>
+                    <div class="options">
+                        <label class="option-label">
+                            <input type="radio" name="q6" value="0" required>
+                            <span class="option-text">coordinator/manager/operator and it drains me</span>
+                        </label>
+                        <label class="option-label">
+                            <input type="radio" name="q6" value="1">
+                            <span class="option-text">creator/architect/designer and it energizes me</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Question 7 -->
+                <div class="question-card" data-question="7">
+                    <div class="question-number">Question 7 of 18</div>
+                    <div class="question-text">If a partner insists on weekly live status calls I don't want...</div>
+                    <div class="options">
+                        <label class="option-label">
+                            <input type="radio" name="q7" value="1" required>
+                            <span class="option-text">I say no</span>
+                        </label>
+                        <label class="option-label">
+                            <input type="radio" name="q7" value="0">
+                            <span class="option-text">I groan, but say "no problem!"</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Question 8 -->
+                <div class="question-card" data-question="8">
+                    <div class="question-number">Question 8 of 18</div>
+                    <div class="question-text">When I feel "I don't want to do this shit anymore"...</div>
+                    <div class="options">
+                        <label class="option-label">
+                            <input type="radio" name="q8" value="0" required>
+                            <span class="option-text">all of my options look terrible</span>
+                        </label>
+                        <label class="option-label">
+                            <input type="radio" name="q8" value="1">
+                            <span class="option-text">I know how to get myself unstuck</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Question 9 -->
+                <div class="question-card" data-question="9">
+                    <div class="question-number">Question 9 of 18</div>
+                    <div class="question-text">Looking at my offerings...</div>
+                    <div class="options">
+                        <label class="option-label">
+                            <input type="radio" name="q9" value="0" required>
+                            <span class="option-text">it is messy; I am doing too many things</span>
+                        </label>
+                        <label class="option-label">
+                            <input type="radio" name="q9" value="1">
+                            <span class="option-text">it is crisp and orderly; well-pruned</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Question 10 -->
+                <div class="question-card" data-question="10">
+                    <div class="question-number">Question 10 of 18</div>
+                    <div class="question-text">In my current situation, handing off work to others...</div>
+                    <div class="options">
+                        <label class="option-label">
+                            <input type="radio" name="q10" value="0" required>
+                            <span class="option-text">creates more cognitive load for me than it removes</span>
+                        </label>
+                        <label class="option-label">
+                            <input type="radio" name="q10" value="1">
+                            <span class="option-text">Feels good</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Question 11 -->
+                <div class="question-card" data-question="11">
+                    <div class="question-number">Question 11 of 18</div>
+                    <div class="question-text">My best clients lately...</div>
+                    <div class="options">
+                        <label class="option-label">
+                            <input type="radio" name="q11" value="0" required>
+                            <span class="option-text">expect control and on-demand access to me; I feel "on call"</span>
+                        </label>
+                        <label class="option-label">
+                            <input type="radio" name="q11" value="1">
+                            <span class="option-text">respect my process and boundaries</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Question 12 -->
+                <div class="question-card" data-question="12">
+                    <div class="question-number">Question 12 of 18</div>
+                    <div class="question-text">When interruptions get excessive...</div>
+                    <div class="options">
+                        <label class="option-label">
+                            <input type="radio" name="q12" value="0" required>
+                            <span class="option-text">they impact my ability to get into flow</span>
+                        </label>
+                        <label class="option-label">
+                            <input type="radio" name="q12" value="1">
+                            <span class="option-text">I am able to set boundaries that feel good</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Question 13 -->
+                <div class="question-card" data-question="13">
+                    <div class="question-number">Question 13 of 18</div>
+                    <div class="question-text">When marketing results slow down...</div>
+                    <div class="options">
+                        <label class="option-label">
+                            <input type="radio" name="q13" value="0" required>
+                            <span class="option-text">I get scared</span>
+                        </label>
+                        <label class="option-label">
+                            <input type="radio" name="q13" value="1">
+                            <span class="option-text">I do not freak out, because my systems expect this</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Question 14 -->
+                <div class="question-card" data-question="14">
+                    <div class="question-number">Question 14 of 18</div>
+                    <div class="question-text">At the end of each day...</div>
+                    <div class="options">
+                        <label class="option-label">
+                            <input type="radio" name="q14" value="1" required>
+                            <span class="option-text">I bask in my wins and am excited for tomorrow</span>
+                        </label>
+                        <label class="option-label">
+                            <input type="radio" name="q14" value="0">
+                            <span class="option-text">I can't even recall what I did, I did so many things</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Question 15 -->
+                <div class="question-card" data-question="15">
+                    <div class="question-number">Question 15 of 18</div>
+                    <div class="question-text">The things I enjoy about running my business...</div>
+                    <div class="options">
+                        <label class="option-label">
+                            <input type="radio" name="q15" value="1" required>
+                            <span class="option-text">Get 80% or more of my time per day</span>
+                        </label>
+                        <label class="option-label">
+                            <input type="radio" name="q15" value="0">
+                            <span class="option-text">I don't get to do much anymore</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Question 16 -->
+                <div class="question-card" data-question="16">
+                    <div class="question-number">Question 16 of 18</div>
+                    <div class="question-text">This survey is...</div>
+                    <div class="options">
+                        <label class="option-label">
+                            <input type="radio" name="q16" value="0" required>
+                            <span class="option-text">Annoying, because I have to get back to doing real work</span>
+                        </label>
+                        <label class="option-label">
+                            <input type="radio" name="q16" value="1">
+                            <span class="option-text">Providing hope that there is a path out of feeling trapped</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Question 17 -->
+                <div class="question-card" data-question="17">
+                    <div class="question-number">Question 17 of 18</div>
+                    <div class="question-text">If I sold my business, I would...</div>
+                    <div class="options">
+                        <label class="option-label">
+                            <input type="radio" name="q17" value="0" required>
+                            <span class="option-text">never EVER go through the hassle of building a business again</span>
+                        </label>
+                        <label class="option-label">
+                            <input type="radio" name="q17" value="1">
+                            <span class="option-text">take a beat, but then build another business :)</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Question 18 -->
+                <div class="question-card" data-question="18">
+                    <div class="question-number">Question 18 of 18</div>
+                    <div class="question-text">My workday feels like...</div>
+                    <div class="options">
+                        <label class="option-label">
+                            <input type="radio" name="q18" value="0" required>
+                            <span class="option-text">endless obligations with little time for deep work</span>
+                        </label>
+                        <label class="option-label">
+                            <input type="radio" name="q18" value="1">
+                            <span class="option-text">long stretches of uninterrupted time for building</span>
+                        </label>
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-button" id="submitBtn" disabled>Calculate My Score</button>
+            </form>
+
+            <!-- Results Section -->
+            <div class="results-section" id="results">
+                <div class="gauge-container">
+                    <div class="gauge-title">Boxed-In Builderness Level</div>
+                    <div class="gauge">
+                        <div class="gauge-marker" id="gaugeMarker">
+                            <div class="gauge-marker-circle"></div>
+                        </div>
+                    </div>
+                    <div class="gauge-labels">
+                        <div class="gauge-label left">VERY BOXED-IN<br>(Need Help!)</div>
+                        <div class="gauge-label right">THRIVING BUILDER<br>(You're Free!)</div>
+                    </div>
+                </div>
+                
+                <div class="interpretation" id="interpretation">
+                    <!-- Dynamically filled based on score -->
+                </div>
+                
+                <div class="cta-buttons">
+                    <a href="/coaching" class="cta-button">Explore Coaching</a>
+                    <a href="/cabins" class="cta-button secondary">Book A Retreat</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Survey navigation state
+        let currentQuestion = 1;
+        const totalQuestions = 18;
+        const answeredQuestions = new Set();
+        
+        // Get DOM elements
+        const prevBtn = document.getElementById('prevQuestion');
+        const nextBtn = document.getElementById('nextQuestion');
+        const submitBtn = document.getElementById('submitBtn');
+        const progressIndicator = document.getElementById('progressIndicator');
+        const questionCards = document.querySelectorAll('.question-card');
+        
+        // Show specific question
+        function showQuestion(questionNum) {
+            // Hide all questions
+            questionCards.forEach(card => card.classList.remove('active'));
+            
+            // Show current question
+            const currentCard = document.querySelector(`[data-question="${questionNum}"]`);
+            if (currentCard) {
+                currentCard.classList.add('active');
+            }
+            
+            // Update progress indicator
+            progressIndicator.textContent = `Question ${questionNum} of ${totalQuestions}`;
+            
+            // Update button states
+            prevBtn.disabled = questionNum === 1;
+            nextBtn.disabled = questionNum === totalQuestions;
+            
+            currentQuestion = questionNum;
+        }
+        
+        // Check if all questions are answered
+        function updateSubmitButton() {
+            if (answeredQuestions.size === totalQuestions) {
+                submitBtn.disabled = false;
+            } else {
+                submitBtn.disabled = true;
+            }
+        }
+        
+        // Track which questions have been answered
+        function checkAnswered(questionNum) {
+            const selected = document.querySelector(`input[name="q${questionNum}"]:checked`);
+            if (selected) {
+                answeredQuestions.add(questionNum);
+            } else {
+                answeredQuestions.delete(questionNum);
+            }
+            updateSubmitButton();
+        }
+        
+        // Navigation button handlers
+        prevBtn.addEventListener('click', () => {
+            if (currentQuestion > 1) {
+                showQuestion(currentQuestion - 1);
+            }
+        });
+        
+        nextBtn.addEventListener('click', () => {
+            if (currentQuestion < totalQuestions) {
+                showQuestion(currentQuestion + 1);
+            }
+        });
+        
+        // Handle radio button selection styling
+        document.querySelectorAll('.option-label').forEach(label => {
+            label.addEventListener('click', function() {
+                const radio = this.querySelector('input[type="radio"]');
+                const name = radio.name;
+                
+                // Remove selected class from all options in this question
+                document.querySelectorAll(`input[name="${name}"]`).forEach(r => {
+                    r.closest('.option-label').classList.remove('selected');
+                });
+                
+                // Add selected class to this option
+                if (radio.checked) {
+                    this.classList.add('selected');
+                }
+                
+                // Check if question is answered and update submit button
+                const questionNum = parseInt(name.substring(1));
+                checkAnswered(questionNum);
+                
+                // Auto-advance to next question after a short delay (if not on last question)
+                if (questionNum < totalQuestions) {
+                    setTimeout(() => {
+                        showQuestion(questionNum + 1);
+                    }, 400);
+                }
+            });
+        });
+        
+        // Also handle radio button changes directly
+        document.querySelectorAll('input[type="radio"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                const questionNum = parseInt(this.name.substring(1));
+                checkAnswered(questionNum);
+            });
+        });
+        
+        // Handle form submission
+        document.getElementById('surveyForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Calculate score
+            let score = 0;
+            for (let i = 1; i <= 18; i++) {
+                const selected = document.querySelector(`input[name="q${i}"]:checked`);
+                if (selected) {
+                    score += parseInt(selected.value);
+                }
+            }
+            
+            // Position gauge marker (0-18 maps to 0-100%)
+            const percentage = (score / 18) * 100;
+            document.getElementById('gaugeMarker').style.left = percentage + '%';
+            
+            // Generate interpretation
+            let interpretation = '';
+            if (score >= 0 && score <= 5) {
+                interpretation = `
+                    <h3 style="color: #c0392b;">🔴 Severely Boxed-In (Score: ${score}/18)</h3>
+                    <p>You're deeply trapped in the builder's paradox. The systems you created to bring freedom are now your prison. You're likely feeling drained, considering burning it all down, and struggling to see a way forward.</p>
+                    <p><strong>You NEED this:</strong> A Still Waters Retreat could be exactly what you need to step back, breathe, and rediscover the tranquility of craftsmanship. Combined with coaching, we can help you create soulful systems that support rather than constrain you.</p>
+                `;
+            } else if (score >= 6 && score <= 10) {
+                interpretation = `
+                    <h3 style="color: #e67e22;">🟠 Significantly Boxed-In (Score: ${score}/18)</h3>
+                    <p>You're feeling the weight of the builder's paradox. While you have some freedom, many aspects of your business feel like obligations rather than opportunities. Your creative spark is being overshadowed by operational demands.</p>
+                    <p><strong>Recommended:</strong> A retreat would give you the space to reconnect with why you started building in the first place. Coaching can help you identify which systems are draining you and how to redesign them with soul.</p>
+                `;
+            } else if (score >= 11 && score <= 14) {
+                interpretation = `
+                    <h3 style="color: #f1c40f;">🟡 Moderately Boxed-In (Score: ${score}/18)</h3>
+                    <p>You're in the middle zone. You have good days and tough days. Some systems work well, others feel constraining. You're managing, but you know there's more joy and freedom possible.</p>
+                    <p><strong>Good fit:</strong> A retreat could help you fine-tune what's working and fix what's not. You're close to breaking free - you just need the right environment and guidance to make the final adjustments.</p>
+                `;
+            } else if (score >= 15 && score <= 17) {
+                interpretation = `
+                    <h3 style="color: #2ecc71;">🟢 Mostly Thriving (Score: ${score}/18)</h3>
+                    <p>You've largely escaped the builder's paradox! You have strong boundaries, soulful systems, and enjoy the tranquility of craftsmanship. You're doing well, with just a few areas that could use some refinement.</p>
+                    <p><strong>Consider:</strong> A retreat could help you go from good to exceptional. Polish the rough edges, deepen your practice, and solidify the systems that are working so well for you.</p>
+                `;
+            } else {
+                interpretation = `
+                    <h3 style="color: #27ae60;">🟢 Fully Thriving Builder! (Score: ${score}/18)</h3>
+                    <p>Congratulations! You've mastered the art of being a builder without getting boxed in. You have soulful systems, strong boundaries, and the tranquility of craftsmanship. You're living the dream you set out to create.</p>
+                    <p><strong>For you:</strong> A retreat would be pure celebration and deepening. Come to the mountains not because you're trapped, but because you deserve to bask in your success and continue evolving your craft.</p>
+                `;
+            }
+            
+            document.getElementById('interpretation').innerHTML = interpretation;
+            
+            // Show results and scroll to them
+            document.getElementById('results').classList.add('show');
+            setTimeout(() => {
+                document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 100);
+            
+            // Track completion
+            firebase.analytics().logEvent('survey_completed', { score: score });
+        });
+        
+        // Initialize - show first question
+        showQuestion(1);
+    </script>
+</body>
+</html>
+
