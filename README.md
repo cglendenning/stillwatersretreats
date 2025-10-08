@@ -1,63 +1,149 @@
-# Stillwaters Retreats
+# Still Waters Retreats
 
-## Synopsis
-Stillwaters Retreats offers deep thinking retreats at Big Bear Lake, CA, designed for creatives, builders, and deep thinkers who crave long stretches of uninterrupted time to focus, create, and recharge. The retreats are hosted in modern, serene mountain cabins, providing an environment free from distractions, noise, and the pressures of daily life. The site and its offerings are crafted by Craig, a tech professional and AirBnB superhost with over 300 5-star reviews, who understands the importance of flow, clarity, and intentional space for meaningful work.
+Deep thinking retreats at Big Bear Lake, CA for creatives, builders, and deep thinkers who need uninterrupted time to focus, create, and recharge.
 
-> "Our retreats are designed for deep thinkers who crave long stretches of uninterrupted time to ponder and engage in solitary creative pursuits. Nestled in beautiful, natural surroundings, our cabins provide a serene environment free from the pressures of micromanagement, high-pressure sales, and corporate team-building exercises." ([howitworks.html](templates/howitworks.html))
+## Quick Start
 
-## Key Features
-- **Cabin Retreats**: Two modern, 5-star reviewed cabins (Bear View Cove and Victoria Pines) in Big Bear Lake, CA, available for solo or team retreats.
-- **Flexible Structure**: Choose from a simple cabin stay or add-ons like on-demand video courses, live virtual coaching, or onsite coaching with Craig.
-- **Deep Work Add-ons**: Optional on-site massage, guided meditation, and nature hikes to enhance your retreat experience.
-- **Unscheduled Flow**: No rigid schedules—guests are encouraged to follow their own creative rhythms, with optional guidance available.
-- **Support for Builders**: The retreats are especially suited for creatives, coders, writers, entrepreneurs, and anyone needing a sanctuary for deep work.
-- **Blog**: A collection of essays and posts addressing the challenges of focus, creativity, and productivity in a noisy world, and how the right environment can unlock breakthroughs.
+```bash
+# Run the server
+go run main.go
 
-## Site Components
+# Or build and run
+go build -o stillwaters main.go
+./stillwaters
+```
 
-### Frontend
-- **Static HTML/CSS**: The main site is rendered with HTML templates and styled with CSS for a clean, modern look.
-- **Vue.js App**: The `/still-waters/` directory contains a Vue 3 app (with Vite, Pinia, and Vue Router) for interactive or experimental frontend features.
-- **Responsive Design**: The site is mobile-friendly and visually appealing across devices.
+Site runs at `http://localhost:8080`
 
-### Backend
-- **Go (Golang) Server**: The backend is built with Go using the Echo web framework, serving static assets, HTML templates, and handling API endpoints.
-- **Booking & Calendar**: Integrates with the Hospitable API to fetch property and calendar data for real-time availability.
-- **Checkout & Payments**: Uses Stripe for secure online payments and checkout sessions.
-- **Contact & Booking Forms**: Handles form submissions with Google reCAPTCHA Enterprise for spam protection and sends emails via SMTP (Amazon SES or similar).
-- **Blog System**: Blog posts are stored as JSON files and rendered via templates.
+## Tech Stack
 
-### Integrations
-- **Stripe**: For secure payment processing and checkout flows.
-- **Hospitable API**: For property management, calendar, and booking data.
-- **Google reCAPTCHA Enterprise**: For spam and bot protection on forms.
-- **Amazon SES (or SMTP)**: For sending transactional emails (contact and booking confirmations).
-- **Firebase Analytics**: For site analytics and event tracking.
-- **Google Analytics (gtag.js)**: For additional analytics and conversion tracking.
-- **YouTube**: Embedded videos for additional content and guidance.
+- **Backend**: Go (Echo framework)
+- **Frontend**: Static HTML/CSS with Vue.js components
+- **Payments**: Stripe
+- **Calendar**: Hospitable API
+- **Email**: Amazon SES
+- **Analytics**: Firebase + Custom Dashboard
 
-## Booking Flow
-1. **Browse Cabins**: View details and photos of available cabins.
-2. **Select Dates & Add-ons**: Choose your stay dates and any retreat structure or deep work add-ons.
-3. **Review & Payment**: Review your booking and pay securely via Stripe.
-4. **Confirmation**: Receive email confirmation and details for your retreat.
+## Key Integrations
+
+- **Stripe**: Payment processing
+- **Hospitable**: Property/calendar management
+- **Google reCAPTCHA**: Form protection
+- **Amazon SES**: Transactional emails
 
 ## Project Structure
-- `main.go`: Go backend server, routes, and API integrations.
-- `templates/`: HTML templates for all main pages (home, cabins, how it works, pricing, blog, booking, etc.).
-- `assets/`: Images and videos for the site and blog.
-- `blog/`: Blog post content in JSON format.
-- `static/`: Static files (CSS, JS, images).
-- `still-waters/`: Vue 3 frontend app (optional/experimental).
 
-## Development & Deployment
-- **Backend**: Go 1.22+, Echo framework.
-- **Frontend**: Static HTML/CSS, Vue 3 (Vite) for app components.
-- **Deployment**: Automated via GitHub Actions to a live Ubuntu server, with Nginx for serving static and dynamic content.
+```
+├── main.go              # Go server & API
+├── templates/           # HTML templates
+├── assets/
+│   ├── data/            # Analytics & data files
+│   ├── photo/           # Images
+│   └── video/           # Videos
+├── blog/                # Blog posts (JSON)
+├── static/              # CSS, JS
+└── scripts/             # Test & utility scripts
+```
+
+## Analytics Dashboard
+
+**Access**: `http://localhost:8080/dashboard`  
+**Password**: Set `DASHBOARD_PASSWORD` in `.env` (default: `stillwaters2024`)
+
+### What It Tracks
+
+- Page views by route
+- Unique visitors
+- Cabin selections
+- Booking attempts
+- Checkout sessions
+- Conversion funnel
+- Time-based trends
+
+### Features
+
+- **Route Tracking**: See which pages get the most traffic
+- **Conversion Funnel**: Track user journey from visit to checkout
+- **Time Filtering**: View 24h, 7d, 30d, or all-time metrics
+- **Charts**: Traffic trends, route distribution, cabin interest
+- **Auto-refresh**: Updates every 60 seconds
+
+### Data Storage
+
+All analytics stored in `analytics.json` (last 1,000 events). Add to `.gitignore`:
+
+```
+analytics.json
+```
+
+## Environment Variables
+
+Create a `.env` file:
+
+```bash
+# Dashboard
+DASHBOARD_PASSWORD=your_password
+
+# AWS/SES
+AWS_REGION=us-east-1
+SES_FROM_EMAIL=your_email@domain.com
+SES_TO_EMAIL=your_email@domain.com
+
+# Stripe
+STRIPE_SECRET_KEY=your_stripe_key
+
+# Hospitable
+HOSPITABLE_API_KEY=your_hospitable_key
+
+# reCAPTCHA
+RECAPTCHA_SITE_KEY=your_site_key
+RECAPTCHA_API_KEY=your_api_key
+RECAPTCHA_PROJECT_ID=your_project_id
+
+# Firebase
+FIREBASE_API_KEY=your_firebase_key
+
+# Environment
+ENVIRONMENT=local  # or leave blank for production
+```
+
+## AWS SES Email Setup
+
+### Quick Setup
+
+1. **Verify your domain in SES** (us-east-1)
+2. **Request production access** (exit sandbox mode)
+3. **Create IAM role** for EC2 with `AmazonSESFullAccess` policy
+4. **Set environment variables:**
+
+```bash
+AWS_REGION=us-east-1
+SES_FROM_EMAIL=noreply@yourdomain.com
+SES_TO_EMAIL=your_email@yourdomain.com
+```
+
+### Key Points
+
+- **Don't send FROM third-party emails** (yahoo.com, gmail.com) - DMARC policies will block
+- **Send FROM your domain** - Use Reply-To for easy responses
+- **On EC2**: IAM role provides credentials automatically (no keys needed)
+- **Local dev**: Set `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` in `.env`
+
+### Email Flow
+
+```
+Contact form → Go backend → SES → Your email
+Reply → Customer email (via Reply-To header)
+```
+
+## Deployment
+
+Automated via GitHub Actions to Ubuntu server with Nginx.
 
 ## Philosophy
-Stillwaters Retreats is built on the belief that environment is everything for deep work and creative breakthroughs. The site, cabins, and retreat structure are all designed to help you reclaim your focus, find clarity, and do your best work—free from the chaos of everyday life.
+
+Environment is everything for deep work. These cabins and this platform help you reclaim focus, find clarity, and do your best work.
 
 ---
 
-For more information, visit [stillwatersretreats.com](https://stillwatersretreats.com) or contact Craig via the site contact form. 
+Visit [stillwatersretreats.com](https://stillwatersretreats.com)

@@ -329,6 +329,16 @@
         gtag('js', new Date());
         gtag('config', 'AW-1036707259');
     </script>
+<script>
+function trackEvent(eventType, page, cabin, amount) {
+    fetch('/api/track', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ event_type: eventType, page: page || window.location.pathname, cabin: cabin || '', amount: amount || '' })
+    }).catch(err => console.log('Tracking error:', err));
+}
+window.addEventListener('load', function() { trackEvent('page_view', window.location.pathname); });
+</script>
 </head>
 <body>
     <div id="app">

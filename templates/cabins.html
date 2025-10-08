@@ -231,6 +231,25 @@
   gtag('js', new Date());
   gtag('config', 'AW-1036707259');
 </script>
+<script>
+// Analytics tracking
+function trackEvent(eventType, page, cabin, amount) {
+    fetch('/api/track', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ 
+            event_type: eventType, 
+            page: page || window.location.pathname,
+            cabin: cabin || '',
+            amount: amount || ''
+        })
+    }).catch(err => console.log('Tracking error:', err));
+}
+// Track page view on load
+window.addEventListener('load', function() {
+    trackEvent('page_view', window.location.pathname);
+});
+</script>
 </head>
 <body>
     <div id="app">

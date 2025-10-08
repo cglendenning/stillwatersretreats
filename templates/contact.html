@@ -94,7 +94,16 @@
 
         @media (max-width: 599px) { .contact-hero, .contact-grid { grid-template-columns: 1fr; } .contact-hero img { height: 260px; } }
     </style>
-</head>
+<script>
+function trackEvent(eventType, page, cabin, amount) {
+    fetch('/api/track', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ event_type: eventType, page: page || window.location.pathname, cabin: cabin || '', amount: amount || '' })
+    }).catch(err => console.log('Tracking error:', err));
+}
+window.addEventListener('load', function() { trackEvent('page_view', window.location.pathname); });
+</script></head>
 <body>
     <div id="app">
         {{ template "nav.html" . }}

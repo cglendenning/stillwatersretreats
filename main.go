@@ -32,8 +32,213 @@ type Template struct {
 	templates *template.Template
 }
 
+type AnalyticsEvent struct {
+	Timestamp string `json:"timestamp"`
+	EventType string `json:"event_type"`
+	Page      string `json:"page,omitempty"`
+	Cabin     string `json:"cabin,omitempty"`
+	Amount    string `json:"amount,omitempty"`
+	UserAgent string `json:"user_agent,omitempty"`
+}
+
+type DashboardMetrics struct {
+	TotalPageViews     int              `json:"total_page_views"`
+	UniqueVisitors     int              `json:"unique_visitors"`
+	CabinSelections    map[string]int   `json:"cabin_selections"`
+	BookingAttempts    int              `json:"booking_attempts"`
+	PaymentIntents     int              `json:"payment_intents"`
+	CheckoutSessions   int              `json:"checkout_sessions"`
+	ContactFormSubmits int              `json:"contact_form_submits"`
+	LastUpdated        string           `json:"last_updated"`
+	RecentEvents       []AnalyticsEvent `json:"recent_events"`
+
+	// Time-based data
+	PageViewsByHour  map[string]int `json:"page_views_by_hour"`
+	PageViewsByDay   map[string]int `json:"page_views_by_day"`
+	ConversionsByDay map[string]int `json:"conversions_by_day"`
+
+	// Route tracking
+	PageViewsByRoute map[string]int `json:"page_views_by_route"`
+
+	// Comparison metrics
+	PrevPeriodPageViews   int `json:"prev_period_page_views"`
+	PrevPeriodVisitors    int `json:"prev_period_visitors"`
+	PrevPeriodConversions int `json:"prev_period_conversions"`
+
+	// Funnel metrics
+	FunnelSteps map[string]int `json:"funnel_steps"`
+}
+
 // isDebug controls verbose logging via env var DEBUG_LOG=1
 func isDebug() bool { return os.Getenv("DEBUG_LOG") == "1" }
+
+// logAnalyticsEvent appends an analytics event to the analytics.json file
+func logAnalyticsEvent(eventType, page, cabin, amount, userAgent string) error {
+	event := AnalyticsEvent{
+		Timestamp: time.Now().Format(time.RFC3339),
+		EventType: eventType,
+		Page:      page,
+		Cabin:     cabin,
+		Amount:    amount,
+		UserAgent: userAgent,
+	}
+
+	// Read existing events
+	var events []AnalyticsEvent
+	data, err := ioutil.ReadFile("assets/data/analytics.json")
+	if err == nil {
+		json.Unmarshal(data, &events)
+	}
+
+	// Append new event
+	events = append(events, event)
+
+	// Keep only last 1000 events to prevent file bloat
+	if len(events) > 1000 {
+		events = events[len(events)-1000:]
+	}
+
+	// Write back
+	jsonData, err := json.MarshalIndent(events, "", "  ")
+	if err != nil {
+		return err
+	}
+
+	return ioutil.WriteFile("assets/data/analytics.json", jsonData, 0644)
+}
+
+// getDashboardMetrics calculates metrics from analytics.json with optional time period
+func getDashboardMetrics() (DashboardMetrics, error) {
+	return getDashboardMetricsForPeriod(0) // 0 = all time
+}
+
+// getDashboardMetricsForPeriod calculates metrics for a specific time period
+// period: 0=all time, 1=24h, 7=7 days, 30=30 days
+func getDashboardMetricsForPeriod(period int) (DashboardMetrics, error) {
+	metrics := DashboardMetrics{
+		CabinSelections:  make(map[string]int),
+		PageViewsByHour:  make(map[string]int),
+		PageViewsByDay:   make(map[string]int),
+		ConversionsByDay: make(map[string]int),
+		PageViewsByRoute: make(map[string]int),
+		FunnelSteps:      make(map[string]int),
+		LastUpdated:      time.Now().Format("2006-01-02 15:04:05"),
+	}
+
+	data, err := ioutil.ReadFile("assets/data/analytics.json")
+	if err != nil {
+		return metrics, err
+	}
+
+	var events []AnalyticsEvent
+	if err := json.Unmarshal(data, &events); err != nil {
+		return metrics, err
+	}
+
+	now := time.Now()
+	var cutoffTime time.Time
+	if period > 0 {
+		cutoffTime = now.AddDate(0, 0, -period)
+	}
+
+	// Previous period cutoff for comparison
+	var prevPeriodStart, prevPeriodEnd time.Time
+	if period > 0 {
+		prevPeriodEnd = cutoffTime
+		prevPeriodStart = cutoffTime.AddDate(0, 0, -period)
+	}
+
+	uniqueIPs := make(map[string]bool)
+	prevUniqueIPs := make(map[string]bool)
+
+	for _, event := range events {
+		eventTime, err := time.Parse(time.RFC3339, event.Timestamp)
+		if err != nil {
+			continue
+		}
+
+		// Skip if outside time period
+		if period > 0 && eventTime.Before(cutoffTime) {
+			// Check if in previous period for comparison
+			if eventTime.After(prevPeriodStart) && eventTime.Before(prevPeriodEnd) {
+				switch event.EventType {
+				case "page_view":
+					metrics.PrevPeriodPageViews++
+					prevUniqueIPs[event.UserAgent] = true
+				case "checkout_session":
+					metrics.PrevPeriodConversions++
+				}
+			}
+			continue
+		}
+
+		// Current period metrics
+		switch event.EventType {
+		case "page_view":
+			metrics.TotalPageViews++
+			uniqueIPs[event.UserAgent] = true
+
+			// Hour bucket (for 24h view)
+			hourKey := eventTime.Format("2006-01-02 15:00")
+			metrics.PageViewsByHour[hourKey]++
+
+			// Day bucket
+			dayKey := eventTime.Format("2006-01-02")
+			metrics.PageViewsByDay[dayKey]++
+
+			// Route tracking
+			route := event.Page
+			if route == "" {
+				route = "/"
+			}
+			metrics.PageViewsByRoute[route]++
+
+			// Funnel: Step 1
+			metrics.FunnelSteps["1_page_view"]++
+
+		case "cabin_selection":
+			metrics.CabinSelections[event.Cabin]++
+			// Funnel: Step 2
+			metrics.FunnelSteps["2_cabin_selection"]++
+
+		case "booking_attempt":
+			metrics.BookingAttempts++
+			// Funnel: Step 3
+			metrics.FunnelSteps["3_booking_attempt"]++
+
+		case "payment_intent":
+			metrics.PaymentIntents++
+
+		case "checkout_session":
+			metrics.CheckoutSessions++
+			dayKey := eventTime.Format("2006-01-02")
+			metrics.ConversionsByDay[dayKey]++
+			// Funnel: Step 4
+			metrics.FunnelSteps["4_checkout"]++
+
+		case "contact_form":
+			metrics.ContactFormSubmits++
+		}
+	}
+
+	metrics.UniqueVisitors = len(uniqueIPs)
+	metrics.PrevPeriodVisitors = len(prevUniqueIPs)
+
+	// Get last 20 events in period
+	var recentEvents []AnalyticsEvent
+	for i := len(events) - 1; i >= 0 && len(recentEvents) < 20; i-- {
+		eventTime, err := time.Parse(time.RFC3339, events[i].Timestamp)
+		if err != nil {
+			continue
+		}
+		if period == 0 || eventTime.After(cutoffTime) {
+			recentEvents = append(recentEvents, events[i])
+		}
+	}
+	metrics.RecentEvents = recentEvents
+
+	return metrics, nil
+}
 
 // newSESClient creates an AWS SES v2 client
 // When running on AWS (EC2, ECS, Lambda, etc.), it automatically uses the attached IAM role
@@ -180,6 +385,7 @@ func main() {
 		"templates/book-bearview.html",
 		"templates/blog_list.html",
 		"templates/blog_template.html",
+		"templates/dashboard.html",
 	}
 
 	// Create template with custom functions
@@ -190,6 +396,19 @@ func main() {
 		"RECAPTCHA_SITE_KEY": func() string { return os.Getenv("RECAPTCHA_SITE_KEY") },
 		"meta_description": func() string {
 			return "Still Waters Retreat - Quiet mountain cabins for deep thinking and creative work"
+		},
+		"add":     func(a, b int) int { return a + b },
+		"float64": func(i int) float64 { return float64(i) },
+		"divf": func(a, b float64) float64 {
+			if b == 0 {
+				return 0
+			}
+			return a / b
+		},
+		"mulf": func(a, b float64) float64 { return a * b },
+		"toJSON": func(v interface{}) string {
+			bytes, _ := json.Marshal(v)
+			return string(bytes)
 		},
 	})
 
@@ -290,6 +509,14 @@ func main() {
 	e.GET("/api/images/:cabin", getImages)
 	e.POST("/send-email", sendEmailHandler)
 	e.POST("/send-booking", sendBookingHandler)
+
+	// Analytics tracking
+	e.POST("/api/track", trackEventHandler)
+	e.GET("/api/metrics", metricsAPIHandler)
+
+	// Dashboard (password protected)
+	e.GET("/dashboard", dashboardHandler)
+	e.POST("/dashboard-login", dashboardLoginHandler)
 
 	// Only enable HTTPS redirect in production (not localhost)
 	if os.Getenv("ENVIRONMENT") != "local" {
@@ -393,6 +620,10 @@ func createCheckoutSessionHandler(c echo.Context) error {
 		return c.String(http.StatusInternalServerError, err.Error())
 	}
 
+	// Track checkout session creation
+	amount := fmt.Sprintf("$%.2f", float64(requestData.Amount)/100)
+	logAnalyticsEvent("checkout_session", "", cabinName, amount, c.Request().Header.Get("User-Agent"))
+
 	return c.JSON(http.StatusOK, map[string]string{"sessionId": s.ID})
 }
 
@@ -452,6 +683,10 @@ func createPaymentIntentHandler(c echo.Context) error {
 	if err != nil {
 		return c.String(http.StatusInternalServerError, err.Error())
 	}
+
+	// Track payment intent creation
+	amount := fmt.Sprintf("$%.2f", float64(requestData.Amount)/100)
+	logAnalyticsEvent("payment_intent", "", cabinName, amount, c.Request().Header.Get("User-Agent"))
 
 	return c.JSON(http.StatusOK, map[string]string{"client_secret": pi.ClientSecret})
 }
@@ -920,3 +1155,291 @@ func getRelevantYouTubeVideo(postSlug string) string {
 // getReviews fetches 20 latest 5-star reviews for a property via Hospitable API
 // Requires env: HOSPITABLE_API_KEY and property IDs (same as calendar) mapped by prop code
 // getReviews removed - static JSON is used for rendering reviews
+
+// trackEventHandler logs analytics events
+func trackEventHandler(c echo.Context) error {
+	var req struct {
+		EventType string `json:"event_type"`
+		Page      string `json:"page"`
+		Cabin     string `json:"cabin"`
+		Amount    string `json:"amount"`
+	}
+
+	if err := c.Bind(&req); err != nil {
+		return c.JSON(http.StatusBadRequest, map[string]string{"error": "Invalid request"})
+	}
+
+	userAgent := c.Request().Header.Get("User-Agent")
+	if err := logAnalyticsEvent(req.EventType, req.Page, req.Cabin, req.Amount, userAgent); err != nil {
+		return c.JSON(http.StatusInternalServerError, map[string]string{"error": "Failed to log event"})
+	}
+
+	return c.JSON(http.StatusOK, map[string]string{"status": "ok"})
+}
+
+// metricsAPIHandler returns metrics for specified time period
+func metricsAPIHandler(c echo.Context) error {
+	// Check auth
+	cookie, err := c.Cookie("dashboard_auth")
+	if err != nil || cookie.Value != os.Getenv("DASHBOARD_PASSWORD") {
+		expectedPassword := os.Getenv("DASHBOARD_PASSWORD")
+		if expectedPassword == "" {
+			expectedPassword = "stillwaters2024"
+		}
+		if cookie.Value != expectedPassword {
+			return c.JSON(http.StatusUnauthorized, map[string]string{"error": "Unauthorized"})
+		}
+	}
+
+	period := 0 // default to all time
+	periodParam := c.QueryParam("period")
+	if periodParam == "1" {
+		period = 1
+	} else if periodParam == "7" {
+		period = 7
+	} else if periodParam == "30" {
+		period = 30
+	}
+
+	metrics, err := getDashboardMetricsForPeriod(period)
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, map[string]string{"error": "Failed to get metrics"})
+	}
+
+	return c.JSON(http.StatusOK, metrics)
+}
+
+// dashboardHandler serves the dashboard or login page
+func dashboardHandler(c echo.Context) error {
+	// Check for session cookie
+	cookie, err := c.Cookie("dashboard_auth")
+	if err == nil && cookie.Value == os.Getenv("DASHBOARD_PASSWORD") {
+		// Authenticated - show dashboard
+		metrics, err := getDashboardMetrics()
+		if err != nil {
+			// If no analytics file yet, show empty metrics
+			metrics = DashboardMetrics{
+				CabinSelections: make(map[string]int),
+				LastUpdated:     time.Now().Format("2006-01-02 15:04:05"),
+			}
+		}
+
+		data := getTemplateData("Dashboard")
+		data["Metrics"] = metrics
+		return c.Render(http.StatusOK, "dashboard.html", data)
+	}
+
+	// Not authenticated - show login form
+	return c.HTML(http.StatusOK, `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Login</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .login-container {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            width: 90%;
+            max-width: 400px;
+        }
+        h1 { 
+            color: #333;
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+            text-align: center;
+        }
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #555;
+            font-weight: 500;
+        }
+        input[type="password"] {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        input[type="password"]:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        button {
+            width: 100%;
+            padding: 0.75rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        button:active {
+            transform: translateY(0);
+        }
+        .error {
+            color: #e74c3c;
+            font-size: 0.9rem;
+            margin-top: 1rem;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h1>🔐 Dashboard Login</h1>
+        <form method="POST" action="/dashboard-login">
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required autofocus>
+            </div>
+            <button type="submit">Access Dashboard</button>
+        </form>
+    </div>
+</body>
+</html>
+	`)
+}
+
+// dashboardLoginHandler processes login attempts
+func dashboardLoginHandler(c echo.Context) error {
+	password := c.FormValue("password")
+	expectedPassword := os.Getenv("DASHBOARD_PASSWORD")
+
+	if expectedPassword == "" {
+		expectedPassword = "stillwaters2024" // Default password if not set
+	}
+
+	if password == expectedPassword {
+		// Set session cookie
+		cookie := new(http.Cookie)
+		cookie.Name = "dashboard_auth"
+		cookie.Value = password
+		cookie.Path = "/"
+		cookie.MaxAge = 86400 // 24 hours
+		cookie.HttpOnly = true
+		c.SetCookie(cookie)
+		return c.Redirect(http.StatusFound, "/dashboard")
+	}
+
+	// Failed login - show login page with error
+	return c.HTML(http.StatusUnauthorized, `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Login</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .login-container {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            width: 90%;
+            max-width: 400px;
+        }
+        h1 { 
+            color: #333;
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+            text-align: center;
+        }
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #555;
+            font-weight: 500;
+        }
+        input[type="password"] {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        input[type="password"]:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        button {
+            width: 100%;
+            padding: 0.75rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        button:active {
+            transform: translateY(0);
+        }
+        .error {
+            color: #e74c3c;
+            font-size: 0.9rem;
+            margin-top: 1rem;
+            text-align: center;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h1>🔐 Dashboard Login</h1>
+        <form method="POST" action="/dashboard-login">
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required autofocus>
+            </div>
+            <button type="submit">Access Dashboard</button>
+            <div class="error">❌ Incorrect password</div>
+        </form>
+    </div>
+</body>
+</html>
+	`)
+}

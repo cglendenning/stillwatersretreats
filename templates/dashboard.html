@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analytics Dashboard - Still Waters Retreats</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <style>
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+        }
+        
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: #f5f7fa;
+            color: #2c3e50;
+            padding: 1.5rem;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1.5rem 2rem;
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .header-left h1 {
+            font-size: 1.75rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+        
+        .header-left p {
+            opacity: 0.9;
+            font-size: 0.9rem;
+        }
+        
+        .time-selector {
+            display: flex;
+            gap: 0.5rem;
+            background: rgba(255,255,255,0.15);
+            padding: 0.35rem;
+            border-radius: 8px;
+        }
+        
+        .time-btn {
+            background: transparent;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.2s;
+            font-size: 0.9rem;
+        }
+        
+        .time-btn:hover {
+            background: rgba(255,255,255,0.2);
+        }
+        
+        .time-btn.active {
+            background: white;
+            color: #667eea;
+        }
+        
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.25rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .metric-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            transition: transform 0.2s, box-shadow 0.2s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .metric-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        
+        .metric-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 0.75rem;
+        }
+        
+        .metric-label {
+            font-size: 0.8rem;
+            color: #7f8c8d;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+        }
+        
+        .metric-trend {
+            font-size: 0.85rem;
+            font-weight: 600;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+        }
+        
+        .metric-trend.up {
+            color: #27ae60;
+            background: #e8f8f5;
+        }
+        
+        .metric-trend.down {
+            color: #e74c3c;
+            background: #fadbd8;
+        }
+        
+        .metric-trend.neutral {
+            color: #7f8c8d;
+            background: #ecf0f1;
+        }
+        
+        .metric-value {
+            font-size: 2.25rem;
+            font-weight: 700;
+            color: #2c3e50;
+            line-height: 1;
+            margin-bottom: 0.25rem;
+        }
+        
+        .metric-comparison {
+            font-size: 0.8rem;
+            color: #95a5a6;
+        }
+        
+        .charts-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 1.25rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .chart-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .chart-card h3 {
+            font-size: 1.15rem;
+            margin-bottom: 1.25rem;
+            color: #2c3e50;
+            font-weight: 600;
+        }
+        
+        .chart-container {
+            position: relative;
+            height: 280px;
+        }
+        
+        .funnel-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            padding: 0.5rem 0;
+        }
+        
+        .funnel-step {
+            position: relative;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s;
+        }
+        
+        .funnel-step:hover {
+            transform: translateX(5px);
+        }
+        
+        .funnel-label {
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+        
+        .funnel-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        
+        .funnel-rate {
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #2c3e50;
+            color: white;
+            padding: 0.2rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+        
+        .bottom-row {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 1.25rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .route-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.25rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .route-list {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        
+        .route-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            background: #f8f9fa;
+            border-radius: 6px;
+            margin-bottom: 0.5rem;
+            transition: all 0.2s;
+        }
+        
+        .route-item:hover {
+            background: #e9ecef;
+            transform: translateX(3px);
+        }
+        
+        .route-path {
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            color: #495057;
+            font-weight: 500;
+        }
+        
+        .route-count {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+        
+        .route-percentage {
+            font-size: 0.75rem;
+            color: #6c757d;
+            margin-left: 0.5rem;
+        }
+        
+        .recent-activity {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .recent-activity h3 {
+            font-size: 1.15rem;
+            margin-bottom: 1.25rem;
+            color: #2c3e50;
+            font-weight: 600;
+        }
+        
+        .activity-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.65rem;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        
+        .activity-item {
+            padding: 0.85rem;
+            background: #f8f9fa;
+            border-left: 3px solid #667eea;
+            border-radius: 6px;
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 0.75rem;
+            align-items: center;
+            font-size: 0.9rem;
+        }
+        
+        .activity-icon {
+            font-size: 1.15rem;
+        }
+        
+        .activity-details {
+            display: flex;
+            flex-direction: column;
+            gap: 0.15rem;
+        }
+        
+        .activity-type {
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        .activity-meta {
+            font-size: 0.8rem;
+            color: #7f8c8d;
+        }
+        
+        .refresh-btn {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 1rem 1.5rem;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+            transition: transform 0.2s, box-shadow 0.2s;
+            z-index: 100;
+        }
+        
+        .refresh-btn:hover {
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            color: #95a5a6;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 2rem;
+            color: #7f8c8d;
+        }
+        
+        .info-banner {
+            background: #e8f4f8;
+            border-left: 4px solid #667eea;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+            color: #2c3e50;
+            line-height: 1.6;
+        }
+        
+        .info-banner strong {
+            color: #667eea;
+        }
+        
+        .info-banner ul {
+            margin: 0.5rem 0 0 1.5rem;
+        }
+        
+        .info-banner li {
+            margin: 0.25rem 0;
+        }
+        
+            @media (max-width: 1200px) {
+            .charts-row {
+                grid-template-columns: 1fr;
+            }
+            .bottom-row {
+                grid-template-columns: 1fr;
+            }
+            .route-section {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem;
+            }
+            
+            header {
+                padding: 1.25rem;
+            }
+            
+            .header-left h1 {
+                font-size: 1.35rem;
+            }
+            
+            .time-selector {
+                width: 100%;
+                justify-content: space-around;
+            }
+            
+            .time-btn {
+                padding: 0.5rem 0.75rem;
+                font-size: 0.85rem;
+            }
+            
+            .metrics-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .metric-value {
+                font-size: 2rem;
+            }
+            
+            .chart-container {
+                height: 220px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-left">
+                <h1>📊 Analytics Dashboard</h1>
+                <p id="last-updated">Last updated: {{ .Metrics.LastUpdated }}</p>
+            </div>
+            <div class="time-selector">
+                <button class="time-btn" data-period="1">24 Hours</button>
+                <button class="time-btn" data-period="7">7 Days</button>
+                <button class="time-btn" data-period="30">30 Days</button>
+                <button class="time-btn active" data-period="0">All Time</button>
+            </div>
+        </header>
+        
+        <div id="dashboard-content">
+            <!-- Metrics Explanation Banner -->
+            <div class="info-banner">
+                <strong>📊 Understanding Your Dashboard Metrics:</strong>
+                <ul>
+                    <li><strong>Large Number</strong> = The metric value for your selected time period (e.g., "1,900" page views)</li>
+                    <li><strong>↑ or ↓ Percentage</strong> = Trend compared to the previous period (e.g., "↑ 25%" means 25% increase)</li>
+                    <li><strong>"vs previous period (X)"</strong> = The actual value from the previous time period for comparison</li>
+                    <li><strong>Unique Visitors</strong> = Tracked by browser/user agent, so each visitor is counted once per device</li>
+                    <li><strong>Conversion Rate</strong> = (Checkouts ÷ Unique Visitors) × 100. A healthy rate is typically 2-5%.</li>
+                </ul>
+            </div>
+            
+            <div class="route-section">
+                <div class="chart-card">
+                    <h3>🛣️ Top Routes</h3>
+                    <div class="route-list" id="route-list">
+                        <div class="loading">Loading route data...</div>
+                    </div>
+                </div>
+                
+                <div class="chart-card">
+                    <h3>📊 Route Distribution</h3>
+                    <div class="chart-container">
+                        <canvas id="routeChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="metrics-grid">
+                <div class="metric-card" title="Total number of page views across all pages. Trend shows % change vs previous period.">
+                    <div class="metric-header">
+                        <div class="metric-label">Total Page Views</div>
+                        <div class="metric-trend neutral" id="trend-pageviews" title="Percentage change vs previous period">—</div>
+                    </div>
+                    <div class="metric-value" id="total-pageviews">{{ .Metrics.TotalPageViews }}</div>
+                    <div class="metric-comparison" id="comp-pageviews"></div>
+                </div>
+                
+                <div class="metric-card" title="Number of unique visitors tracked by user agent/browser. Trend shows % change vs previous period.">
+                    <div class="metric-header">
+                        <div class="metric-label">Unique Visitors</div>
+                        <div class="metric-trend neutral" id="trend-visitors" title="Percentage change vs previous period">—</div>
+                    </div>
+                    <div class="metric-value" id="unique-visitors">{{ .Metrics.UniqueVisitors }}</div>
+                    <div class="metric-comparison" id="comp-visitors"></div>
+                </div>
+                
+                <div class="metric-card" title="Total number of times users selected a cabin on the homepage">
+                    <div class="metric-header">
+                        <div class="metric-label">Cabin Interest</div>
+                        <div class="metric-trend neutral">—</div>
+                    </div>
+                    <div class="metric-value" id="cabin-selections">
+                        {{ $total := 0 }}
+                        {{ range $cabin, $count := .Metrics.CabinSelections }}
+                            {{ $total = add $total $count }}
+                        {{ end }}
+                        {{ $total }}
+                    </div>
+                    <div class="metric-comparison">Cabin page clicks</div>
+                </div>
+                
+                <div class="metric-card" title="Number of completed Stripe checkout sessions. Trend shows % change vs previous period.">
+                    <div class="metric-header">
+                        <div class="metric-label">Checkout Sessions</div>
+                        <div class="metric-trend neutral" id="trend-conversions" title="Percentage change vs previous period">—</div>
+                    </div>
+                    <div class="metric-value" id="checkout-sessions">{{ .Metrics.CheckoutSessions }}</div>
+                    <div class="metric-comparison" id="comp-conversions"></div>
+                </div>
+                
+                <div class="metric-card" title="Percentage of unique visitors who completed checkout (Checkouts ÷ Visitors × 100)">
+                    <div class="metric-header">
+                        <div class="metric-label">Conversion Rate</div>
+                        <div class="metric-trend neutral">—</div>
+                    </div>
+                    <div class="metric-value" id="conversion-rate">
+                        {{ if gt .Metrics.UniqueVisitors 0 }}
+                            {{ printf "%.1f" (mulf (divf (float64 .Metrics.CheckoutSessions) (float64 .Metrics.UniqueVisitors)) 100.0) }}%
+                        {{ else }}
+                            0%
+                        {{ end }}
+                    </div>
+                    <div class="metric-comparison">Checkouts / Visitors</div>
+                </div>
+                
+                <div class="metric-card" title="Number of times users submitted the booking review form">
+                    <div class="metric-header">
+                        <div class="metric-label">Booking Attempts</div>
+                        <div class="metric-trend neutral">—</div>
+                    </div>
+                    <div class="metric-value" id="booking-attempts">{{ .Metrics.BookingAttempts }}</div>
+                    <div class="metric-comparison">Form submissions</div>
+                </div>
+            </div>
+            
+            <div class="charts-row">
+                <div class="chart-card">
+                    <h3>📈 Traffic Over Time</h3>
+                    <div class="chart-container">
+                        <canvas id="trafficChart"></canvas>
+                    </div>
+                </div>
+                
+                <div class="chart-card">
+                    <h3>🎯 Conversion Funnel</h3>
+                    <div class="funnel-container" id="funnel-container">
+                        <div class="loading">Loading funnel data...</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bottom-row">
+                <div class="chart-card">
+                    <h3>🏡 Cabin Interest Comparison</h3>
+                    <div class="chart-container">
+                        <canvas id="cabinChart"></canvas>
+                    </div>
+                </div>
+                
+                <div class="recent-activity">
+                    <h3>⚡ Recent Activity</h3>
+                    <div class="activity-list" id="activity-list">
+                        {{ if .Metrics.RecentEvents }}
+                            {{ range .Metrics.RecentEvents }}
+                            <div class="activity-item">
+                                <div class="activity-icon">
+                                    {{ if eq .EventType "page_view" }}👁️
+                                    {{ else if eq .EventType "cabin_selection" }}🏡
+                                    {{ else if eq .EventType "booking_attempt" }}📝
+                                    {{ else if eq .EventType "payment_intent" }}💳
+                                    {{ else if eq .EventType "checkout_session" }}✅
+                                    {{ else if eq .EventType "contact_form" }}📧
+                                    {{ else }}📌{{ end }}
+                                </div>
+                                <div class="activity-details">
+                                    <span class="activity-type">
+                                        {{ if eq .EventType "page_view" }}Page View
+                                        {{ else if eq .EventType "cabin_selection" }}Cabin Selected
+                                        {{ else if eq .EventType "booking_attempt" }}Booking Attempt
+                                        {{ else if eq .EventType "payment_intent" }}Payment Intent
+                                        {{ else if eq .EventType "checkout_session" }}Checkout Started
+                                        {{ else if eq .EventType "contact_form" }}Contact Form
+                                        {{ else }}{{ .EventType }}{{ end }}
+                                    </span>
+                                    <span class="activity-meta">
+                                        {{ if .Cabin }}{{ .Cabin }}{{ end }}
+                                        {{ if .Amount }} • {{ .Amount }}{{ end }}
+                                        {{ if .Timestamp }} • {{ .Timestamp }}{{ end }}
+                                    </span>
+                                </div>
+                            </div>
+                            {{ end }}
+                        {{ else }}
+                        <div class="empty-state">
+                            <p>No activity yet</p>
+                        </div>
+                        {{ end }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <button class="refresh-btn" onclick="refreshDashboard()">🔄 Refresh</button>
+    </div>
+    
+    <script>
+        let currentPeriod = 0;
+        let trafficChart, cabinChart, routeChart;
+        let initialMetrics = {{ .Metrics | toJSON }};
+        
+        // Initialize charts with server data
+        window.onload = function() {
+            console.log('Initial metrics:', initialMetrics);
+            initializeCharts(initialMetrics);
+            // Ensure routes are displayed on initial load
+            setTimeout(function() {
+                if (initialMetrics && initialMetrics.page_views_by_route) {
+                    console.log('Updating routes on initial load');
+                    updateRoutes(initialMetrics);
+                }
+            }, 100);
+        };
+        
+        // Time period selector
+        document.querySelectorAll('.time-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.time-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                currentPeriod = parseInt(this.dataset.period);
+                loadMetrics(currentPeriod);
+            });
+        });
+        
+        async function loadMetrics(period) {
+            try {
+                const response = await fetch(`/api/metrics?period=${period}`);
+                const data = await response.json();
+                updateDashboard(data);
+            } catch (error) {
+                console.error('Failed to load metrics:', error);
+            }
+        }
+        
+        function updateDashboard(metrics) {
+            // Update metric cards
+            document.getElementById('total-pageviews').textContent = metrics.total_page_views || 0;
+            document.getElementById('unique-visitors').textContent = metrics.unique_visitors || 0;
+            document.getElementById('checkout-sessions').textContent = metrics.checkout_sessions || 0;
+            document.getElementById('booking-attempts').textContent = metrics.booking_attempts || 0;
+            
+            // Calculate cabin selections total
+            let cabinTotal = 0;
+            for (let cabin in metrics.cabin_selections) {
+                cabinTotal += metrics.cabin_selections[cabin];
+            }
+            document.getElementById('cabin-selections').textContent = cabinTotal;
+            
+            // Update conversion rate
+            const convRate = metrics.unique_visitors > 0 
+                ? ((metrics.checkout_sessions / metrics.unique_visitors) * 100).toFixed(1) 
+                : 0;
+            document.getElementById('conversion-rate').textContent = convRate + '%';
+            
+            // Update trends
+            updateTrend('pageviews', metrics.total_page_views, metrics.prev_period_page_views);
+            updateTrend('visitors', metrics.unique_visitors, metrics.prev_period_visitors);
+            updateTrend('conversions', metrics.checkout_sessions, metrics.prev_period_conversions);
+            
+            // Update charts
+            updateTrafficChart(metrics);
+            updateCabinChart(metrics);
+            updateFunnel(metrics);
+            updateRoutes(metrics);
+            
+            // Update timestamp
+            document.getElementById('last-updated').textContent = 'Last updated: ' + metrics.last_updated;
+        }
+        
+        function updateTrend(metric, current, previous) {
+            const trendEl = document.getElementById(`trend-${metric}`);
+            const compEl = document.getElementById(`comp-${metric}`);
+            
+            if (currentPeriod === 0 || !previous) {
+                trendEl.textContent = '—';
+                trendEl.className = 'metric-trend neutral';
+                if (compEl) compEl.textContent = '';
+                return;
+            }
+            
+            const change = current - previous;
+            const percentChange = previous > 0 ? ((change / previous) * 100).toFixed(1) : 0;
+            
+            if (change > 0) {
+                trendEl.textContent = `↑ ${Math.abs(percentChange)}%`;
+                trendEl.className = 'metric-trend up';
+            } else if (change < 0) {
+                trendEl.textContent = `↓ ${Math.abs(percentChange)}%`;
+                trendEl.className = 'metric-trend down';
+            } else {
+                trendEl.textContent = '→ 0%';
+                trendEl.className = 'metric-trend neutral';
+            }
+            
+            if (compEl) {
+                compEl.textContent = `vs previous period (${previous})`;
+            }
+        }
+        
+        function initializeCharts(metrics) {
+            const ctx1 = document.getElementById('trafficChart');
+            const ctx2 = document.getElementById('cabinChart');
+            const ctx3 = document.getElementById('routeChart');
+            
+            trafficChart = new Chart(ctx1, {
+                type: 'line',
+                data: {
+                    labels: [],
+                    datasets: [{
+                        label: 'Page Views',
+                        data: [],
+                        borderColor: '#667eea',
+                        backgroundColor: 'rgba(102, 126, 234, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false }
+                    },
+                    scales: {
+                        y: { beginAtZero: true }
+                    }
+                }
+            });
+            
+            cabinChart = new Chart(ctx2, {
+                type: 'doughnut',
+                data: {
+                    labels: [],
+                    datasets: [{
+                        data: [],
+                        backgroundColor: ['#667eea', '#764ba2', '#f093fb', '#4facfe']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'bottom' }
+                    }
+                }
+            });
+            
+            routeChart = new Chart(ctx3, {
+                type: 'pie',
+                data: {
+                    labels: [],
+                    datasets: [{
+                        data: [],
+                        backgroundColor: [
+                            '#667eea', '#764ba2', '#f093fb', '#4facfe', '#43e97b',
+                            '#38f9d7', '#fa709a', '#fee140', '#30cfd0', '#a8edea'
+                        ]
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { 
+                            position: 'bottom',
+                            labels: {
+                                boxWidth: 12,
+                                font: { size: 10 }
+                            }
+                        }
+                    }
+                }
+            });
+            
+            updateTrafficChart(metrics);
+            updateCabinChart(metrics);
+            updateFunnel(metrics);
+            updateRoutes(metrics);
+        }
+        
+        function updateTrafficChart(metrics) {
+            const timeData = currentPeriod === 1 
+                ? metrics.page_views_by_hour 
+                : metrics.page_views_by_day;
+            
+            console.log('Traffic chart data:', timeData);
+            
+            if (!timeData || Object.keys(timeData).length === 0) {
+                console.log('No traffic data available');
+                trafficChart.data.labels = [];
+                trafficChart.data.datasets[0].data = [];
+                trafficChart.update();
+                return;
+            }
+            
+            const labels = Object.keys(timeData).sort();
+            const data = labels.map(label => timeData[label]);
+            
+            console.log('Chart labels:', labels);
+            console.log('Chart data:', data);
+            
+            trafficChart.data.labels = labels.map(label => {
+                if (currentPeriod === 1) {
+                    return new Date(label).toLocaleTimeString('en-US', { hour: 'numeric', hour12: true });
+                } else {
+                    return new Date(label).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+                }
+            });
+            trafficChart.data.datasets[0].data = data;
+            trafficChart.update();
+        }
+        
+        function updateCabinChart(metrics) {
+            const cabins = metrics.cabin_selections || {};
+            const labels = Object.keys(cabins);
+            const data = Object.values(cabins);
+            
+            cabinChart.data.labels = labels;
+            cabinChart.data.datasets[0].data = data;
+            cabinChart.update();
+        }
+        
+        function updateFunnel(metrics) {
+            const funnel = metrics.funnel_steps || {};
+            const steps = [
+                { key: '1_page_view', label: '1. Page Views', value: funnel['1_page_view'] || 0 },
+                { key: '2_cabin_selection', label: '2. Cabin Interest', value: funnel['2_cabin_selection'] || 0 },
+                { key: '3_booking_attempt', label: '3. Booking Form', value: funnel['3_booking_attempt'] || 0 },
+                { key: '4_checkout', label: '4. Checkout', value: funnel['4_checkout'] || 0 }
+            ];
+            
+            let html = '';
+            for (let i = 0; i < steps.length; i++) {
+                const step = steps[i];
+                const width = 100 - (i * 8);
+                const rate = i > 0 && steps[i-1].value > 0 
+                    ? ((step.value / steps[i-1].value) * 100).toFixed(1) 
+                    : 100;
+                
+                html += `
+                    <div class="funnel-step" style="width: ${width}%; margin: 0 auto; position: relative;">
+                        <span class="funnel-label">${step.label}</span>
+                        <span class="funnel-value">${step.value}</span>
+                        ${i > 0 ? `<div class="funnel-rate">${rate}% conversion</div>` : ''}
+                    </div>
+                `;
+            }
+            
+            document.getElementById('funnel-container').innerHTML = html;
+        }
+        
+        function updateRoutes(metrics) {
+            const routes = metrics.page_views_by_route || {};
+            
+            console.log('Route data:', routes);
+            
+            // Sort routes by count descending
+            const sortedRoutes = Object.entries(routes).sort((a, b) => b[1] - a[1]);
+            const totalViews = Object.values(routes).reduce((sum, count) => sum + count, 0);
+            
+            // Update route list
+            let listHtml = '';
+            if (sortedRoutes.length === 0) {
+                listHtml = '<div class="empty-state"><p>No route data yet</p></div>';
+            } else {
+                sortedRoutes.forEach(([route, count]) => {
+                    const percentage = totalViews > 0 ? ((count / totalViews) * 100).toFixed(1) : 0;
+                    listHtml += `
+                        <div class="route-item">
+                            <span class="route-path">${route}</span>
+                            <div>
+                                <span class="route-count">${count}</span>
+                                <span class="route-percentage">${percentage}%</span>
+                            </div>
+                        </div>
+                    `;
+                });
+            }
+            document.getElementById('route-list').innerHTML = listHtml;
+            
+            // Update pie chart - show top 5 routes
+            const top5 = sortedRoutes.slice(0, 5);
+            const otherCount = sortedRoutes.slice(5).reduce((sum, [_, count]) => sum + count, 0);
+            
+            const labels = top5.map(([route, _]) => route);
+            const data = top5.map(([_, count]) => count);
+            
+            // Add "Other" category if there are more than 5 routes
+            if (sortedRoutes.length > 5) {
+                labels.push('Other');
+                data.push(otherCount);
+            }
+            
+            routeChart.data.labels = labels;
+            routeChart.data.datasets[0].data = data;
+            routeChart.update();
+        }
+        
+        function refreshDashboard() {
+            loadMetrics(currentPeriod);
+        }
+        
+        // Auto-refresh every 60 seconds
+        setInterval(() => {
+            loadMetrics(currentPeriod);
+        }, 60000);
+    </script>
+</body>
+</html>
