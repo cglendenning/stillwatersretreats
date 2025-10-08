@@ -369,30 +369,7 @@
             color: #7f8c8d;
         }
         
-        .info-banner {
-            background: #e8f4f8;
-            border-left: 4px solid #667eea;
-            padding: 1rem 1.5rem;
-            border-radius: 8px;
-            margin-bottom: 1.5rem;
-            font-size: 0.9rem;
-            color: #2c3e50;
-            line-height: 1.6;
-        }
-        
-        .info-banner strong {
-            color: #667eea;
-        }
-        
-        .info-banner ul {
-            margin: 0.5rem 0 0 1.5rem;
-        }
-        
-        .info-banner li {
-            margin: 0.25rem 0;
-        }
-        
-            @media (max-width: 1200px) {
+        @media (max-width: 1200px) {
             .charts-row {
                 grid-template-columns: 1fr;
             }
@@ -457,18 +434,6 @@
         </header>
         
         <div id="dashboard-content">
-            <!-- Metrics Explanation Banner -->
-            <div class="info-banner">
-                <strong>📊 Understanding Your Dashboard Metrics:</strong>
-                <ul>
-                    <li><strong>Large Number</strong> = The metric value for your selected time period (e.g., "1,900" page views)</li>
-                    <li><strong>↑ or ↓ Percentage</strong> = Trend compared to the previous period (e.g., "↑ 25%" means 25% increase)</li>
-                    <li><strong>"vs previous period (X)"</strong> = The actual value from the previous time period for comparison</li>
-                    <li><strong>Unique Visitors</strong> = Tracked by browser/user agent, so each visitor is counted once per device</li>
-                    <li><strong>Conversion Rate</strong> = (Checkouts ÷ Unique Visitors) × 100. A healthy rate is typically 2-5%.</li>
-                </ul>
-            </div>
-            
             <div class="route-section">
                 <div class="chart-card">
                     <h3>🛣️ Top Routes</h3>
